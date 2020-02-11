@@ -2,7 +2,7 @@
 RKCMS是开源免费的企业网站内容展示系统，使用PHP开发，基于YII2进行构建。
 
 ## 预览
-![首页](http://www.ranko.cn/custom/frontend/product/cms/free/cms.png)
+![首页](http://backend.ranko.cn/uploads/file/cms.png)
 
 ## 安装步骤
 1. 复制config目录下的dev_example目录到dev
