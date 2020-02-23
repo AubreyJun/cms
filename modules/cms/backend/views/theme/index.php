@@ -42,16 +42,16 @@
                                     : '<i class="text-danger fa fa-minus-circle"></i>'; ?></td>
                             <td>
                                 <a class="text-primary mr-1" href="index.php?r=cms-backend/theme/update&id=<?php echo $item['id']; ?>" >
-                                    <i class="fa fa-pencil-square"></i>
+                                    <i class="fa fa-pencil-square fa-lg"></i>
                                 </a>
                                 <a class="text-danger mr-1" href="index.php?r=cms-backend/theme/delete&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-trash"></i>
+                                    <i class="fa fa-trash fa-lg"></i>
                                 </a>
                                 <a class="text-success mr-1" href="javascript:refreshTheme(<?php echo $item['id']; ?>);">
-                                    <i class="fa fa-refresh"></i>
+                                    <i class="fa fa-refresh fa-lg"></i>
                                 </a>
                                 <a class="text-primary mr-1" href="javascript:resetTheme(<?php echo $item['id']; ?>)">
-                                    <i class="fa fa-reply"></i>
+                                    <i class="fa fa-reply fa-lg"></i>
                                 </a>
                             </td>
                         </tr>
