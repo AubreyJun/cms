@@ -16,8 +16,6 @@ class BackendController extends BackendBaseController
 
     public function actionIndex()
     {
-
-
         if (Yii::$app->user->isGuest) {
             $this->layout = "//backend-login";
             $model = new FormLogin();
@@ -33,7 +31,6 @@ class BackendController extends BackendBaseController
         $model = new FormLogin();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-
                 $webUser = WebUser::findByUsernameAndPassword($model->username, $model->password);
                 if ($webUser) {
                     Yii::$app->user->login($webUser);

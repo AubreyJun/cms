@@ -27,6 +27,7 @@
                     <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/theme/index">主题</a></li>
                     <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/page/index">页面</a></li>
                     <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/layout/index">布局</a></li>
+                    <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/fragment/index">片段</a></li>
                 </ul>
             </div>
         </li>
