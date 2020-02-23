@@ -42,7 +42,7 @@
                                     : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
                             <td>
                                 <a class="text-primary mr-1" href="index.php?r=cms-backend/theme/update&id=<?php echo $item['id']; ?>" >
-                                    <i class="fa fa-pencil-square fa-lg"></i>
+                                    <i class="fa fa-pencil fa-lg"></i>
                                 </a>
                                 <a class="text-danger mr-1" href="index.php?r=cms-backend/theme/delete&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-trash fa-lg"></i>

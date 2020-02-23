@@ -70,7 +70,7 @@
                             <td>
                                 <a class="text-primary"
                                    href="index.php?r=cms-backend/page/update&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-pencil-square fa-lg mr-1"></i>
+                                    <i class="fa fa-pencil fa-lg mr-1"></i>
                                 </a>
                                 <a class="text-danger"
                                    href="index.php?r=cms-backend/page/delete&id=<?php echo $item['id']; ?>">
