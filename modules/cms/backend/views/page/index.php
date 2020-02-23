@@ -32,7 +32,7 @@
                             <div class="form-group ">
                                 <button type="button" class="btn btn-primary btn-xs"
                                         onclick="window.location.href='index.php?r=cms-backend/page/add'"><i
-                                            class="fa fa-plus"></i></button>
+                                            class="fa fa-plus fa-lg"></i></button>
                             </div>
                         </form>
                     </div>
@@ -58,8 +58,8 @@
                         ?>
                         <tr>
                             <td><?php echo $item['pageName']; ?></td>
-                            <td><?php echo $item['isDefault'] == 1 ? '<i class="text-success fa fa-check"></i>'
-                                    : '<i class="text-danger fa fa-minus-circle"></i>'; ?></td>
+                            <td><?php echo $item['isDefault'] == 1 ? '<i class="text-success fa fa-check fa-lg"></i>'
+                                    : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
                             <?php
                             if ($current == 'page') {
                                 ?>
@@ -70,18 +70,18 @@
                             <td>
                                 <a class="text-primary"
                                    href="index.php?r=cms-backend/page/update&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-pencil-square mr-1"></i>
+                                    <i class="fa fa-pencil-square fa-lg mr-1"></i>
                                 </a>
                                 <a class="text-danger"
                                    href="index.php?r=cms-backend/page/delete&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-trash mr-1"></i>
+                                    <i class="fa fa-trash fa-lg mr-1"></i>
                                 </a>
                                 <?php
                                 if ($current == 'page') {
                                     ?>
                                     <a class="text-success"
                                        href="index.php?r=cms-backend/page/config&id=<?php echo $item['id']; ?>">
-                                        <i class="fa fa-cog mr-1"></i>
+                                        <i class="fa fa-cog fa-lg mr-1"></i>
                                     </a>
                                     <?php
                                 }

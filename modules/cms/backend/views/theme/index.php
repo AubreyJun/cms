@@ -38,8 +38,8 @@
                         <tr>
                             <td><?php echo $item['themeName']; ?></td>
                             <td><?php echo $item['themeKey']; ?></td>
-                            <td><?php echo $item['isActive'] == 1 ? '<i class="text-success fa fa-check"></i>'
-                                    : '<i class="text-danger fa fa-minus-circle"></i>'; ?></td>
+                            <td><?php echo $item['isActive'] == 1 ? '<i class="text-success fa fa-check fa-lg"></i>'
+                                    : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
                             <td>
                                 <a class="text-primary mr-1" href="index.php?r=cms-backend/theme/update&id=<?php echo $item['id']; ?>" >
                                     <i class="fa fa-pencil-square fa-lg"></i>

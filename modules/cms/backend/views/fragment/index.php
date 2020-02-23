@@ -51,15 +51,15 @@
                                 <td width="20%">
                                     <a class="text-primary"
                                        href="index.php?r=cms-backend/fragment/update&id=<?php echo $child['id']; ?>">
-                                        <i class="fa fa-pencil-square mr-1"></i>
+                                        <i class="fa fa-pencil fa-lg mr-1"></i>
                                     </a>
                                     <a class="text-danger"
                                        href="index.php?r=cms-backend/fragment/delete&id=<?php echo $child['id']; ?>">
-                                        <i class="fa fa-trash mr-1"></i>
+                                        <i class="fa fa-trash fa-lg mr-1"></i>
                                     </a>
                                     <a class="text-success"
                                        href="index.php?r=cms-backend/fragment/copy&id=<?php echo $child['id']; ?>">
-                                        <i class="fa fa-copy mr-1"></i>
+                                        <i class="fa fa-copy fa-lg mr-1"></i>
                                     </a>
                                 </td>
                             </tr>

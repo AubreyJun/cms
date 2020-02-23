@@ -36,21 +36,21 @@
                             <td><?php echo $plug['pluginId']; ?></td>
                             <td><?php echo $plug['pluginName']; ?></td>
                             <td><?php echo $plug['description']; ?></td>
-                            <td><?php echo $plug['status'] == 'active' ? '<i class="text-success fa fa-check"></i>'
-                                    : '<i class="text-danger fa fa-minus-circle"></i>'; ?></td>
+                            <td><?php echo $plug['status'] == 'active' ? '<i class="text-success fa fa-check fa-lg"></i>'
+                                    : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
                             <td>
                                 <div class="btn-group">
                                     <?php
                                     if ($plug['status'] == 'active') {
                                         ?>
-                                        <a class="text-danger" href="index.php?r=cms-backend/plug/setstatus&id=<?php echo $plug['id']; ?>">
-                                            <i class="fa fa-minus-square"></i>
+                                        <a class="text-danger mr-1" href="index.php?r=cms-backend/plug/setstatus&id=<?php echo $plug['id']; ?>">
+                                            <i class="fa fa-minus-square fa-lg"></i>
                                         </a>
                                         <?php
                                     } else {
                                         ?>
                                         <a class="text-primary" href="index.php?r=cms-backend/plug/setstatus&id=<?php echo $plug['id']; ?>">
-                                            <i class="fa fa-check-square-o"></i>
+                                            <i class="fa fa-check-square-o fa-lg"></i>
                                         </a>
                                         <?php
                                     }

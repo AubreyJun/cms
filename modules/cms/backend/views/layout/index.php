@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <button type="button" class="btn btn-primary btn-xs"
-                                onclick="window.location.href='index.php?r=cms-backend/layout/add'"><i class="fa fa-plus"></i>
+                                onclick="window.location.href='index.php?r=cms-backend/layout/add'"><i class="fa fa-plus fa-lg"></i>
                         </button>
                     </div>
                 </div>
@@ -27,11 +27,11 @@
                         <tr>
                             <td><?php echo $item['layoutName']; ?></td>
                             <td>
-                                <a class="text-primary" href="index.php?r=cms-backend/layout/update&id=<?php echo $item['id']; ?>" >
-                                    <i class="fa fa-pencil-square-o"></i>
+                                <a class="text-primary mr-1" href="index.php?r=cms-backend/layout/update&id=<?php echo $item['id']; ?>" >
+                                    <i class="fa fa-pencil fa-lg"></i>
                                 </a>
-                                <a class="text-danger" href="index.php?r=cms-backend/layout/delete&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-trash"></i>
+                                <a class="text-danger mr-1" href="index.php?r=cms-backend/layout/delete&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-trash fa-lg"></i>
                                 </a>
                             </td>
                         </tr>

@@ -32,13 +32,13 @@ function echoTr($navgation, $level)
                 <td><span class="m-l-<?php echo $level; ?>"><?php echo $child['object']['catalogName']; ?></span></td>
                 <td><?php echo $child['object']['sequenceNumber']; ?></td>
                 <td>
-                    <a class="text-primary"
+                    <a class="text-primary mr-1"
                        href="index.php?r=cms-backend/catalog/update&id=<?php echo $child['object']['id']; ?>">
-                        <i class="fa fa-pencil-square-o"></i>
+                        <i class="fa fa-pencil-square-o fa-lg"></i>
                     </a>
                     <a class="text-danger"
                        href="index.php?r=cms-backend/catalog/delete&id=<?php echo $child['object']['id']; ?>">
-                        <i class="fa fa-trash"></i>
+                        <i class="fa fa-trash fa-lg"></i>
                     </a>
                 </td>
             </tr>
@@ -86,13 +86,13 @@ function echoTr($navgation, $level)
                             <td><span class="m-l-0"><?php echo $item['object']['catalogName']; ?></span></td>
                             <td><?php echo $item['object']['sequenceNumber']; ?></td>
                             <td>
-                                <a class="text-primary"
+                                <a class="text-primary mr-1"
                                    href="index.php?r=cms-backend/catalog/update&id=<?php echo $item['object']['id']; ?>">
-                                    <i class="fa fa-pencil-square-o"></i>
+                                    <i class="fa fa-pencil fa-lg"></i>
                                 </a>
                                 <a class="text-danger"
                                    href="index.php?r=cms-backend/catalog/delete&id=<?php echo $item['object']['id']; ?>">
-                                    <i class="fa fa-trash"></i>
+                                    <i class="fa fa-trash fa-lg"></i>
                                 </a>
                             </td>
                         </tr>

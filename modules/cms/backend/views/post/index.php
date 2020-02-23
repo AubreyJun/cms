@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary btn-xs"
                                         onclick="window.location.href='index.php?r=cms-backend/post/add'"><i
-                                            class="fa fa-plus"></i>
+                                            class="fa fa-plus fa-lg"></i>
                                 </button>
                             </div>
                         </form>
@@ -54,25 +54,25 @@
                         ?>
                         <tr>
                             <td><?php echo $post['title']; ?></td>
-                            <th><?php echo $post['status'] == 'online' ? '<i class="fa fa-arrow-up text-success"></i>'
-                                    : '<i class="fa fa-arrow-down text-danger"></i>'; ?></th>
+                            <th><?php echo $post['status'] == 'online' ? '<i class="fa fa-arrow-up text-success fa-lg"></i>'
+                                    : '<i class="fa fa-arrow-down text-danger fa-lg"></i>'; ?></th>
                             <td><?php echo $post['createtime']; ?></td>
                             <td>
                                 <a class=" text-primary mr-1"
                                    href="index.php?r=cms-backend/post/update&id=<?php echo $post['id']; ?>">
-                                    <i class="fa fa-pencil-square-o"></i>
+                                    <i class="fa fa-pencil-square-o fa-lg"></i>
                                 </a>
                                 <a class=" text-danger mr-1"
                                    href="index.php?r=cms-backend/post/delete&id=<?php echo $post['id']; ?>">
-                                    <i class="fa fa-trash"></i>
+                                    <i class="fa fa-trash fa-lg"></i>
                                 </a>
                                 <a class=" text-primary mr-1"
                                    href="index.php?r=cms-backend/post/copy&id=<?php echo $post['id']; ?>">
-                                    <i class="fa fa-copy"></i>
+                                    <i class="fa fa-copy fa-lg"></i>
                                 </a>
                                 <a class=" text-success mr-1"
                                    href="index.php?r=cms-backend/post/config&id=<?php echo $post['id']; ?>">
-                                    <i class="fa fa-cogs"></i>
+                                    <i class="fa fa-cogs fa-lg"></i>
                                 </a>
                             </td>
                         </tr>
