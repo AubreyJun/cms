@@ -114,7 +114,6 @@ ORDER BY
             mkdir($folderPath);
         }
         $pageText = $page['pageText'];
-        $pageText .= '<input type=\'hidden\' id="_csrf" value="<?php echo Yii::$app->request->csrfToken; ?>"/>';
         file_put_contents(Yii::$app->viewPath.'/themes/'. $this->data['defaultThemeName'].'/'.$page['pageType'].'_'.$page['id'].'.php',$pageText);
     }
 

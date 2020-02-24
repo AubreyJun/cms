@@ -210,7 +210,7 @@ echo MetaWidget::widget(['id' => 14,'context'=>$this->context]);
             </div>
             <div class="col-lg-4 mr-auto text-center">
                 <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-                <a class="d-block" href="mailto:458820281@qq.com">458820281@qq.com</a>
+                <a class="d-block" href="mailto:zhujun@ranko.cn">zhujun@ranko.cn</a>
             </div>
         </div>
     </div>

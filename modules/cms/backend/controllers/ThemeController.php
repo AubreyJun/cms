@@ -30,6 +30,16 @@ class ThemeController extends BackendPanelController
         return $this->render('index', $this->data);
     }
 
+    public function actionDefault($id = null){
+        $theme = Theme::findOne($id);
+        $theme ->isActive = 1;
+        $theme ->save();
+
+        $theme->setThemeUnActive($id);
+
+        return $this->redirect("index.php?r=cms-backend/theme/index");
+    }
+
     public function actionEdit($id = null)
     {
         $model = new FormTheme;
@@ -119,113 +129,118 @@ class ThemeController extends BackendPanelController
         }
         $theme = Theme::findOne($id);
         if ($theme) {
-            $this->query("delete from cms_theme_layout where themeId = :themeId")->bindParam(":themeId",$id)->execute();
-            $this->query("delete from cms_theme_page where themeId = :themeId")->bindParam(":themeId",$id)->execute();
+            $this->query("delete from cms_theme_layout where themeId = :themeId")->bindParam(":themeId", $id)->execute();
+            $this->query("delete from cms_theme_page where themeId = :themeId")->bindParam(":themeId", $id)->execute();
             $theme->delete();
         }
 
         return $this->actionIndex();
     }
 
-    public function actionRefresh($id){
+    public function actionRefresh($id)
+    {
         $theme = Theme::findOne($id);
 
-        $layouts = Layout::find()->where(['themeId'=>$theme['id']])->All();
-        if(sizeof($layouts)>0){
-            foreach ($layouts as $layout){
-                $this->saveLayout($layout,$theme);
+        $layouts = Layout::find()->where(['themeId' => $theme['id']])->All();
+        if (sizeof($layouts) > 0) {
+            foreach ($layouts as $layout) {
+                $this->saveLayout($layout, $theme);
             }
         }
 
-        $pages = Page::find()->where(['themeId'=>$theme['id']])->All();
-        if(sizeof($pages)>0){
-            foreach ($pages as $page){
-                $this->savePage($page,$theme);
+        $pages = Page::find()->where(['themeId' => $theme['id']])->All();
+        if (sizeof($pages) > 0) {
+            foreach ($pages as $page) {
+                $this->savePage($page, $theme);
             }
         }
 
-        echo json_encode($this->message(MsgType::SUCCESS,'模板缓存刷新完成'));
+        echo json_encode($this->message(MsgType::SUCCESS, '模板缓存刷新完成'));
 
     }
 
-    function actionReset($id){
+    function actionReset($id)
+    {
         $theme = Theme::findOne($id);
 
-        $layouts = Layout::find()->where(['themeId'=>$theme['id']])->All();
-        if(sizeof($layouts)>0){
-            foreach ($layouts as $layout){
-                $this->resetLayout($layout,$theme);
+        $layouts = Layout::find()->where(['themeId' => $theme['id']])->All();
+        if (sizeof($layouts) > 0) {
+            foreach ($layouts as $layout) {
+                $this->resetLayout($layout, $theme);
             }
         }
 
-        $pages = Page::find()->where(['themeId'=>$theme['id']])->All();
-        if(sizeof($pages)>0){
-            foreach ($pages as $page){
-                $this->resetPage($page,$theme);
+        $pages = Page::find()->where(['themeId' => $theme['id']])->All();
+        if (sizeof($pages) > 0) {
+            foreach ($pages as $page) {
+                $this->resetPage($page, $theme);
             }
         }
 
-        echo json_encode($this->message(MsgType::SUCCESS,'模板逆向同步完成'));
+        echo json_encode($this->message(MsgType::SUCCESS, '模板逆向同步完成'));
 
     }
 
 
-    private function saveLayout($layout,$theme){
-        $themeName = $theme['themeKey'].'_'.$theme['id'];
-        $folderPath = Yii::$app->viewPath.'/themes/'.$themeName;
-        if(!file_exists($folderPath)){
+    private function saveLayout($layout, $theme)
+    {
+        $themeName = $theme['themeKey'] . '_' . $theme['id'];
+        $folderPath = Yii::$app->viewPath . '/themes/' . $themeName;
+        if (!file_exists($folderPath)) {
             mkdir($folderPath);
         }
-        $layoutPath = $folderPath.'/layouts';
-        if(!file_exists($layoutPath)){
+        $layoutPath = $folderPath . '/layouts';
+        if (!file_exists($layoutPath)) {
             mkdir($layoutPath);
         }
-        file_put_contents(Yii::$app->viewPath.'/themes/'.$themeName.'/layouts'.'/layout_'.$layout['id'].'.php',$layout['layoutText']);
+        file_put_contents(Yii::$app->viewPath . '/themes/' . $themeName . '/layouts' . '/layout_' . $layout['id'] . '.php', $layout['layoutText']);
     }
 
-    private function resetLayout($layout,$theme){
+    private function resetLayout($layout, $theme)
+    {
 
-        $themeName = $theme['themeKey'].'_'.$theme['id'];
-        $folderPath = Yii::$app->viewPath.'/themes/'.$themeName;
-        if(!file_exists($folderPath)){
+        $themeName = $theme['themeKey'] . '_' . $theme['id'];
+        $folderPath = Yii::$app->viewPath . '/themes/' . $themeName;
+        if (!file_exists($folderPath)) {
             mkdir($folderPath);
         }
-        $layoutPath = $folderPath.'/layouts';
-        if(!file_exists($layoutPath)){
+        $layoutPath = $folderPath . '/layouts';
+        if (!file_exists($layoutPath)) {
             mkdir($layoutPath);
         }
-        $layoutPath = Yii::$app->viewPath.'/themes/'.$themeName.'/layouts'.'/layout_'.$layout['id'].'.php';
+        $layoutPath = Yii::$app->viewPath . '/themes/' . $themeName . '/layouts' . '/layout_' . $layout['id'] . '.php';
 
         $content = file_get_contents($layoutPath);
         $id = $layout['id'];
 
         $this->query("update cms_theme_layout set layoutText = :content where id = :id")
-            ->bindParam(":content",$content)
-            ->bindParam(":id",$id)
+            ->bindParam(":content", $content)
+            ->bindParam(":id", $id)
             ->execute();
     }
 
-    private function resetPage($page,$theme){
-        $content = file_get_contents(Yii::$app->viewPath.'/themes/'. $this->data['defaultThemeName'].'/'.$page['pageType'].'_'.$page['id'].'.php');
+    private function resetPage($page, $theme)
+    {
+        $themeName = $theme['themeKey'] . '_' . $theme['id'];
+        $content = file_get_contents(Yii::$app->viewPath . '/themes/' . $themeName. '/' . $page['pageType'] . '_' . $page['id'] . '.php');
 
         $id = $page['id'];
         $this->query("update cms_theme_page set pageText = :content where id = :id")
-            ->bindParam(":content",$content)
-            ->bindParam(":id",$id)
+            ->bindParam(":content", $content)
+            ->bindParam(":id", $id)
             ->execute();
     }
 
-    private function savePage($page,$theme){
-        $themeName = $theme['themeKey'].'_'.$theme['id'];
-        $folderPath = Yii::$app->viewPath.'/themes/'.$theme['themeKey'];
-        if(!file_exists($folderPath)){
+    private function savePage($page, $theme)
+    {
+        $themeName = $theme['themeKey'] . '_' . $theme['id'];
+        $folderPath = Yii::$app->viewPath . '/themes/' . $theme['themeKey'];
+        if (!file_exists($folderPath)) {
             mkdir($folderPath);
         }
         $pageText = $page['pageText'];
-        $pageText .= '<input type=\'hidden\' id="_csrf" value="<?php echo Yii::$app->request->csrfToken; ?>"/>';
-        file_put_contents(Yii::$app->viewPath.'/themes/'.$themeName.'/page_'.$page['id'].'.php',$pageText);
+        file_put_contents(Yii::$app->viewPath . '/themes/' . $themeName . '/page_' . $page['id'] . '.php', $pageText);
     }
-
 
 
 }

@@ -24,7 +24,7 @@
     <div class="container d-flex align-items-center flex-column">
 
         <!-- Masthead Avatar Image -->
-        <img class="masthead-avatar mb-5 rounded" src="themes/common/logo_300x300.jpg" alt="" >
+        <img class="masthead-avatar mb-5 rounded" src="static/frontend/logo_300x300.jpg" alt="" >
 
         <!-- Masthead Heading -->
         <h1 class="masthead-heading text-uppercase mb-0">程序员</h1>

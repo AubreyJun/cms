@@ -2,7 +2,7 @@
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
       <span class="d-block d-lg-none">Clarence Taylor</span>
       <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded mx-auto mb-2" src="themes/common/logo_300x300.jpg" alt="">
+        <img class="img-fluid img-profile rounded mx-auto mb-2" src="static/frontend/logo_300x300.jpg" alt="">
       </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
         <h1 class="mb-0">Aubrey
         </h1>
         <div class="subheading mb-5">江苏省 · 无锡市 ·惠山区 ·18068252703
-          <a href="458820281@qq.com">458820281@qq.com</a>
+          <a href="mailto:zhujun@ranko.cn">zhujun@ranko.cn</a>
         </div>
         <p class="lead mb-5">目前主要从事企业应用软件系统开发。</p>
       </div>

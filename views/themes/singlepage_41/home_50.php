@@ -66,19 +66,22 @@ Header
                     <div class="icon-box wow fadeInUp">
                         <div class="icon"><i class="fa fa-home"></i></div>
                         <h4 class="title"><a href="">企业网站</a></h4>
-                        <p class="description">企业网站是企业在互联网上进行网络营销和形象宣传的平台，相当于企业的网络名片，不但对企业的形象是一个良好的宣传，同时可以辅助企业的销售，通过网络直接帮助企业实现产品的销售，企业可以利用网站来进行宣传、产品资讯发布、招聘等。</p>
+                        <p class="description">
+                            企业网站是企业在互联网上进行网络营销和形象宣传的平台，相当于企业的网络名片，不但对企业的形象是一个良好的宣传，同时可以辅助企业的销售，通过网络直接帮助企业实现产品的销售，企业可以利用网站来进行宣传、产品资讯发布、招聘等。</p>
                     </div>
 
                     <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
                         <div class="icon"><i class="fa fa-group"></i></div>
                         <h4 class="title"><a href="">论坛</a></h4>
-                        <p class="description">网络论坛是一个和网络技术有关的网上交流场所。一般就是大家口中常提的BBS。 BBS的英文全称是Bulletin Board System，翻译为中文就是“电子公告板”。</p>
+                        <p class="description">网络论坛是一个和网络技术有关的网上交流场所。一般就是大家口中常提的BBS。 BBS的英文全称是Bulletin Board
+                            System，翻译为中文就是“电子公告板”。</p>
                     </div>
 
                     <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
                         <div class="icon"><i class="fa fa-user"></i></div>
                         <h4 class="title"><a href="">博客</a></h4>
-                        <p class="description">博客，仅音译，英文名为Blogger,为Web Log的混成词。它的正式名称为网络日记；又音译为部落格或部落阁等，是使用特定的软件，在网络上出版、发表和张贴个人文章的人，或者是一种通常由个人管理、不定期张贴新的文章的网站。</p>
+                        <p class="description">博客，仅音译，英文名为Blogger,为Web
+                            Log的混成词。它的正式名称为网络日记；又音译为部落格或部落阁等，是使用特定的软件，在网络上出版、发表和张贴个人文章的人，或者是一种通常由个人管理、不定期张贴新的文章的网站。</p>
                     </div>
 
                 </div>
@@ -94,7 +97,8 @@ Header
                 <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
                     <h4>应用软件云服务</h4>
                     <p>
-                        云服务可以将企业所需的软硬件、资料都放到网络上，在任何时间、地点，使用不同的IT设备互相连接，实现数据存取、运算等目的。当前，常见的云服务有公共云（Public Cloud）与私有云（Private Cloud）两种。
+                        云服务可以将企业所需的软硬件、资料都放到网络上，在任何时间、地点，使用不同的IT设备互相连接，实现数据存取、运算等目的。当前，常见的云服务有公共云（Public
+                        Cloud）与私有云（Private Cloud）两种。
                     </p>
                     <p>
                         公共云是最基础的服务，多个客户可共享一个服务提供商的系统资源，他们毋须架设任何设备及配备管理人员，便可享有专业的IT服务，这对于一般创业者、中小企来说，无疑是一个降低成本的好方法。
@@ -103,7 +107,8 @@ Header
                         按需计算服务的客户端基本上将这些服务作为异地虚拟服务器来使用。无须投资自己的物理基础设施，公司与云服务提供商之间执行现用现付的方案。
                     </p>
                     <p>
-                        云安全(Cloud Security)是一个从“云计算”演变而来的新名词。云安全的策略构想是：使用者越多，每个使用者就越安全，因为如此庞大的用户群，足以覆盖互联网的每个角落，只要某个网站被挂马或某个新木马病毒出现，就会立刻被截获。
+                        云安全(Cloud
+                        Security)是一个从“云计算”演变而来的新名词。云安全的策略构想是：使用者越多，每个使用者就越安全，因为如此庞大的用户群，足以覆盖互联网的每个角落，只要某个网站被挂马或某个新木马病毒出现，就会立刻被截获。
                     </p>
                 </div>
 
@@ -139,7 +144,8 @@ Header
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+                <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.1s"
+                     data-wow-duration="1.4s">
                     <div class="box">
                         <div class="icon"><i class="ion-ios-paper-outline" style="color: #3fcdc7;"></i></div>
                         <h4 class="title"><a href="">论坛</a></h4>
@@ -154,7 +160,8 @@ Header
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+                <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.2s"
+                     data-wow-duration="1.4s">
                     <div class="box">
                         <div class="icon"><i class="ion-ios-world-outline" style="color: #d6ff22;"></i></div>
                         <h4 class="title"><a href="">商城管理</a></h4>
@@ -273,8 +280,9 @@ Header
                             <h4><a href="#">App 1</a></h4>
                             <p>App</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/app1.jpg" data-lightbox="portfolio" data-title="App 1" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/app1.jpg" data-lightbox="portfolio"
+                                   data-title="App 1" class="link-preview" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -287,8 +295,9 @@ Header
                             <h4><a href="#">Web 3</a></h4>
                             <p>Web</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/web3.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 3" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/web3.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="Web 3" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -301,8 +310,9 @@ Header
                             <h4><a href="#">App 2</a></h4>
                             <p>App</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/app2.jpg" class="link-preview" data-lightbox="portfolio" data-title="App 2" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/app2.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="App 2" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -315,8 +325,9 @@ Header
                             <h4><a href="#">Card 2</a></h4>
                             <p>Card</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/card2.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 2" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/card2.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="Card 2" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -329,8 +340,9 @@ Header
                             <h4><a href="#">Web 2</a></h4>
                             <p>Web</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/web2.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 2" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/web2.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="Web 2" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -343,8 +355,9 @@ Header
                             <h4><a href="#">App 3</a></h4>
                             <p>App</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/app3.jpg" class="link-preview" data-lightbox="portfolio" data-title="App 3" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/app3.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="App 3" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -357,8 +370,9 @@ Header
                             <h4><a href="#">Card 1</a></h4>
                             <p>Card</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/card1.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 1" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/card1.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="Card 1" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -371,8 +385,9 @@ Header
                             <h4><a href="#">Card 3</a></h4>
                             <p>Card</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/card3.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 3" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/card3.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="Card 3" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -385,8 +400,9 @@ Header
                             <h4><a href="#">Web 1</a></h4>
                             <p>Web</p>
                             <div>
-                                <a href="themes/singlepage/img/portfolio/web1.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 1" title="Preview"><i class="ion ion-eye"></i></a>
-                                <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                                <a href="themes/singlepage/img/portfolio/web1.jpg" class="link-preview"
+                                   data-lightbox="portfolio" data-title="Web 1" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -437,7 +453,6 @@ Header
                                 蓝科公司的软件和工具稳定，使我们更接近客户，了解他们想要什么。
                             </p>
                         </div>
-
 
 
                     </div>
@@ -602,7 +617,7 @@ Header
                         </div>
                         <div class="col-md-4 info">
                             <i class="ion-ios-email-outline"></i>
-                            <p>458820281@qq.com</p>
+                            <p>zhujun@ranko.cn</p>
                         </div>
                         <div class="col-md-3 info">
                             <i class="ion-ios-telephone-outline"></i>
@@ -611,26 +626,33 @@ Header
                     </div>
 
                     <form action="" method="post" role="form" class="contactForm">
-                        <input type='hidden' id="_csrf" name="_csrf" value="<?php echo Yii::$app->request->csrfToken; ?>"/>
+                        <input type='hidden' id="_csrf" name="_csrf"
+                               value="<?php echo Yii::$app->request->csrfToken; ?>"/>
                         <div class="form-row">
                             <div class="form-group col-lg-6">
-                                <input type="text" name="FormContact[username]" class="form-control" id="name" placeholder="姓名" data-rule="minlen:4" data-msg="请输入至少4个字符" />
+                                <input type="text" name="username" class="form-control" id="name"
+                                       placeholder="姓名" data-rule="minlen:4" data-msg="请输入至少4个字符"/>
                                 <div class="validation"></div>
                             </div>
                             <div class="form-group col-lg-6">
-                                <input type="email" class="form-control" name="FormContact[email]" id="email" placeholder="邮箱" data-rule="email" data-msg="请输入有效的邮箱" />
+                                <input type="email" class="form-control" name="email" id="email"
+                                       placeholder="邮箱" data-rule="email" data-msg="请输入有效的邮箱"/>
                                 <div class="validation"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="FormContact[subject]" id="subject" placeholder="主题" data-rule="minlen:4" data-msg="请输入至少8个字符以上的主题" />
+                            <input type="text" class="form-control" name="subject" id="subject"
+                                   placeholder="主题" data-rule="minlen:4" data-msg="请输入至少4个字符以上的主题"/>
                             <div class="validation"></div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="FormContact[message]" rows="5" data-rule="required" data-msg="请填写内容" placeholder="内容"></textarea>
+                            <textarea class="form-control" name="message" rows="5" data-rule="required"
+                                      data-msg="请填写内容" placeholder="内容"></textarea>
                             <div class="validation"></div>
                         </div>
-                        <div class="text-center"><button type="submit" title="留言">留言</button></div>
+                        <div class="text-center">
+                            <button type="submit" title="留言">留言</button>
+                        </div>
                     </form>
 
                 </div>

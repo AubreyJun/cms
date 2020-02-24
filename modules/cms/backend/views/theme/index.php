@@ -9,7 +9,8 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <button class="btn btn-primary btn-xs"
-                                onclick="window.location.href='index.php?r=cms-backend/theme/edit&id=0'"><i class="fa fa-plus"></i>
+                                onclick="window.location.href='index.php?r=cms-backend/theme/edit&id=0'"><i
+                                    class="fa fa-plus"></i>
                         </button>
                     </div>
                 </div>
@@ -41,16 +42,24 @@
                             <td><?php echo $item['isActive'] == 1 ? '<i class="text-success fa fa-check fa-lg"></i>'
                                     : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
                             <td>
-                                <a class="text-primary mr-1" href="index.php?r=cms-backend/theme/update&id=<?php echo $item['id']; ?>" >
+                                <a class="text-primary mr-1" title="编辑"
+                                   href="index.php?r=cms-backend/theme/update&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-pencil fa-lg"></i>
                                 </a>
-                                <a class="text-danger mr-1" href="index.php?r=cms-backend/theme/delete&id=<?php echo $item['id']; ?>">
+                                <a class="text-danger mr-1" title="删除"
+                                   href="index.php?r=cms-backend/theme/delete&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-trash fa-lg"></i>
                                 </a>
-                                <a class="text-success mr-1" href="javascript:refreshTheme(<?php echo $item['id']; ?>);">
+                                <a class="text-success mr-1" title="默认主题"
+                                   href="index.php?r=cms-backend/theme/default&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-check fa-lg"></i>
+                                </a>
+                                <a class="text-success mr-1" title="刷新页面"
+                                   href="javascript:refreshTheme(<?php echo $item['id']; ?>);">
                                     <i class="fa fa-refresh fa-lg"></i>
                                 </a>
-                                <a class="text-primary mr-1" href="javascript:resetTheme(<?php echo $item['id']; ?>)">
+                                <a class="text-primary mr-1"  title="页面逆向加载"
+                                   href="javascript:resetTheme(<?php echo $item['id']; ?>)">
                                     <i class="fa fa-reply fa-lg"></i>
                                 </a>
                             </td>
@@ -70,22 +79,24 @@
     $(function () {
         $("table").colResizable();
     });
+
     function refreshTheme(id) {
-        $.post('index.php?r=cms-backend/theme/refresh&id='+id,{
-            '_csrf':'<?php echo Yii::$app->request->csrfToken; ?>"'
-        },function (data) {
-            if(data.code == 'success'){
+        $.post('index.php?r=cms-backend/theme/refresh&id=' + id, {
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>"'
+        }, function (data) {
+            if (data.code == 'success') {
                 toastSuccess(data.message)
             }
-        },'json');
+        }, 'json');
     }
+
     function resetTheme(id) {
-        $.post('index.php?r=cms-backend/theme/reset&id='+id,{
-            '_csrf':'<?php echo Yii::$app->request->csrfToken; ?>"'
-        },function (data) {
-            if(data.code == 'success'){
+        $.post('index.php?r=cms-backend/theme/reset&id=' + id, {
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>"'
+        }, function (data) {
+            if (data.code == 'success') {
                 toastSuccess(data.message)
             }
-        },'json');
+        }, 'json');
     }
 </script>

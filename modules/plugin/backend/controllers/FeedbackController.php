@@ -12,8 +12,8 @@ class FeedbackController extends BackendPanelController
 {
 
     public $meta = [
-        'name'=>'在线反馈',
-        'description'=>'用户的在线反馈信息',
+        'name'=>'联系表单',
+        'description'=>'用户的在线联系表单',
         'menu'=>1,
         'pluginId'=>'feedback'
     ];
