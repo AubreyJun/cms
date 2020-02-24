@@ -13,7 +13,7 @@ class PlugController extends BackendPanelController
     public function actionIndex()
     {
 
-        $this->data['plugin'] = $this->query('select * from cms_plugin ')
+        $this->data['plugin'] = $this->query('select * from cms_plugin')
             ->queryAll();
 
         return $this->render('index',$this->data);
