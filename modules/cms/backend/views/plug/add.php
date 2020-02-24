@@ -37,7 +37,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'index.php?r=pluginAdmin/'+pluginId+'/install',
+                url: 'index.php?r=plugin-backend/'+pluginId+'/install',
                 data: {'_csrf':'<?= Yii::$app->request->csrfToken ?>'},
                 dataType:'json',
                 success: function (data, textStatus, jqXHR) {

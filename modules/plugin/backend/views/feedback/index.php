@@ -21,6 +21,7 @@ $this->title = '联系表单';
                         <th>邮箱</th>
                         <th>主题</th>
                         <th width="50%">内容</th>
+                        <th>创建时间</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,7 @@ $this->title = '联系表单';
                             <td><?php echo $item['email']; ?></td>
                             <td><?php echo $item['subject']; ?></td>
                             <td><?php echo $item['message']; ?></td>
+                            <td><?php echo $item['createtime']; ?></td>
                         </tr>
                         <?php
                     }

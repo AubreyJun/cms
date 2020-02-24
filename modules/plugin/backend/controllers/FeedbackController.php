@@ -22,7 +22,7 @@ class FeedbackController extends BackendPanelController
     public function actionIndex($pageSize=10){
 
 
-        $query = Feedback::find()->where(['themeid'=>$this->data['defaultThemeId']]);
+        $query = Feedback::find()->where(['themeid'=>$this->data['editThemeId']]);
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count]);
         $pagination->pageSize = $pageSize;
@@ -36,18 +36,13 @@ class FeedbackController extends BackendPanelController
     }
 
     public function actionInstall(){
+        $sql_delete_config = "delete from cms_plugin where pluginId = 'feedback'";
+        $this->query($sql_delete_config)->execute();
 
-        //查看对应的插件是否已经安装
-        $exist = $this->query("select * from cms_plugin where pluginId = :pluginId")
-            ->bindParam(":pluginId",$this->meta['pluginId'])->queryOne();
+        $sql_drop_table = 'drop table if exists plugin_feedback';
+        $this->query($sql_drop_table)->execute();
 
-        if($exist){
-            echo json_encode($this->message(MsgType::ERROR,'插件已经存在'));
-        }else{
-            $sql_drop_table = 'drop table if exists plugin_feedback';
-            $this->query($sql_drop_table)->execute();
-
-            $sql_table = 'CREATE TABLE `plugin_feedback` (
+        $sql_table = 'CREATE TABLE `plugin_feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -55,20 +50,29 @@ class FeedbackController extends BackendPanelController
   `message` varchar(255) DEFAULT NULL,
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `themeid` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8';
-            $this->query($sql_table)->execute();
+        $this->query($sql_table)->execute();
 
-            $plugin = new Plugin();
-            $plugin->pluginName = $this->meta['name'];
-            $plugin->pluginId = $this->meta['pluginId'];
-            $plugin->description = $this->meta['description'];
-            $plugin->menu = 1;
-            $plugin->status = 'active';
-            $plugin->save();
+        $sql_test = "INSERT INTO `plugin_feedback` ( `username`, `email`, `subject`, `message`, `createtime`, `updatetime`,
+ `themeid`)
+VALUES
+	( '张三', 'zhujun@ranko.cn', 'hello world', 'hello world', '2020-02-24 10:07:54', NULL,:themeid )";
+        $this->query($sql_test)
+            ->bindParam(":themeid",$this->data['editThemeId'])
+            ->execute();
 
-            echo json_encode($this->message(MsgType::SUCCESS,'初始化成功'));
-        }
+        $plugin = new Plugin();
+        $plugin->pluginName = $this->meta['name'];
+        $plugin->pluginId = $this->meta['pluginId'];
+        $plugin->description = $this->meta['description'];
+        $plugin->themeId = $this->data['editThemeId'];
+        $plugin->menu = 1;
+        $plugin->status = 'active';
+        $plugin->save();
+
+        echo json_encode($this->message(MsgType::SUCCESS,'初始化成功'));
     }
 
 }

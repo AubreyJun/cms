@@ -14,9 +14,7 @@ $this->title = '在线留言回复';
                     </div>
 
                 </div>
-
-
-                <form action="index.php?r=pluginAdmin/message/savereply" method="post" >
+                <form action="index.php?r=plugin-backend/message/savereply" method="post" >
                     <input type='hidden' name="id" value="<?php echo $message['id']; ?>"/>
                     <input type='hidden' id="_csrf" name="_csrf" value="<?php echo Yii::$app->request->csrfToken; ?>"/>
                     <div class="form-group  ">

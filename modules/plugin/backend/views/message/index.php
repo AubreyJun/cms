@@ -36,10 +36,10 @@ $this->title = '在线留言';
                                 </ul>
                             </td>
                             <td>
-                                <a class="text-primary mr-1" href="index.php?r=pluginAdmin/message/reply&id=<?php echo $item['id']; ?>">
+                                <a class="text-primary mr-1" href="index.php?r=plugin-backend/message/reply&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-reply"></i>
                                 </a>
-                                <a class="text-danger mr-1" href="index.php?r=pluginAdmin/message/delete&id=<?php echo $item['id']; ?>">
+                                <a class="text-danger mr-1" href="index.php?r=plugin-backend/message/delete&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>
