@@ -27,7 +27,7 @@ ORDER BY
 	t.sequencenumber ASC")->queryAll();
 
         $this->data['list'] = $this->query("select * from cms_theme_page where pageType = :pagetype and themeId = :themeId")
-            ->bindParam(":themeId", $this->data['defaultThemeId'])
+            ->bindParam(":themeId", $this->data['editThemeId'])
             ->bindParam(":pagetype",$pagetype)->queryAll();
 
         $this->data['current'] = $pagetype;

@@ -136,7 +136,7 @@ ORDER BY
     public function actionCopy($id){
         $article = Article::findOne($id);
 
-        $this->query("INSERT INTO cms_post ( `title`, `content`, `summary`, `keywords`, `tags`, `createtime`, `updatetime`, `postType`, `status`, `catalogId` ) SELECT
+        $this->query("INSERT INTO cms_post ( `title`, `content`, `summary`, `keywords`, `tags`, `createtime`, `updatetime`, `postType`, `status`, `catalogId`,themeid ) SELECT
 `title`,
 `content`,
 `summary`,
@@ -146,7 +146,8 @@ ORDER BY
 `updatetime`,
 `postType`,
 `status`,
-`catalogId` 
+`catalogId` ,
+`themeid` 
 FROM
 	cms_post where id = :id")
             ->bindParam(":id",$id)->execute();
@@ -188,9 +189,10 @@ FROM
 FROM
 	cms_select_options t 
 WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = :selectName ) 
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = :selectName and t.themeId = :themeId ) 
 ORDER BY
 	t.sequencenumber ASC")
+            ->bindParam(':themeId',$this->data['editThemeId'])
             ->bindParam(':selectName',$selectName)
             ->queryAll();
         foreach ($propProperties as $item){
