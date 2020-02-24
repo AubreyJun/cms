@@ -110,7 +110,7 @@ echo MetaWidget::widget(['id' => 14,'context'=>$this->context]);
                             Category
                         </div>
                         <div class="project-name">
-                            Project Name
+                            项目名称
                         </div>
                     </div>
                 </a>
@@ -120,10 +120,10 @@ echo MetaWidget::widget(['id' => 14,'context'=>$this->context]);
                     <img class="img-fluid" src="themes/basic/img/portfolio/thumbnails/2.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">
-                            Category
+                            项目分类
                         </div>
                         <div class="project-name">
-                            Project Name
+                            项目名称
                         </div>
                     </div>
                 </a>
@@ -133,10 +133,10 @@ echo MetaWidget::widget(['id' => 14,'context'=>$this->context]);
                     <img class="img-fluid" src="themes/basic/img/portfolio/thumbnails/3.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">
-                            Category
+                            项目分类
                         </div>
                         <div class="project-name">
-                            Project Name
+                            项目名称
                         </div>
                     </div>
                 </a>
@@ -146,10 +146,10 @@ echo MetaWidget::widget(['id' => 14,'context'=>$this->context]);
                     <img class="img-fluid" src="themes/basic/img/portfolio/thumbnails/4.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">
-                            Category
+                            项目分类
                         </div>
                         <div class="project-name">
-                            Project Name
+                            项目名称
                         </div>
                     </div>
                 </a>
@@ -159,10 +159,10 @@ echo MetaWidget::widget(['id' => 14,'context'=>$this->context]);
                     <img class="img-fluid" src="themes/basic/img/portfolio/thumbnails/5.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">
-                            Category
+                            项目分类
                         </div>
                         <div class="project-name">
-                            Project Name
+                            项目名称
                         </div>
                     </div>
                 </a>
@@ -175,7 +175,7 @@ echo MetaWidget::widget(['id' => 14,'context'=>$this->context]);
                             Category
                         </div>
                         <div class="project-name">
-                            Project Name
+                            项目名称
                         </div>
                     </div>
                 </a>
