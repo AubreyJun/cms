@@ -14,20 +14,21 @@ use yii\web\Controller;
 class MessageController extends CmsFrontendController
 {
 
-    public function actionSave(){
-
+    public function actionSave()
+    {
         $name = $_POST['name'];
         $subject = $_POST['subject'];
         $message = $_POST['message'];
 
-        $this->query("insert into plugin_message (subject,username,content,createtime) values (:subject,:username,:content,now())")
-            ->bindParam(":subject",$subject)
-            ->bindParam(":username",$name)
-            ->bindParam(":content",$message)
+        $this->query("insert into plugin_message (subject,username,content,createtime,themeid) values (:subject,:username,:content,now(),:themeid)")
+            ->bindParam(":subject", $subject)
+            ->bindParam(":username", $name)
+            ->bindParam(":content", $message)
+            ->bindParam(":themeid", $this->defaultTheme['id'])
             ->execute();
 
 
-        $message = $this->message(MsgType::SUCCESS,"OK");
+        $message = $this->message(MsgType::SUCCESS, "OK");
         echo json_encode($message);
 
     }
