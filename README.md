@@ -19,3 +19,7 @@ RKCMS是开源免费的企业网站内容展示系统，使用PHP开发，基于
 个人简历：http://cms.free.resume.rako.cn/  
 企业单页：http://cms.free.singlepage.ranko.cn/   
 创造力：http://cms.free.freecreative.ranko.cn/ 
+
+## 其他
+YII版本：yii-basic-app-2.0.17
+
