@@ -68,6 +68,9 @@ ORDER BY
     public function actionEdit(){
         $model = new FormArticle();
         if ($model->load(Yii::$app->request->post())) {
+
+            $model->themeid = $this->data['editThemeId'];
+
             if ($model->validate()) {
                 $model->tags = $_POST['FormArticle']['tags'];
 

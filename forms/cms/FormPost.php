@@ -13,6 +13,7 @@ class FormPost extends \yii\base\Model
     public $postType;
     public $catalogId = 0;
     public $status = 'offline';
+    public $themeid = 0;
 
 
     public function rules()

@@ -29,7 +29,7 @@ class PlugController extends BackendPanelController
             $plugin->status='active';
         }
         $plugin->save();
-        return $this->redirect('index.php?r=cms/plug/index');
+        return $this->redirect('index.php?r=cms-backend/plug/index');
     }
 
     public function actionAdd(){

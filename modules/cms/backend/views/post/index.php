@@ -54,8 +54,8 @@
                         ?>
                         <tr>
                             <td><?php echo $post['title']; ?></td>
-                            <th><?php echo $post['status'] == 'online' ? '<i class="fa fa-arrow-up text-success fa-lg"></i>'
-                                    : '<i class="fa fa-arrow-down text-danger fa-lg"></i>'; ?></th>
+                            <th><?php echo $post['status'] == 'online' ? '<i class="text-success fa fa-check fa-lg"></i>'
+                                    : '<i class="fa fa-minus-circle  text-danger fa-lg"></i>'; ?></th>
                             <td><?php echo $post['createtime']; ?></td>
                             <td>
                                 <a class=" text-primary mr-1"

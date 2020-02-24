@@ -11,7 +11,7 @@ namespace app\components\cms;
 
 use yii\base\Widget;
 
-class MetaWidget extends Widget
+class MetaWidget extends BasicWidget
 {
     public $id;
     public $context;
@@ -23,7 +23,11 @@ class MetaWidget extends Widget
 
     public function run()
     {
-        $this->context->data['meta_title'] = "sfsdfsf";
-        return $this->render("meta");
+        $fragment = $this->getFragment($this->id);
+        $data =  json_decode(json_encode(simplexml_load_string($fragment['properties'])),true);
+
+        $this->context->data['meta_title'] = $data['meta_title'];
+        $this->context->data['meta_keywords'] = $data['meta_keywords'];
+        $this->context->data['meta_description'] = $data['meta_description'];
     }
 }
