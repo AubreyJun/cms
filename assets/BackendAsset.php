@@ -23,7 +23,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/jquery-tags-input/dist/jquery.tagsinput.min.css',
         'static/backend/lib/jquery-toast-plugin/dist/jquery.toast.min.css',
         'static/backend/lib/codemirror/lib/codemirror.css',
-        'static/backend/lib/codemirror/theme/eclipse.css',
+        'static/backend/lib/codemirror/theme/midnight.css',
         'static/backend/lib/kindeditor/themes/default/default.css',
         'static/backend/css/style.css',
         'static/backend/css/custom.css'
@@ -43,12 +43,13 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/jquery-toast-plugin/dist/jquery.toast.min.js',
         'static/backend/lib/codemirror/lib/codemirror.js',
         'static/backend/lib/codemirror/mode/javascript/javascript.js',
-        'static/backend/lib/tinymce/tinymce.min.js',
+        'static/backend/lib/sweetalert/dist/sweetalert.min.js',
         'static/backend/lib/kindeditor/kindeditor-all-min.js',
         'static/backend/lib/kindeditor/lang/zh-CN.js',
         'static/backend/js/custom.js'
 
     ];
+
     public $jsOptions = [
         'position' => View::POS_HEAD
     ];

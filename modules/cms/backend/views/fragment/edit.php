@@ -37,9 +37,10 @@ $this->title = '片段设置';
 <script>
     $(function () {
         CodeMirror.fromTextArea(document.getElementById('formfragment-properties'), {
-            mode: "xml",
-            theme: "eclipse",
-            lineNumbers: true
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            theme: "midnight"
         });
     });
 </script>

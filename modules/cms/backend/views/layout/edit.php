@@ -48,9 +48,10 @@ use yii\widgets\ActiveForm;
 <script>
 $(function () {
     CodeMirror.fromTextArea(document.getElementById('code-editable'), {
-        mode: "php",
-        theme: "eclipse",
-        lineNumbers: true
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        theme: "midnight"
     });
 });
 </script>

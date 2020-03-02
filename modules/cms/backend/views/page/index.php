@@ -102,6 +102,8 @@
         $("table").colResizable();
     });
 
+
+
     function changeType(pageType) {
         window.location.href = 'index.php?r=cms-backend/page/index&pagetype=' + pageType;
     }
