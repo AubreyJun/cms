@@ -76,6 +76,10 @@
                                    href="index.php?r=cms-backend/page/delete&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-trash fa-lg mr-1"></i>
                                 </a>
+                                <a class="text-success"
+                                   href="index.php?r=cms-backend/page/widget&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-cogs fa-lg mr-1"></i>
+                                </a>
                                 <?php
                                 if ($current == 'page') {
                                     ?>

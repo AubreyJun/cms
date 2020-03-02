@@ -107,6 +107,15 @@ ORDER BY
         return $this->render('edit',$this->data);
     }
 
+    public function actionWidget($id){
+
+
+        $page = Page::findOne($id);
+        $this->data['page'] = $page;
+
+        return $this->render('widget',$this->data);
+    }
+
     private function savePage($pageId){
         $page = Page::findOne($pageId);
         $folderPath = Yii::$app->viewPath.'/themes/'. $this->data['defaultThemeName'];
