@@ -1,0 +1,8 @@
+rewrite /index.html /index.php?r=cms-frontend/default/index;
+rewrite ^/product-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=product&id=$1;
+rewrite ^/article-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=article&id=$1;
+rewrite ^/image-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=image&id=$1;
+rewrite ^/employee-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=employee&id=$1;
+rewrite ^/(.*)-(.*)-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2&catalogId=$3;
+rewrite ^/(.*)-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2;
+rewrite ^/(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1;
