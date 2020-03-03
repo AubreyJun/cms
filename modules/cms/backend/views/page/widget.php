@@ -1,10 +1,9 @@
 <?php $this->title = '页面片段'; ?>
 <?php
-$layoutList = explode(',', $page['layout']);
 $widgetJson = $page['widgetjson'];
 $widgetJsonObject = null;
-if($widgetJson){
-    $widgetJsonObject = json_decode($widgetJson,true);
+if ($widgetJson) {
+    $widgetJsonObject = json_decode($widgetJson, true);
 }
 ?>
 <div class="row">
@@ -16,7 +15,8 @@ if($widgetJson){
                         <h4 class="card-title">页面</h4>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <form class="form-inline" id="from-edit" style="float: right;" method="post" action="index.php?r=cms-backend/page/savewidget">
+                        <form class="form-inline" id="from-edit" style="float: right;" method="post"
+                              action="index.php?r=cms-backend/page/savewidget">
                             <input type="hidden" name="id" value="<?= $page['id']; ?>">
                             <input type="hidden" name="widgetJSON" value="<?php echo $widgetJson; ?>">
                             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
@@ -32,71 +32,60 @@ if($widgetJson){
                     </div>
                 </div>
                 <div class="row">
-                    <?php
-                    $index = 0;
-                    foreach ($layoutList as $item) {
-                        ?>
-                        <div class="col-lg-<?php echo $item; ?> " id="div-table-<?php echo $item; ?>">
-                            <table class="table table-bordered table-widget" id="col-<?php echo $item; ?>">
-                                <thead>
-                                <tr>
-                                    <td class="text-center">
-                                        片段
-                                    </td>
-                                    <td width="40%">
-                                        <i class="fa fa-plus-circle fa-lg text-success"
-                                           onclick="addWidget('div-table-<?php echo $item; ?>')"></i>
-                                    </td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                if(isset($widgetJsonObject[$index])){
-                                    foreach ($widgetJsonObject[$index] as $widgetId){
-                                        ?>
-                                        <tr>
-                                            <td>
-                                                <select class="form-control">
-                                                    <?php
-                                                    foreach ($fragmentList as $fragment) {
+                    <table class="table table-bordered table-widget" id="page-widget" >
+                        <thead>
+                        <tr>
+                            <td class="text-center">
+                                片段
+                            </td>
+                            <td width="40%">
+                                <i class="fa fa-plus-circle fa-lg text-success"
+                                   onclick="addWidget()"></i>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($widgetJsonObject as $widgetId) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <select class="form-control">
+                                        <?php
+                                        foreach ($fragmentList as $fragment) {
+                                            ?>
+                                            <optgroup label="<?php echo $fragment['type']['optionDesc']; ?>">
+                                                <?php
+                                                foreach ($fragment['list'] as $item) {
+                                                    if ($widgetId == $item['id']) {
                                                         ?>
-                                                        <optgroup label="<?php echo $fragment['type']['optionDesc']; ?>">
-                                                            <?php
-                                                            foreach ($fragment['list'] as $item) {
-                                                                if($widgetId == $item['id']){
-                                                                    ?>
-                                                                    <option selected="selected" value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
-                                                                    <?php
-                                                                }else{
-                                                                    ?>
-                                                                    <option value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
-                                                                    <?php
-                                                                }
-                                                            }
-                                                            ?>
-                                                        </optgroup>
+                                                        <option selected="selected"
+                                                                value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
                                                         <?php
                                                     }
-                                                    ?>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
-                                                <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
-                                                <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    }
-                                }
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <?php
-                        $index ++ ;
-                    }
-                    ?>
+                                                }
+                                                ?>
+                                            </optgroup>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
+                                    <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
+                                    <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div style="display: none;">
@@ -143,9 +132,10 @@ if($widgetJson){
 
     function addWidget(widgetTable) {
         var demotr = $("#table-fragment-demo tbody tr:first");
-        $("#"+widgetTable+" tbody").append(demotr.clone());
+        $("#page-widget tbody").append(demotr.clone());
         bindEvent();
     }
+
     function bindEvent() {
         $(".table-widget tbody .tool-delete").unbind("click");
         $(".table-widget tbody .tool-up").unbind("click");
@@ -157,35 +147,32 @@ if($widgetJson){
         $(".table-widget tbody .tool-up").bind("click", function () {
             var prevTr = $(this).closest("tr").prev("tr");
             var currentTr = $(this).closest("tr");
-            if(prevTr){
+            if (prevTr) {
                 prevTr.before(currentTr);
             }
         });
         $(".table-widget tbody .tool-down").bind("click", function () {
             var nextTr = $(this).closest("tr").next("tr");
             var currentTr = $(this).closest("tr");
-            if(nextTr){
+            if (nextTr) {
                 nextTr.after(currentTr);
             }
         });
     }
+
     function saveWidget() {
         //获取widgetLayout
         var tableWidgets = $(".table-widget");
 
-        var layoutArray = new Array()
-        for(var i=0;i<tableWidgets.length;i++){
-            var widgets = new Array();
-            var selects = $(tableWidgets[i]).find("select");
-            for(var j=0;j<selects.length;j++){
-                var value = $(selects[j]).val();
-                widgets.push(value);
-            }
-            layoutArray.push(widgets);
+        var widgets = new Array();
+        var selects = $(tableWidgets[0]).find("select");
+        for (var j = 0; j < selects.length; j++) {
+            var value = $(selects[j]).val();
+            widgets.push(value);
         }
 
-        var layoutJson = JSON.stringify(layoutArray);
-        $("input[name=widgetJSON]").val(layoutJson);
+        var widgetsJSON = JSON.stringify(widgets);
+        $("input[name=widgetJSON]").val(widgetsJSON);
 
         $("#from-edit").submit();
 

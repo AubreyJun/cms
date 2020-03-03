@@ -64,11 +64,7 @@
     </div>
 </header>
 
-<div class="container-fluid">
-    <div class="row">
-        <?php echo $content ?>
-    </div>
-</div>
+<?php echo $content ?>
 
 
 <!-- Footer -->

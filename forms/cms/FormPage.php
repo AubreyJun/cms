@@ -11,7 +11,7 @@ class FormPage extends \yii\base\Model
     public $pageType;
     public $isDefault;
     public $layoutId;
-    public $layout;
+//    public $layout;
     public $pageKey;
 
     public function rules()
@@ -25,8 +25,8 @@ class FormPage extends \yii\base\Model
             [['pageType'], 'required', 'message' => '页面类型不能为空'],
             [['isDefault'], 'required'],
             [['layoutId'], 'required', 'message' => '布局不能为空'],
-            [['layout'], 'required','message'=>'页面组件布局格式不能为空'],
-            [['layout'], 'mustTwelve', 'message' => '页面组件布局格式不正确，正确格式，需要累计到12：2,10']
+//            [['layout'], 'required','message'=>'页面组件布局格式不能为空'],
+//            [['layout'], 'mustTwelve', 'message' => '页面组件布局格式不正确，正确格式，需要累计到12：2,10']
         ];
     }
 
