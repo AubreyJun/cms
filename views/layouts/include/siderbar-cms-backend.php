@@ -83,13 +83,13 @@
             <span class="nav-link">技术支持</span>
         </li>
         <li class="nav-item nav-doc">
-            <a class="nav-link" href="http://www.ranko.cn/shop.html">
+            <a class="nav-link" href="http://www.ranko.cn">
                 <i class="fa fa-shopping-cart menu-icon"></i>
                 <span class="menu-title">应用市场</span>
             </a>
         </li>
         <li class="nav-item nav-doc">
-            <a class="nav-link" href="http://www.ranko.cn/doc.html">
+            <a class="nav-link" href="http://www.ranko.cn">
                 <i class="fa fa-files-o menu-icon"></i>
                 <span class="menu-title">在线文档</span>
             </a>
