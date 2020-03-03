@@ -17,11 +17,8 @@ use yii\web\UploadedFile;
 class FragmentController extends BackendPanelController
 {
 
-    public function actionIndex()
+    public function actionIndex($fragmentType=null)
     {
-
-        $fragmentList = array();
-
         $this->data['fragmentType'] = $this->query("SELECT
 	* 
 FROM
@@ -35,15 +32,18 @@ ORDER BY
         $fragmentKV = array();
         foreach ($this->data['fragmentType'] as $item) {
             $fragmentKV[$item['optionValue']] = $item['optionDesc'];
-
-            $fragmentItem = array();
-            $fragmentItem['type'] = $item;
-            $fragmentItem['list'] = $this->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
-                ->bindParam(":themeId", $this->data['editThemeId'])
-                ->bindParam(":fragmentType", $item['optionValue'])->queryAll();
-            $fragmentList[] = $fragmentItem;
         }
         $this->data['fragmentKV'] = $fragmentKV;
+
+        if($fragmentType==null){
+            $fragmentType = $this->data['fragmentType'][0]['optionValue'];
+        }
+
+        $this->data['current'] = $fragmentType;
+
+        $fragmentList = $this->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
+            ->bindParam(":themeId", $this->data['editThemeId'])
+            ->bindParam(":fragmentType", $fragmentType)->queryAll();
         $this->data['fragmentList'] = $fragmentList;
 
         return $this->render('index', $this->data);

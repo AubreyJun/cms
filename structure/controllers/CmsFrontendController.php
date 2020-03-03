@@ -4,6 +4,7 @@
 namespace app\structure\controllers;
 
 
+use app\components\cms\PagePieceWidget;
 use app\models\cms\Fragment;
 use app\models\cms\Post;
 use app\structure\constants\MsgType;
@@ -298,6 +299,19 @@ ORDER BY
     public function query($sql)
     {
         return $this->db->createCommand($sql);
+    }
+
+    public function widget($widgetId){
+
+//        PagePieceWidget::widget();
+        $fragment = Fragment::findOne($widgetId);
+
+        $evalStr = 'use app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget;';
+        $evalStr .= '$html =  '.ucfirst($fragment['fragmentType']).'Widget::widget([\'data\'=>$fragment,\'context\'=>$this]);';
+
+        eval($evalStr);
+
+        return $html;
     }
 
 }

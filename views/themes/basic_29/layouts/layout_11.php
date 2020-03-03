@@ -22,8 +22,54 @@
 </head>
 
 <body id="page-top">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">RANKO.CN</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">关于</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#services">服务</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#portfolio">案例</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#contact">联系</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<?php echo $content ?>
+<header class="masthead">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-end">
+                <h1 class="text-uppercase text-white font-weight-bold">RKCMS</h1>
+                <hr class="divider my-4">
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 font-weight-light mb-5">开源、免费的企业网站系统!在GPL开源协议前提下，个人或者企业组织可以免费使用!</p>
+                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">了解更多</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <?php echo $content ?>
+    </div>
+</div>
+
 
 <!-- Footer -->
 <footer class="bg-light py-5">

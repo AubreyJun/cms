@@ -90,6 +90,11 @@ ORDER BY
                     return $this->actionIndex($model->attributes['pageType']);
                 }else{
                     $page = Page::findOne($model->attributes['id']);
+
+                    if($page->layout != $model->layout){
+                        $page->widgetjson = null;
+                    }
+
                     $page->setAttributes($model->attributes,false);
                     $page->save();
                     if($page['isDefault']==1){
@@ -107,11 +112,47 @@ ORDER BY
         return $this->render('edit',$this->data);
     }
 
-    public function actionWidget($id){
+    public function actionSavewidget(){
+        $id = $_REQUEST['id'];
+        $widgetJSON = $_POST['widgetJSON'];
 
+        $page = Page::findOne($id);
+        $page->widgetjson = $widgetJSON;
+        $page->save();
+
+        return $this->redirect("index.php?r=cms-backend/page/widget&id=".$id);
+    }
+
+    public function actionWidget($id){
 
         $page = Page::findOne($id);
         $this->data['page'] = $page;
+
+        $this->data['fragmentType'] = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'fragmentType' ) 
+ORDER BY
+	t.sequencenumber ASC")
+            ->queryAll();
+
+        $fragmentList = array();
+
+        $fragmentKV = array();
+        foreach ($this->data['fragmentType'] as $item) {
+            $child = array();
+            $fragmentKV[$item['optionValue']] = $item['optionDesc'];
+            $child['type'] = $item;
+            $child['list'] =  $this->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
+                ->bindParam(":themeId", $this->data['editThemeId'])
+                ->bindParam(":fragmentType", $item['optionValue'])->queryAll();
+            $fragmentList[] = $child;
+        }
+
+        $this->data['fragmentKV'] = $fragmentKV;
+        $this->data['fragmentList'] = $fragmentList;
 
         return $this->render('widget',$this->data);
     }

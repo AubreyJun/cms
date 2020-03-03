@@ -49,7 +49,7 @@
                             <?php
                         }
                         ?>
-                        <th width="10%">操作</th>
+                        <th width="20%">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,28 +68,18 @@
                             }
                             ?>
                             <td>
-                                <a class="text-primary"
+                                <a class="text-primary mr-2"
                                    href="index.php?r=cms-backend/page/update&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-pencil fa-lg mr-1"></i>
+                                    <i class="fa fa-pencil fa-lg "></i>
                                 </a>
-                                <a class="text-danger"
+                                <a class="text-danger mr-1"
                                    href="index.php?r=cms-backend/page/delete&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-trash fa-lg mr-1"></i>
+                                    <i class="fa fa-trash fa-lg "></i>
                                 </a>
-                                <a class="text-success"
+                                <a class="text-success mr-1"
                                    href="index.php?r=cms-backend/page/widget&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-cogs fa-lg mr-1"></i>
+                                    <i class="fa fa-cogs fa-lg "></i>
                                 </a>
-                                <?php
-                                if ($current == 'page') {
-                                    ?>
-                                    <a class="text-success"
-                                       href="index.php?r=cms-backend/page/config&id=<?php echo $item['id']; ?>">
-                                        <i class="fa fa-cog fa-lg mr-1"></i>
-                                    </a>
-                                    <?php
-                                }
-                                ?>
                             </td>
                         </tr>
                         <?php

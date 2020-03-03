@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group ">
                                 <button type="button" class="btn btn-primary btn-xs" onclick="add()"><i
-                                        class="fa fa-plus"></i></button>
+                                            class="fa fa-plus"></i></button>
                             </div>
                         </form>
                     </div>
@@ -39,32 +39,29 @@
                 <table class="table table-bordered">
                     <tbody>
                     <?php
-                    foreach ($fragmentList as $item){
+                    foreach ($fragmentList as $item) {
                         ?>
-                        <tr><td colspan="4"  ><?php echo $item['type']['optionDesc']; ?></td></tr>
+                        <tr>
+                            <td width="40%">&lt;?php echo <?php echo ucfirst($item['fragmentType']); ?>
+                                Widget::widget(['id' => <?php echo $item['id']; ?>,'context'=>$this->context]);?&gt;
+                            </td>
+                            <td><?php echo $item['fragmentName']; ?></td>
+                            <td width="20%">
+                                <a class="text-primary"
+                                   href="index.php?r=cms-backend/fragment/update&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-pencil fa-lg mr-1"></i>
+                                </a>
+                                <a class="text-danger"
+                                   href="index.php?r=cms-backend/fragment/delete&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-trash fa-lg mr-1"></i>
+                                </a>
+                                <a class="text-success"
+                                   href="index.php?r=cms-backend/fragment/copy&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-copy fa-lg mr-1"></i>
+                                </a>
+                            </td>
+                        </tr>
                         <?php
-                        foreach ($item['list'] as $child) {
-                            ?>
-                            <tr>
-                                <td width="40%">&lt;?php echo <?php echo ucfirst($child['fragmentType']); ?>Widget::widget(['id' => <?php echo $child['id']; ?>,'context'=>$this->context]);?&gt;</td>
-                                <td><?php echo $child['fragmentName']; ?></td>
-                                <td width="20%">
-                                    <a class="text-primary"
-                                       href="index.php?r=cms-backend/fragment/update&id=<?php echo $child['id']; ?>">
-                                        <i class="fa fa-pencil fa-lg mr-1"></i>
-                                    </a>
-                                    <a class="text-danger"
-                                       href="index.php?r=cms-backend/fragment/delete&id=<?php echo $child['id']; ?>">
-                                        <i class="fa fa-trash fa-lg mr-1"></i>
-                                    </a>
-                                    <a class="text-success"
-                                       href="index.php?r=cms-backend/fragment/copy&id=<?php echo $child['id']; ?>">
-                                        <i class="fa fa-copy fa-lg mr-1"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php
-                        }
                     }
 
                     ?>
@@ -82,8 +79,9 @@
     function changeType(fragmentType) {
         window.location.href = 'index.php?r=cms-backend/fragment/index&fragmentType=' + fragmentType;
     }
+
     function add() {
         var fragmentType = $("select[name=fragmentType]").val();
-        window.location.href = 'index.php?r=cms-backend/fragment/add&fragmentType='+fragmentType;
+        window.location.href = 'index.php?r=cms-backend/fragment/add&fragmentType=' + fragmentType;
     }
 </script>

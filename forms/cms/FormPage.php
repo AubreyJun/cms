@@ -11,6 +11,7 @@ class FormPage extends \yii\base\Model
     public $pageType;
     public $isDefault;
     public $layoutId;
+    public $layout;
     public $pageKey;
 
     public function rules()
@@ -23,8 +24,39 @@ class FormPage extends \yii\base\Model
             [['pageText'], 'required', 'message' => '页面内容不能为空'],
             [['pageType'], 'required', 'message' => '页面类型不能为空'],
             [['isDefault'], 'required'],
-            [['layoutId'], 'required', 'message' => '布局不能为空']
+            [['layoutId'], 'required', 'message' => '布局不能为空'],
+            [['layout'], 'required','message'=>'页面组件布局格式不能为空'],
+            [['layout'], 'mustTwelve', 'message' => '页面组件布局格式不正确，正确格式，需要累计到12：2,10']
         ];
+    }
+
+    public function mustTwelve($attribute, $params)
+    {
+
+        if(!$this->twelveValidate($this->layout)){
+            $this->addError($attribute, "正确格式示例：2,10/12/8,4");
+        }
+    }
+
+    function twelveValidate($str){
+
+        try{
+            $cols = explode(",",$str);
+            $total = 0;
+            foreach($cols as $col){
+                $colnumber = number_format($col);
+                $total += $colnumber;
+            }
+
+            if($total==12){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (\ErrorException $e){
+            return false;
+        }
+
     }
 
     public function attributeLabels()
@@ -35,7 +67,8 @@ class FormPage extends \yii\base\Model
             'pageType' => '页面类型',
             'isDefault' => '默认',
             'layoutId' => '布局',
-            'pageKey' => '页面KEY'
+            'pageKey' => '页面KEY',
+            'layout' => '页面组件布局'
         ];
     }
 

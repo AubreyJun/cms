@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'layoutId', ['errorOptions' => ['class' => 'error mt-2 text-danger']])
                     ->dropDownList($layout_select, ['prompt' => '请选择']) ?>
                 <?= $form->field($model, 'pageName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
+                <?= $form->field($model, 'layout', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
                 <div class="form-group">
                     <textarea id="code-editable" rows="20" class=" w-100"
                               name="FormPage[pageText]"><?php echo $model->attributes['pageText']; ?></textarea>
