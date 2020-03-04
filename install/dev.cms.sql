@@ -1,4 +1,5 @@
 
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -10,7 +11,7 @@ CREATE TABLE `cms_admin`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `adminname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `adminpassword` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createtime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
@@ -29,29 +30,14 @@ CREATE TABLE `cms_catalog`  (
   `catalogName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `parentId` int(11) NOT NULL DEFAULT 0,
   `sequenceNumber` int(11) NULL DEFAULT 0,
-  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `deleted` tinyint(255) NOT NULL DEFAULT 0,
   `catalogPath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `themeId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
--- ----------------------------
--- Records of cms_catalog
--- ----------------------------
-INSERT INTO `cms_catalog` VALUES (77, '产品目录', 0, 0, '2020-01-11 18:08:49', '2020-01-11 18:08:49', 0, '77::', 38);
-INSERT INTO `cms_catalog` VALUES (78, '新闻目录', 0, 0, '2020-01-11 21:53:15', '2020-01-11 21:53:15', 0, '78::', 38);
-INSERT INTO `cms_catalog` VALUES (79, '案例目录', 0, 0, '2020-01-12 13:14:46', '2020-01-12 13:14:46', 0, '79::', 38);
-INSERT INTO `cms_catalog` VALUES (80, '企业资讯', 0, 0, '2020-01-15 11:15:44', '2020-01-15 11:15:44', 0, '80::', 39);
-INSERT INTO `cms_catalog` VALUES (81, '产品目录', 0, 0, '2020-01-15 14:22:27', '2020-01-15 14:22:27', 0, '81::', 39);
-INSERT INTO `cms_catalog` VALUES (82, '客户案例', 0, 0, '2020-01-15 14:22:45', '2020-01-15 14:22:45', 0, '82::', 39);
-INSERT INTO `cms_catalog` VALUES (83, '手绘墙体广告', 82, 0, '2020-01-16 09:51:26', '2020-01-16 09:51:26', 0, '82::83::', 39);
-INSERT INTO `cms_catalog` VALUES (84, '喷绘墙体广告', 82, 0, '2020-01-16 09:51:46', '2020-01-16 09:51:46', 0, '82::84::', 39);
-INSERT INTO `cms_catalog` VALUES (85, '彩绘墙体广告', 82, 0, '2020-01-16 09:52:05', '2020-01-16 09:52:06', 0, '82::85::', 39);
-INSERT INTO `cms_catalog` VALUES (86, '路牌广告', 82, 0, '2020-01-16 09:52:22', '2020-01-16 09:52:22', 0, '82::86::', 39);
-INSERT INTO `cms_catalog` VALUES (87, '新闻目录', 0, 0, '2020-02-10 02:56:36', '2020-02-10 02:56:36', 0, '87::', 40);
-INSERT INTO `cms_catalog` VALUES (88, 'sss', 0, 0, '2020-03-02 17:27:21', '2020-03-02 17:27:21', 0, '88::', 29);
 
 -- ----------------------------
 -- Table structure for cms_config
@@ -61,7 +47,7 @@ CREATE TABLE `cms_config`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cfgkey` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `cfgvalue` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `configtype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'basic',
@@ -83,7 +69,7 @@ CREATE TABLE `cms_mapping`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `domain` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `themeId` int(11) NULL DEFAULT NULL,
-  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -92,10 +78,6 @@ CREATE TABLE `cms_mapping`  (
 -- Records of cms_mapping
 -- ----------------------------
 INSERT INTO `cms_mapping` VALUES (1, 'dev.biz.cms.cn', 40, '0000-00-00 00:00:00', '2020-02-08 15:07:32');
-INSERT INTO `cms_mapping` VALUES (2, 'cms.biz.guanggao_1.ranko.cn', 38, '2020-02-01 21:04:44', '2020-02-01 21:04:46');
-INSERT INTO `cms_mapping` VALUES (4, 'cms.biz.ranko.cn', 29, '2020-02-01 21:10:19', '2020-02-01 21:10:42');
-INSERT INTO `cms_mapping` VALUES (5, 'cms.biz.guanggao_2.ranko.cn', 39, '2020-02-02 12:21:17', '2020-02-02 12:21:36');
-INSERT INTO `cms_mapping` VALUES (6, 'cms.biz.guanggao_3.ranko.cn', 40, '2020-02-02 12:21:18', '2020-02-02 12:21:38');
 
 -- ----------------------------
 -- Table structure for cms_plugin
@@ -105,7 +87,7 @@ CREATE TABLE `cms_plugin`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pluginName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `pluginId` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createtime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'disabled',
@@ -202,7 +184,7 @@ CREATE TABLE `cms_select_options`  (
   `sequencenumber` int(11) NOT NULL DEFAULT 0,
   `widgetClass` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 193 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 195 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_select_options
@@ -264,9 +246,6 @@ INSERT INTO `cms_select_options` VALUES (132, 20, '登入页面', 'login', 10, N
 INSERT INTO `cms_select_options` VALUES (133, 20, '注册页面', 'register', 10, NULL);
 INSERT INTO `cms_select_options` VALUES (134, 20, '网站地图', 'sitemap', 10, NULL);
 INSERT INTO `cms_select_options` VALUES (147, 21, '图片地址', 'imageUrl', 0, 'fileSelect');
-INSERT INTO `cms_select_options` VALUES (155, 23, '板块标题', 'containerTitle', 1, NULL);
-INSERT INTO `cms_select_options` VALUES (157, 23, '页面标题', 'pageTitle', 0, NULL);
-INSERT INTO `cms_select_options` VALUES (158, 23, '页面Meta信息', 'pageMeta', 0, NULL);
 INSERT INTO `cms_select_options` VALUES (159, 25, '首页', 'home', 0, NULL);
 INSERT INTO `cms_select_options` VALUES (160, 25, '文章列表', 'articleList', 1, NULL);
 INSERT INTO `cms_select_options` VALUES (161, 25, '文章详情', 'article', 2, NULL);
@@ -286,10 +265,8 @@ INSERT INTO `cms_select_options` VALUES (174, 25, '共用片段', 'include', 10,
 INSERT INTO `cms_select_options` VALUES (175, 25, '登入页面', 'login', 10, NULL);
 INSERT INTO `cms_select_options` VALUES (176, 25, '注册页面', 'register', 10, NULL);
 INSERT INTO `cms_select_options` VALUES (177, 25, '网站地图', 'sitemap', 10, NULL);
-INSERT INTO `cms_select_options` VALUES (190, 23, '页面导航', 'pageNavigation', 0, NULL);
-INSERT INTO `cms_select_options` VALUES (191, 23, '静态大图加文字', 'staticParallax', 0, NULL);
-INSERT INTO `cms_select_options` VALUES (192, 23, '团队列表', 'teamList', 0, NULL);
 INSERT INTO `cms_select_options` VALUES (193, 23, '页面片段', 'pagePiece', 0, NULL);
+INSERT INTO `cms_select_options` VALUES (194, 23, '页面META', 'pageMeta', 0, NULL);
 
 -- ----------------------------
 -- Table structure for cms_theme
@@ -299,18 +276,18 @@ CREATE TABLE `cms_theme`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `themeName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `themeKey` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createtime` datetime(0) NOT NULL,
+  `createtime` datetime(0) NULL,
   `updatetime` datetime(0) NOT NULL,
   `isActive` tinyint(4) NOT NULL DEFAULT 0,
   `isEdit` tinyint(255) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `THEME_KEY`(`themeKey`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_theme
 -- ----------------------------
-INSERT INTO `cms_theme` VALUES (29, '基础版本', 'basic', '2019-08-03 17:36:11', '2020-01-28 13:05:54', 1, 1);
+INSERT INTO `cms_theme` VALUES (29, '基础版本', 'basic', '2019-08-03 17:36:11', '2020-01-28 13:05:54', 0, 1);
 
 -- ----------------------------
 -- Table structure for cms_theme_fragment
@@ -325,20 +302,11 @@ CREATE TABLE `cms_theme_fragment`  (
   `fragmentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `properties` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_theme_fragment
 -- ----------------------------
-INSERT INTO `cms_theme_fragment` VALUES (3, 40, '关于我们', '2020-01-18 13:31:50', '2020-02-10 16:31:51', 'pageTitle', '<root>\r\n<title>关于我们</title>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (4, 40, '页面导航', '2020-01-18 17:36:44', '2020-02-10 02:05:50', 'pageNavigation', '<root>\r\n	<style>common</style>\r\n	<logo1>themes/common/logo.png</logo1>\r\n    <logo2>themes/common/logo-2.png</logo2>\r\n    <transparent>true</transparent>\r\n    <menus>\r\n    	<item title=\"首页\" href=\"index.html\" pageType=\"home\"></item>\r\n        <item title=\"案例欣赏\" href=\"imageList.html\" pageType=\"imageList\"></item>\r\n        <item title=\"服务介绍\" href=\"productList.html\" pageType=\"productList\"></item>\r\n        <item title=\"新闻动态\" href=\"articleList.html\" pageType=\"articleList\"></item>\r\n        <item title=\"关于我们\" href=\"companyinfo.html\" pageType=\"companyinfo\"></item>\r\n    </menus>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (5, 40, '首页META', '2020-02-08 15:46:34', '2020-02-09 14:05:23', 'pageMeta', '<root>\r\n<title>品牌策划设计模板</title>\r\n<keywords>品牌策划设计模板</keywords>\r\n<description>品牌策划设计模板</description>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (7, 40, '首页静态大图', '2020-02-09 14:29:26', '2020-02-09 14:29:26', 'staticParallax', '<root>\r\n	<image>themes/guanggao_3/banner_1.jpg</image>\r\n    <title>品牌管理 + 创意</title>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (9, 40, '案例欣赏', '2020-02-10 02:22:25', '2020-02-10 02:24:05', 'pageMeta', '<root>\r\n<title>案例欣赏</title>\r\n<keywords>案例欣赏</keywords>\r\n<description>案例欣赏</description>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (10, 40, '服务介绍', '2020-02-10 02:23:27', '2020-02-10 02:28:57', 'pageMeta', '<root>\r\n<title>服务介绍</title>\r\n<keywords>服务介绍</keywords>\r\n<description>服务介绍</description>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (11, 40, '新闻中心', '2020-02-10 02:34:09', '2020-02-10 02:34:27', 'pageMeta', '<root>\r\n<title>新闻中心</title>\r\n<keywords>新闻中心</keywords>\r\n<description>新闻中心</description>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (12, 40, '关于我们', '2020-02-10 16:29:39', '2020-02-10 16:30:02', 'pageMeta', '<root>\r\n<title>关于我们</title>\r\n<keywords>关于我们</keywords>\r\n<description>关于我们</description>\r\n</root>');
-INSERT INTO `cms_theme_fragment` VALUES (13, 40, '团队列表', '2020-02-11 13:18:59', '2020-02-11 18:01:40', 'teamList', '<root>\r\n	<teamlist>\r\n    	<item image=\"themes/guanggao_3/head_1.jpg\" name=\"张三\" title=\"职位\" description=\"个人描述，个人描述，个人描述，个人描述，个人描述，个人描述，个人描述。\"></item>\r\n        <item image=\"themes/guanggao_3/head_1.jpg\" name=\"李四\" title=\"职位\" description=\"个人描述，个人描述，个人描述，个人描述，个人描述，个人描述，个人描述。\"></item>\r\n        <item image=\"themes/guanggao_3/head_1.jpg\" name=\"王五\" title=\"职位\" description=\"个人描述，个人描述，个人描述，个人描述，个人描述，个人描述，个人描述。\"></item>\r\n        <item image=\"themes/guanggao_3/head_1.jpg\" name=\"赵六\" title=\"职位\" description=\"个人描述，个人描述，个人描述，个人描述，个人描述，个人描述，个人描述。\"></item>\r\n    </teamlist>\r\n</root>');
 INSERT INTO `cms_theme_fragment` VALUES (17, 29, '我们的服务', '2020-03-03 19:13:10', '2020-03-03 19:32:56', 'pagePiece', '<root>\r\n 	<content>\r\n  <![CDATA[\r\n  <section class=\"page-section\" id=\"services\">\r\n    <div class=\"container\">\r\n        <h2 class=\"text-center mt-0\">我们的服务</h2>\r\n        <hr class=\"divider my-4\">\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-3 col-md-6 text-center\">\r\n                <div class=\"mt-5\">\r\n                    <i class=\"fas fa-4x fa-gem text-primary mb-4\"></i>\r\n                    <h3 class=\"h4 mb-2\">优质的主题</h3>\r\n                    <p class=\"text-muted mb-0\">应用市场提供多种行业所需的优质主题</p>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-lg-3 col-md-6 text-center\">\r\n                <div class=\"mt-5\">\r\n                    <i class=\"fas fa-4x fa-laptop-code text-primary mb-4\"></i>\r\n                    <h3 class=\"h4 mb-2\">永久更新</h3>\r\n                    <p class=\"text-muted mb-0\">开源代码库始终可开发进行中的代码保持一致</p>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-lg-3 col-md-6 text-center\">\r\n                <div class=\"mt-5\">\r\n                    <i class=\"fas fa-4x fa-globe text-primary mb-4\"></i>\r\n                    <h3 class=\"h4 mb-2\">快速改版</h3>\r\n                    <p class=\"text-muted mb-0\">可以通过后台主题模板编辑快速修改页面内容</p>\r\n                </div>\r\n            </div>\r\n            <div class=\"col-lg-3 col-md-6 text-center\">\r\n                <div class=\"mt-5\">\r\n                    <i class=\"fas fa-4x fa-heart text-primary mb-4\"></i>\r\n                    <h3 class=\"h4 mb-2\">按需定制</h3>\r\n                    <p class=\"text-muted mb-0\">如果你有特殊需求，可以根据你的需求进行定制</p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>\r\n  ]]>\r\n  	</content>\r\n </root>');
 INSERT INTO `cms_theme_fragment` VALUES (18, 29, '案例欣赏', '2020-03-03 19:34:50', '2020-03-03 21:53:29', 'pagePiece', '<root>\r\n 	<content>\r\n  <![CDATA[\r\n  <section id=\"portfolio\">\r\n    <div class=\"container-fluid p-0\">\r\n        <div class=\"row no-gutters\">\r\n            <div class=\"col-lg-4 col-sm-6\">\r\n                <a class=\"portfolio-box\" href=\"themes/basic/img/portfolio/fullsize/1.jpg\">\r\n                    <img class=\"img-fluid\" src=\"themes/basic/img/portfolio/thumbnails/1.jpg\" alt=\"\">\r\n                    <div class=\"portfolio-box-caption\">\r\n                        <div class=\"project-category text-white-50\">\r\n                            分类\r\n                        </div>\r\n                        <div class=\"project-name\">\r\n                           项目名称\r\n                        </div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n            <div class=\"col-lg-4 col-sm-6\">\r\n                <a class=\"portfolio-box\" href=\"themes/basic/img/portfolio/fullsize/2.jpg\">\r\n                    <img class=\"img-fluid\" src=\"themes/basic/img/portfolio/thumbnails/2.jpg\" alt=\"\">\r\n                    <div class=\"portfolio-box-caption\">\r\n                        <div class=\"project-category text-white-50\">\r\n                            分类\r\n                        </div>\r\n                        <div class=\"project-name\">\r\n                           项目名称\r\n                        </div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n            <div class=\"col-lg-4 col-sm-6\">\r\n                <a class=\"portfolio-box\" href=\"themes/basic/img/portfolio/fullsize/3.jpg\">\r\n                    <img class=\"img-fluid\" src=\"themes/basic/img/portfolio/thumbnails/3.jpg\" alt=\"\">\r\n                    <div class=\"portfolio-box-caption\">\r\n                        <div class=\"project-category text-white-50\">\r\n                            分类\r\n                        </div>\r\n                        <div class=\"project-name\">\r\n                           项目名称\r\n                        </div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n            <div class=\"col-lg-4 col-sm-6\">\r\n                <a class=\"portfolio-box\" href=\"themes/basic/img/portfolio/fullsize/4.jpg\">\r\n                    <img class=\"img-fluid\" src=\"themes/basic/img/portfolio/thumbnails/4.jpg\" alt=\"\">\r\n                    <div class=\"portfolio-box-caption\">\r\n                       <div class=\"project-category text-white-50\">\r\n                            分类\r\n                        </div>\r\n                        <div class=\"project-name\">\r\n                           项目名称\r\n                        </div>>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n            <div class=\"col-lg-4 col-sm-6\">\r\n                <a class=\"portfolio-box\" href=\"themes/basic/img/portfolio/fullsize/5.jpg\">\r\n                    <img class=\"img-fluid\" src=\"themes/basic/img/portfolio/thumbnails/5.jpg\" alt=\"\">\r\n                    <div class=\"portfolio-box-caption\">\r\n                        <div class=\"project-category text-white-50\">\r\n                            分类\r\n                        </div>\r\n                        <div class=\"project-name\">\r\n                           项目名称\r\n                        </div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n            <div class=\"col-lg-4 col-sm-6\">\r\n                <a class=\"portfolio-box\" href=\"themes/basic/img/portfolio/fullsize/6.jpg\">\r\n                    <img class=\"img-fluid\" src=\"themes/basic/img/portfolio/thumbnails/6.jpg\" alt=\"\">\r\n                    <div class=\"portfolio-box-caption p-3\">\r\n                        <div class=\"project-category text-white-50\">\r\n                            分类\r\n                        </div>\r\n                        <div class=\"project-name\">\r\n                           项目名称\r\n                        </div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</section>\r\n  ]]>\r\n  	</content>\r\n </root>');
 INSERT INTO `cms_theme_fragment` VALUES (19, 29, '免费获取', '2020-03-03 19:35:31', '2020-03-03 19:35:56', 'pagePiece', '<root>\r\n 	<content>\r\n  <![CDATA[\r\n  <section class=\"page-section bg-dark text-white\">\r\n    <div class=\"container text-center\">\r\n        <h2 class=\"mb-4\">免费获取</h2>\r\n        <a class=\"btn btn-light btn-xl\" href=\"http://www.ranko.cn/opensource-2.html\">立即下载</a>\r\n    </div>\r\n</section>\r\n  ]]>\r\n  	</content>\r\n </root>');
@@ -353,11 +321,11 @@ CREATE TABLE `cms_theme_layout`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `layoutName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `layoutText` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `themeId` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_theme_layout
@@ -373,14 +341,14 @@ CREATE TABLE `cms_theme_page`  (
   `themeId` int(11) NULL DEFAULT NULL,
   `pageName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `pageText` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `pageType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `isDefault` tinyint(4) NOT NULL DEFAULT 0,
   `layoutId` int(11) NOT NULL,
   `widgetjson` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_theme_page
@@ -397,7 +365,7 @@ CREATE TABLE `plugin_feedback`  (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `themeid` int(11) NULL DEFAULT NULL,
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -413,20 +381,12 @@ CREATE TABLE `plugin_message`  (
   `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `createtime` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '状态:0:未生效,1:有效',
   `reply` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '回复的内容',
   `themeid` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of plugin_message
--- ----------------------------
-INSERT INTO `plugin_message` VALUES (2, '留言内容标题一', '张三', '留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容。', '2019-12-19 14:47:44', '2019-12-19 17:33:05', '1', '留言回复，留言回复，留言回复，留言回复，留言回复', NULL);
-INSERT INTO `plugin_message` VALUES (3, '留言内容标题二', '张三', '留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容。', '2019-12-19 17:20:09', '2019-12-19 17:33:06', '1', '留言回复，留言回复，留言回复，留言回复，留言回复', NULL);
-INSERT INTO `plugin_message` VALUES (4, '留言内容标题三', '张三', '留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容。', '2019-12-19 17:20:10', '2019-12-19 17:33:07', '1', '留言回复，留言回复，留言回复，留言回复，留言回复', NULL);
-INSERT INTO `plugin_message` VALUES (5, '留言内容标题四', '张三', '留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容，留言内容。', '2019-12-19 17:20:11', '2019-12-19 17:33:07', '1', '留言回复，留言回复，留言回复，留言回复，留言回复', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
