@@ -30,7 +30,7 @@
                                 <a class="text-primary mr-1" href="index.php?r=cms-backend/layout/update&id=<?php echo $item['id']; ?>" >
                                     <i class="fa fa-pencil fa-lg"></i>
                                 </a>
-                                <a class="text-danger mr-1" href="index.php?r=cms-backend/layout/delete&id=<?php echo $item['id']; ?>">
+                                <a class="text-danger mr-1" onclick="deleteItem(<?php echo $item['id']; ?>)">
                                     <i class="fa fa-trash fa-lg"></i>
                                 </a>
                             </td>
@@ -48,4 +48,9 @@
     $(function () {
         $("table").colResizable();
     });
+    function deleteItem(id) {
+        doConfirm('删除布局？',function () {
+            window.location.href = "index.php?r=cms-backend/layout/delete&id="+id;
+        });
+    }
 </script>

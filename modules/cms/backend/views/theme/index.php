@@ -46,8 +46,7 @@
                                    href="index.php?r=cms-backend/theme/update&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-pencil fa-lg"></i>
                                 </a>
-                                <a class="text-danger mr-1" title="删除"
-                                   href="index.php?r=cms-backend/theme/delete&id=<?php echo $item['id']; ?>">
+                                <a class="text-danger mr-1" title="删除" onclick="deleteItem(<?php echo $item['id']; ?>)">
                                     <i class="fa fa-trash fa-lg"></i>
                                 </a>
                                 <a class="text-success mr-1" title="默认主题"
@@ -88,6 +87,12 @@
                 toastSuccess(data.message)
             }
         }, 'json');
+    }
+
+    function deleteItem(id) {
+        doConfirm('删除主题？',function () {
+            window.location.href = "index.php?r=cms-backend/theme/delete&id="+id;
+        });
     }
 
     function resetTheme(id) {

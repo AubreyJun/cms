@@ -90,8 +90,7 @@ function echoTr($navgation, $level)
                                    href="index.php?r=cms-backend/catalog/update&id=<?php echo $item['object']['id']; ?>">
                                     <i class="fa fa-pencil fa-lg"></i>
                                 </a>
-                                <a class="text-danger"
-                                   href="index.php?r=cms-backend/catalog/delete&id=<?php echo $item['object']['id']; ?>">
+                                <a class="text-danger" onclick="deleteItem(<?php echo $item['object']['id']; ?>)">
                                     <i class="fa fa-trash fa-lg"></i>
                                 </a>
                             </td>
@@ -110,4 +109,9 @@ function echoTr($navgation, $level)
     $(function () {
         $("table").colResizable();
     });
+    function deleteItem(id) {
+        doConfirm('删除分类目录？',function () {
+            window.location.href = "index.php?r=cms-backend/catalog/delete&id="+id;
+        });
+    }
 </script>

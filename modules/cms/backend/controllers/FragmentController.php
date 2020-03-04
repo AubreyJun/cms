@@ -12,6 +12,7 @@ use app\models\cms\Fragment;
 use app\models\cms\PostTag;
 use app\structure\controllers\BackendPanelController;
 use Yii;
+use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 
 class FragmentController extends BackendPanelController
@@ -75,6 +76,20 @@ ORDER BY
         $model = new FormFragment();
         $model->fragmentType = $fragmentType;
         $model->id = 0;
+
+        //载入模板
+        $filePath = Yii::$app->getBasePath().'/template/'.$fragmentType.'.php';
+        $filePath = str_replace('\\','/',$filePath);
+        if(file_exists($filePath)){
+            $handle = fopen($filePath, "r");
+            $contents = fread($handle, filesize ($filePath));
+            fclose($handle);
+            $model->fragmentName = "这是一个模板";
+            $model->properties = $contents;
+        }
+
+
+
         $this->data['model'] = $model;
 
         $this->data['fragmentType'] = $fragmentType;

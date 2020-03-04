@@ -72,8 +72,7 @@
                                    href="index.php?r=cms-backend/page/update&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-pencil fa-lg "></i>
                                 </a>
-                                <a class="text-danger mr-1"
-                                   href="index.php?r=cms-backend/page/delete&id=<?php echo $item['id']; ?>">
+                                <a class="text-danger mr-1" onclick="deleteItem(<?php echo $item['id']; ?>)">
                                     <i class="fa fa-trash fa-lg "></i>
                                 </a>
                                 <a class="text-success mr-1"
@@ -97,7 +96,11 @@
     });
 
 
-
+    function deleteItem(id) {
+        doConfirm('删除页面？',function () {
+            window.location.href = "index.php?r=cms-backend/page/delete&id="+id;
+        });
+    }
     function changeType(pageType) {
         window.location.href = 'index.php?r=cms-backend/page/index&pagetype=' + pageType;
     }
