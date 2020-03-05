@@ -16,6 +16,13 @@ class PagePieceWidget extends BasicWidget
     public $data;
     public $context;
 
+    public static $editorMapping = array(
+        'content'=>array(
+            'title'=>'页面内容',
+            'editor'=>'html'
+        )
+    );
+
     public function init()
     {
         parent::init();

@@ -86,9 +86,12 @@ ORDER BY
             fclose($handle);
             $model->fragmentName = "这是一个模板";
             $model->properties = $contents;
+
+            $evalStr = 'use app\components\cms\\'.ucfirst($fragmentType).'Widget;';
+            $evalStr .= '$editorMapping = '.ucfirst($fragmentType).'Widget::$editorMapping;';
+            eval($evalStr);
+            $this->data['editorMapping'] = $editorMapping;
         }
-
-
 
         $this->data['model'] = $model;
 
