@@ -23,7 +23,7 @@ function echoNavSelect($nav){
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">导航编辑</h4>
+                <h4 class="card-title">目录编辑</h4>
                 <?php
                 if (isset($model->getErrors()['tips'])) {
                     ?>
@@ -42,6 +42,7 @@ function echoNavSelect($nav){
                 <?php $form = ActiveForm::begin(['id' => 'from-edit']); ?>
                 <?php $form->action = 'index.php?r=cms-backend/catalog/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
+                <?= $form->field($model, 'catalogType')->textInput()->label(false)->hiddenInput(['value' => 'cms']) ?>
                 <div class="form-group">
                     <label>
                         上级目录

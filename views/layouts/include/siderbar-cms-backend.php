@@ -77,6 +77,9 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/catalog/index">目录设置</a></li>
                 </ul>
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/navigation/index">页面导航</a></li>
+                </ul>
             </div>
         </li>
         <li class="nav-item nav-category">

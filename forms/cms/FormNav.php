@@ -5,7 +5,7 @@ namespace app\forms\cms;
 class FormNav extends \yii\base\Model
 {
 
-    public $id = 0, $catalogName, $parentId = 0, $sequenceNumber = 0,  $themeId, $catalogType, $deleted = 0,$tips;
+    public $id = 0, $catalogName, $parentId = 0, $sequenceNumber = 0,  $themeId, $catalogType, $deleted = 0,$tips,$navigationType,$navigationRel,$link;
 
     public function rules()
     {
@@ -31,6 +31,9 @@ class FormNav extends \yii\base\Model
             'status'=>'状态',
             'catalogType'=>'类型',
             'deleted'=>'删除标识',
+            'navigationType'=>'导航类型',
+            'navigationRel'=>'导航关联目录',
+            'link'=>'链接',
 
         ];
     }

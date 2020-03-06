@@ -73,6 +73,15 @@ $this->title = '片段设置';
                                         </td>
                                     </tr>
                                     <?php
+                                }else if($val['editor'] == 'image'){
+                                    ?>
+                                    <tr>
+                                        <td class="table-label"><strong><?php echo $val['title']; ?></strong></td>
+                                        <td>
+                                            <input type="text" class="form-control fragmentProperties fileSelect"  editor="<?php echo $val['editor']; ?>" name="<?php echo $key; ?>" >
+                                        </td>
+                                    </tr>
+                                    <?php
                                 }
                             }
                             ?>
@@ -87,6 +96,30 @@ $this->title = '片段设置';
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
+
+                <div style="display: none;">
+                    <table class="table table-bordered " id="table-treegrid-demo">
+                        <tbody>
+                        <tr>
+                            <td>
+                               <span class="step"></span>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="title">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="link">
+                            </td>
+                            <td>
+                                <i class="fa fa-plus-circle fa-lg text-success tool-add mr-1" title="添加" ></i>
+                                <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
+                                <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
+                                <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
@@ -118,8 +151,31 @@ $this->title = '片段设置';
             $("#fragment-properties").val(jsonStr);
         });
 
+        $(".tableresize").colResizable();
+
         loadProperties();
 
+    });
+
+    KindEditor.ready(function(K) {
+        var editor = K.editor({
+            allowFileManager : true,
+            fileManagerJson : 'static/backend/lib/kindeditor/php/file_manager_json.php'
+        });
+        $('.fileSelect').click(function() {
+            var obj = $(this);
+            editor.loadPlugin('insertfile', function() {
+                editor.plugin.fileDialog({
+                    fileUrl : $(obj).val(),
+                    clickFn : function(url, title) {
+
+                        $(obj).val(url);;
+                        editor.hideDialog();
+                    }
+                });
+
+            });
+        });
     });
 
     function loadProperties() {
@@ -146,8 +202,5 @@ $this->title = '片段设置';
         }
         return editor;
     }
-    // function codeMirrorSetValue(htmlId,value) {
-    //     var editor = CodeMirror.fromTextArea(document.getElementById(htmlId));
-    //     editor.setValue(value);
-    // }
+
 </script>

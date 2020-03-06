@@ -103,7 +103,7 @@ class BackendPanelController extends AppController
         $this->data['post_list'] = $post_list;
     }
 
-    public function getNavgation(){
+    public function getNavgation($catalogType){
 
         $navgation = array();
 
@@ -115,15 +115,16 @@ FROM
 WHERE
 	parentid = 0 
 	AND deleted = 0 
-	and themeId = :themeId
+	and themeId = :themeId and catalogType = :catalogType
 ORDER BY
 	sequencenumber ASC")
             ->bindParam(":themeId",$this->data['defaultThemeId'])
+            ->bindParam(":catalogType",$catalogType)
             ->queryAll();
         $level = 1;
         foreach ($topNavgation as $item){
             if($item['cld']>0){
-                $children = $this->getNavgationChildren($item['id'],$level);
+                $children = $this->getNavgationChildren($item['id'],$level,$catalogType);
                 $navgation[] = array(
                     'object'=>$item,
                     'children'=>$children,
@@ -140,7 +141,7 @@ ORDER BY
         return $navgation;
     }
 
-    private function getNavgationChildren($itemId,$level){
+    private function getNavgationChildren($itemId,$level,$catalogType){
         $level ++;
 
         $childrenArray = array();
@@ -151,16 +152,17 @@ ORDER BY
 FROM
 	cms_catalog cc 
 WHERE
-	parentid = :parentId 
+	parentid = :parentId  and catalogType = :catalogType
 	AND deleted = 0 
 ORDER BY
 	sequencenumber ASC")
             ->bindParam(":parentId",$itemId)
+            ->bindParam(":catalogType",$catalogType)
             ->queryAll();
 
         foreach ($children as $child){
             if($child['cld']>0){
-                $childrenSub = $this->getNavgationChildren($child['id'],$level);
+                $childrenSub = $this->getNavgationChildren($child['id'],$level,$catalogType);
                 $childrenArray[] = array(
                     'object'=>$child,
                     'children'=>$childrenSub,

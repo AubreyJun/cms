@@ -10,13 +10,13 @@ use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;
 use Yii;
 
-class CatalogController extends BackendPanelController
+class NavigationController extends BackendPanelController
 {
 
     public function actionIndex()
     {
 
-        $this->data['navgation'] = $this->getNavgation('cms');
+        $this->data['navgation'] = $this->getNavgation('navigation');
 
         return $this->render('index', $this->data);
     }
@@ -32,9 +32,27 @@ class CatalogController extends BackendPanelController
         $model->load($nav->attributes, '');
         $this->data['model'] = $model;
 
-        $this->data['navgation'] = $this->getNavgation('cms');
+        $this->data['navgation'] = $this->getNavgation('navigation');
 
         return $this->render('edit', $this->data);
+    }
+
+    private function setForm(){
+        $navigationType = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'navigationType' ) 
+ORDER BY
+	t.sequencenumber ASC")->queryAll();
+        $navigationType_select = array();
+        foreach ($navigationType as $item){
+            $navigationType_select[$item['optionValue']] = $item['optionDesc'];
+        }
+        $this->data['navigationType_select'] = $navigationType_select;
+
+        $this->data['catalog_cms'] = $this->getNavgation('cms');
     }
 
     public function actionAdd(){
@@ -42,7 +60,9 @@ class CatalogController extends BackendPanelController
         $model = new FormNav();
         $this->data['model'] = $model;
 
-        $this->data['navgation'] = $this->getNavgation('cms');
+        $this->data['navgation'] = $this->getNavgation('navigation');
+
+        $this->setForm();
 
         return $this->render('edit', $this->data);
     }
@@ -62,7 +82,14 @@ class CatalogController extends BackendPanelController
         $model = new FormNav();
         if ($model->load(Yii::$app->request->post())) {
             $model->setAttributes(['themeId' => $this->data['defaultThemeId']]);
-            $model->setAttributes(['catalogType'=>'cms']);
+
+            $link = $_REQUEST['FormNav']['link'];
+            $navigationType = $_REQUEST['FormNav']['navigationType'];
+            $navigationRel = $_REQUEST['FormNav']['navigationRel'];
+
+            $model->setAttributes(['catalogType'=>'navigation','link'=>$link,'navigationType'=>$navigationType,'navigationRel'=>$navigationRel]);
+
+
             if ($model->validate()) {
                 if ($model->id == 0) {
                     $catalog = new Catalog();
@@ -104,7 +131,6 @@ class CatalogController extends BackendPanelController
                         $catalog ->setAttributes(['catalogPath'=>$catalogPath],false);
 
                         $catalog->save();
-
 
                     }
                     return $this->actionIndex();
