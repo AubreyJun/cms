@@ -78,20 +78,10 @@ ORDER BY
         $model->id = 0;
 
         //载入模板
-        $filePath = Yii::$app->getBasePath().'/template/'.$fragmentType.'.php';
-        $filePath = str_replace('\\','/',$filePath);
-        if(file_exists($filePath)){
-            $handle = fopen($filePath, "r");
-            $contents = fread($handle, filesize ($filePath));
-            fclose($handle);
-            $model->fragmentName = "这是一个模板";
-            $model->properties = $contents;
-
-            $evalStr = 'use app\components\cms\\'.ucfirst($fragmentType).'Widget;';
-            $evalStr .= '$editorMapping = '.ucfirst($fragmentType).'Widget::$editorMapping;';
-            eval($evalStr);
-            $this->data['editorMapping'] = $editorMapping;
-        }
+        $evalStr = 'use app\components\cms\\'.ucfirst($fragmentType).'Widget;';
+        $evalStr .= '$editorMapping = '.ucfirst($fragmentType).'Widget::$editorMapping;';
+        eval($evalStr);
+        $this->data['editorMapping'] = $editorMapping;
 
         $this->data['model'] = $model;
 
@@ -120,6 +110,11 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
         $model->setAttributes($fragment->attributes, true);
         $this->data['model'] = $model;
 
+        $evalStr = 'use app\components\cms\\'.ucfirst($model->fragmentType).'Widget;';
+        $evalStr .= '$editorMapping = '.ucfirst($model->fragmentType).'Widget::$editorMapping;';
+        eval($evalStr);
+        $this->data['editorMapping'] = $editorMapping;
+
         return $this->render('edit', $this->data);
     }
 
@@ -145,6 +140,11 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
                 }
             }
         }
+
+        $evalStr = 'use app\components\cms\\'.ucfirst($model->attributes['fragmentType']).'Widget;';
+        $evalStr .= '$editorMapping = '.ucfirst($model->attributes['fragmentType']).'Widget::$editorMapping;';
+        eval($evalStr);
+        $this->data['editorMapping'] = $editorMapping;
 
         $this->data['model'] = $model;
         return $this->render('edit', $this->data);

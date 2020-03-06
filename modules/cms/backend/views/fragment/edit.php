@@ -9,10 +9,13 @@ $this->title = '片段设置';
 
 ?>
 <style>
-    .table-label{
+    .table-label {
         width: 20%;
     }
 </style>
+<script>
+    var widgetList = {};
+</script>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -35,23 +38,27 @@ $this->title = '片段设置';
                 <?php
                 if (isset($editorMapping)) {
                     ?>
-                    <div class="page-properties mb-3">
+                    <input type="hidden" name="FormFragment[properties]" id="fragment-properties" value="">
+                    <div class=" mb-3" id="page-properties">
                         <label class="control-label" for="formfragment-fragmentname">属性设置</label>
                         <table class="table table-bordered">
                             <tbody>
                             <?php
                             foreach ($editorMapping as $key => $val) {
-                                if($val['editor']=='html'){
+                                if ($val['editor'] == 'html') {
                                     ?>
                                     <tr>
                                         <td colspan="2"><strong><?php echo $val['title']; ?></strong></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <textarea rows="3" class="fragment-properties" id="properties-<?php echo $key; ?>" name="<?php echo $key; ?>"></textarea>
+                                            <textarea rows="3" class="fragmentProperties" editor="<?php echo $val['editor']; ?>"
+                                                      id="properties-<?php echo $key; ?>"
+                                                      name="<?php echo $key; ?>"></textarea>
                                             <script>
                                                 $(function () {
-                                                    codeMirror('properties-<?php echo $key; ?>',100);
+                                                    editor = codeMirror('properties-<?php echo $key; ?>', 100);
+                                                    widgetList['properties-<?php echo $key; ?>'] = editor;
                                                 });
                                             </script>
                                         </td>
@@ -63,10 +70,6 @@ $this->title = '片段设置';
                             </tbody>
                         </table>
                     </div>
-                    <?php
-                } else {
-                    ?>
-                    <?= $form->field($model, 'properties', ['errorOptions' => ['class' => 'error mt-2 text-danger']])->textarea(['rows' => 5]) ?>
                     <?php
                 }
                 ?>
@@ -81,23 +84,60 @@ $this->title = '片段设置';
     </div>
 </div>
 <script>
+
+    var propList = <?php echo $model->attributes['properties']; ?>;
+
     $(function () {
-        CodeMirror.fromTextArea(document.getElementById('formfragment-properties'), {
-            lineNumbers: true,
-            styleActiveLine: true,
-            matchBrackets: true,
-            theme: "midnight"
+
+        $('#from-edit').on('beforeSubmit', function (e) {
+            //设置内容
+            var properties = $(".fragmentProperties");
+            var propObject = Array();
+            if(properties.length>0){
+                for(var i=0;i<properties.length;i++){
+                    var pname = $(properties[i]).attr("name");
+                    var pvalue = $(properties[i]).val();
+                    var editor = $(properties[i]).attr("editor");
+                    propObject.push({
+                        'pname':pname,
+                        'pvalue':pvalue,
+                        'editor':editor
+                    });
+                }
+            }
+            var jsonStr = JSON.stringify(propObject);
+            $("#fragment-properties").val(jsonStr);
         });
+
+        loadProperties();
+
     });
-    function codeMirror(htmlId,size) {
+
+    function loadProperties() {
+        for(var i=0;i<propList.length;i++){
+            var propobject = propList[i];
+            if(propobject['editor']=='html'){
+                // codeMirrorSetValue("properties-"+propobject['pname'],propobject['pvalue']);
+                widgetList["properties-"+propobject['pname']].setValue(propobject['pvalue']);
+            }
+        }
+
+    }
+
+    function codeMirror(htmlId, size) {
         var editor = CodeMirror.fromTextArea(document.getElementById(htmlId), {
             lineNumbers: true,
             styleActiveLine: true,
             matchBrackets: true,
             theme: "midnight"
         });
-        if(size!=null){
-            editor.setSize('auto',size+'px');
+        if (size != null) {
+            editor.setSize('auto', size + 'px');
         }
+        return editor;
     }
+    // function codeMirrorSetValue(htmlId,value) {
+    //     var editor = CodeMirror.fromTextArea(document.getElementById(htmlId));
+    //     editor.setValue(value);
+    // }
 </script>
