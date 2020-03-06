@@ -13,13 +13,14 @@ use yii\base\Widget;
 
 class PagePieceWidget extends BasicWidget
 {
-    public $data;
+    public $fragment;
     public $context;
+    private $data = array();
 
     public static $editorMapping = array(
-        'content'=>array(
-            'title'=>'页面内容',
-            'editor'=>'html'
+        'content' => array(
+            'title' => '页面内容',
+            'editor' => 'html'
         )
     );
 
@@ -30,7 +31,11 @@ class PagePieceWidget extends BasicWidget
 
     public function run()
     {
-        $data =  json_decode(json_encode(simplexml_load_string($this->data['properties'],'SimpleXMLElement',LIBXML_NOCDATA)),true);
-       return $this->render("pagepiece",$data);
+        $properties = json_decode($this->fragment['properties'],true);
+        foreach ($properties as $property){
+            $this->data[$property['pname']] = $property;
+        }
+
+        return $this->render("pagepiece", $this->data);
     }
 }

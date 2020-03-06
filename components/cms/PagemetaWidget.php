@@ -13,8 +13,23 @@ use yii\base\Widget;
 
 class PagemetaWidget extends BasicWidget
 {
-    public $data;
+    public $fragment;
     public $context;
+    private $data = array();
+
+    public static $editorMapping = array(
+        'meta_title' => array(
+            'title' => '标题',
+            'editor' => 'text'
+        ),
+        'meta_keywords' => array(
+            'title' => '关键字',
+            'editor' => 'text'
+        ), 'meta_description' => array(
+            'title' => '描述',
+            'editor' => 'text'
+        )
+    );
 
     public function init()
     {
@@ -23,10 +38,13 @@ class PagemetaWidget extends BasicWidget
 
     public function run()
     {
-        $data =  json_decode(json_encode(simplexml_load_string($this->data['properties'])),true);
+        $properties = json_decode($this->fragment['properties'], true);
+        foreach ($properties as $property) {
+            $this->data[$property['pname']] = $property;
+        }
 
-        $this->context->data['meta_title'] = $data['meta_title'];
-        $this->context->data['meta_keywords'] = $data['meta_keywords'];
-        $this->context->data['meta_description'] = $data['meta_description'];
+        $this->context->data['meta_title'] = $this->data['meta_title']['pvalue'];
+        $this->context->data['meta_keywords'] = $this->data['meta_keywords']['pvalue'];
+        $this->context->data['meta_description'] = $this->data['meta_description']['pvalue'];
     }
 }

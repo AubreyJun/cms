@@ -307,7 +307,7 @@ ORDER BY
         $fragment = Fragment::findOne($widgetId);
 
         $evalStr = 'use app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget;';
-        $evalStr .= '$html =  '.ucfirst($fragment['fragmentType']).'Widget::widget([\'data\'=>$fragment,\'context\'=>$this]);';
+        $evalStr .= '$html =  '.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
 
         eval($evalStr);
 

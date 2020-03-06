@@ -2,7 +2,7 @@
 <?php
 $widgetJson = $page['widgetjson'];
 $widgetJsonObject = null;
-if ($widgetJson) {
+if ($widgetJson!=null && $widgetJson!='') {
     $widgetJsonObject = json_decode($widgetJson, true);
 }
 ?>
@@ -46,42 +46,44 @@ if ($widgetJson) {
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($widgetJsonObject as $widgetId) {
-                            ?>
-                            <tr>
-                                <td>
-                                    <select class="form-control">
-                                        <?php
-                                        foreach ($fragmentList as $fragment) {
-                                            ?>
-                                            <optgroup label="<?php echo $fragment['type']['optionDesc']; ?>">
-                                                <?php
-                                                foreach ($fragment['list'] as $item) {
-                                                    if ($widgetId == $item['id']) {
-                                                        ?>
-                                                        <option selected="selected"
-                                                                value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                        <option value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </optgroup>
+                        if($widgetJsonObject!=null){
+                            foreach ($widgetJsonObject as $widgetId) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <select class="form-control">
                                             <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-                                <td>
-                                    <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
-                                    <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
-                                    <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
-                                </td>
-                            </tr>
-                            <?php
+                                            foreach ($fragmentList as $fragment) {
+                                                ?>
+                                                <optgroup label="<?php echo $fragment['type']['optionDesc']; ?>">
+                                                    <?php
+                                                    foreach ($fragment['list'] as $item) {
+                                                        if ($widgetId == $item['id']) {
+                                                            ?>
+                                                            <option selected="selected"
+                                                                    value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </optgroup>
+                                                <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
+                                        <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
+                                        <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
                         }
                         ?>
                         </tbody>

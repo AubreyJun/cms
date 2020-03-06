@@ -1,2 +1,2 @@
 <?php
-echo $content;
+echo $content['pvalue'];

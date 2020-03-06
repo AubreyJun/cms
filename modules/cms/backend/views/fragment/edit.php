@@ -64,6 +64,15 @@ $this->title = '片段设置';
                                         </td>
                                     </tr>
                                     <?php
+                                }else if($val['editor'] == 'text'){
+                                    ?>
+                                    <tr>
+                                        <td class="table-label"><strong><?php echo $val['title']; ?></strong></td>
+                                        <td>
+                                            <input type="text" class="form-control fragmentProperties"  editor="<?php echo $val['editor']; ?>" name="<?php echo $key; ?>" >
+                                        </td>
+                                    </tr>
+                                    <?php
                                 }
                             }
                             ?>
@@ -117,8 +126,9 @@ $this->title = '片段设置';
         for(var i=0;i<propList.length;i++){
             var propobject = propList[i];
             if(propobject['editor']=='html'){
-                // codeMirrorSetValue("properties-"+propobject['pname'],propobject['pvalue']);
                 widgetList["properties-"+propobject['pname']].setValue(propobject['pvalue']);
+            }else if(propobject['editor']=='text'){
+                $("input[name="+propobject['pname']+"]").val(propobject['pvalue']);
             }
         }
 
