@@ -25,11 +25,13 @@ class NavigationController extends BackendPanelController
 
     public function actionUpdate($id){
 
+        $this->setForm();
+
         $nav = Nav::findOne($id);
         $this->data['nav'] = $nav;
 
         $model = new FormNav();
-        $model->load($nav->attributes, '');
+        $model->setAttributes($nav->attributes, false);
         $this->data['model'] = $model;
 
         $this->data['navgation'] = $this->getNavgation('navigation');
@@ -87,8 +89,7 @@ ORDER BY
             $navigationType = $_REQUEST['FormNav']['navigationType'];
             $navigationRel = $_REQUEST['FormNav']['navigationRel'];
 
-            $model->setAttributes(['catalogType'=>'navigation','link'=>$link,'navigationType'=>$navigationType,'navigationRel'=>$navigationRel]);
-
+            $model->setAttributes(['catalogType'=>'navigation','link'=>$link,'navigationType'=>$navigationType,'navigationRel'=>$navigationRel],false);
 
             if ($model->validate()) {
                 if ($model->id == 0) {

@@ -72,9 +72,15 @@ function echoNavSelect($nav)
                     <select class="form-control" id="navigationType" name="FormNav[navigationType]" onchange="changeNavType(this.value)">
                         <?php
                         foreach ($navigationType_select as $key => $value) {
-                            ?>
-                            <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                            <?php
+                            if($model->attributes['navigationType']==$key){
+                                ?>
+                                <option value="<?php echo $key; ?>" selected="selected"><?php echo $value; ?></option>
+                                <?php
+                            }else{
+                                ?>
+                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                <?php
+                            }
                         }
                         ?>
 
@@ -100,7 +106,7 @@ function echoNavSelect($nav)
                     <label>
                         链接
                     </label>
-                    <input type="text" class="form-control" name="FormNav[link]">
+                    <input type="text" id="formNav-link" class="form-control" name="FormNav[link]">
                 </div>
 
 
@@ -114,6 +120,8 @@ function echoNavSelect($nav)
 </div>
 <script>
     var parentId = <?php echo $model->attributes['parentId'] ?>;
+    var link = "<?php echo $model->attributes['link'] ?>";
+    var navigationRel = "<?php echo $model->attributes['navigationRel']; ?>";
 
     function changeNavType(navType) {
         if (navType == 'link') {
@@ -131,6 +139,15 @@ function echoNavSelect($nav)
         changeNavType(navigationType);
 
         $("select[id=formParentId]").val(parentId);
+
+        if(link!=''){
+            $("#formNav-link").val(link);
+        }
+
+        if(navigationRel!=''){
+            $("#navigationRel").find("option:contains('"+navigationRel+"')").attr("selected", true);
+
+        }
 
     });
 </script>
