@@ -82,6 +82,23 @@ $this->title = '片段设置';
                                         </td>
                                     </tr>
                                     <?php
+                                }else if($val['editor']=='select'){
+                                    ?>
+                                    <tr>
+                                        <td class="table-label"><strong><?php echo $val['title']; ?></strong></td>
+                                        <td>
+                                            <select class="form-control fragmentProperties" editor="<?php echo $val['editor']; ?>" name="<?php echo $key; ?>" >
+                                                <?php
+                                                foreach ($val['selectData'] as $key =>$val){
+                                                    ?>
+                                                    <option value="<?php echo $key; ?>"><?php echo $val; ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <?php
                                 }
                             }
                             ?>
@@ -185,6 +202,10 @@ $this->title = '片段设置';
                 widgetList["properties-"+propobject['pname']].setValue(propobject['pvalue']);
             }else if(propobject['editor']=='text'){
                 $("input[name="+propobject['pname']+"]").val(propobject['pvalue']);
+            }else if(propobject['editor']=='image'){
+                $("input[name="+propobject['pname']+"]").val(propobject['pvalue']);
+            }else if(propobject['editor']=='select'){
+                $("select[name="+propobject['pname']+"]").find("option[value="+propobject['pvalue']+"]").attr("selected", true);
             }
         }
 

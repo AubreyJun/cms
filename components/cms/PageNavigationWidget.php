@@ -14,6 +14,14 @@ class PageNavigationWidget extends BasicWidget
         'logo' => array(
             'title' => 'LOGO图片',
             'editor' => 'image'
+        ),
+        'style' => array(
+            'title' => '样式',
+            'editor' => 'select',
+            'selectData'=>array(
+                'classic'=>'经典',
+                'flat'=>'扁平'
+            )
         )
     );
 
