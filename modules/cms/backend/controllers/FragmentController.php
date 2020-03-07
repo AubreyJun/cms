@@ -87,7 +87,7 @@ ORDER BY
 
         $this->data['fragmentType'] = $fragmentType;
 
-        return $this->render("edit", $this->data);
+        return $this->render('widget/'.$fragmentType, $this->data);
     }
 
     public function actionCopyconfig($fragmentId, $id)
