@@ -33,7 +33,7 @@ $layoutRows = $this->context->query("select * from cms_theme_fragment t where t.
                 </div>
                 <?= $form->field($model, 'fragmentType')->textInput()->label(false)->hiddenInput(['value' => $model->fragmentType]) ?>
                 <?= $form->field($model, 'fragmentName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
-
+                <input type="hidden" name="FormFragment[properties]" id="fragment-properties" value="">
                 <div class=" mb-3" id="page-properties">
                     <label class="control-label" >属性设置</label>
                     <table class="table table-bordered">
@@ -43,7 +43,7 @@ $layoutRows = $this->context->query("select * from cms_theme_fragment t where t.
                                     <strong>容器类型</strong>
                                 </td>
                                 <td>
-                                    <select class="form-control">
+                                    <select class="form-control" name="container">
                                         <option class="container">容器（Container）</option>
                                     </select>
                                 </td>
@@ -74,7 +74,7 @@ $layoutRows = $this->context->query("select * from cms_theme_fragment t where t.
                                     <table class="table table-label table-widget" style="width: 100%;" id="table-info">
                                         <thead>
                                         <td>行布局</td>
-                                        <td><i class="fa fa-plus-circle fa-lg text-success" onclick="addWidget()"></i></td>
+                                        <td style="width: 40% !important;"><i class="fa fa-plus-circle fa-lg text-success" onclick="addWidget()"></i></td>
                                         </thead>
                                         <tbody></tbody>
                                     </table>
@@ -94,7 +94,7 @@ $layoutRows = $this->context->query("select * from cms_theme_fragment t where t.
                         <tbody>
                         <tr>
                             <td>
-                                <select class="form-control">
+                                <select class="form-control" name="row">
                                     <?php
                                     foreach ($layoutRows as $row){
                                         ?>
@@ -120,7 +120,89 @@ $layoutRows = $this->context->query("select * from cms_theme_fragment t where t.
     </div>
 </div>
 <script>
+
+    var propList = <?php echo $model->attributes['properties']; ?>;
+
+    $(function () {
+        $('#from-edit').on('beforeSubmit', function (e) {
+            //设置内容
+
+            var items = Array();
+            var trs = $("#table-info tbody tr");
+            if (trs.length > 0) {
+                for (var i = 0; i < trs.length; i++) {
+                    var widget = $(trs[i]).find("select[name=row]").val();
+                    items.push(widget);
+                }
+            }
+
+            var container = $("select[name=container]").val();
+            var cssStyle = $("input[name=cssStyle]").val();
+            var customStyle = $("input[name=customStyle]").val();
+
+            var propObject = {
+                'container':container,
+                'cssStyle':cssStyle,
+                'customStyle':customStyle,
+                'items':items
+            };
+
+            var jsonStr = JSON.stringify(propObject);
+            $("#fragment-properties").val(jsonStr);
+        });
+
+        loadProperties();
+    });
+
+    function loadProperties() {
+        if(propList.length!=0){
+            $("input[name=container]").val(propList['container']);
+            $("input[name=cssStyle]").val(propList['cssStyle']);
+            $("input[name=customStyle]").val(propList['customStyle']);
+            var items = propList['items'];
+            if(items.length>0){
+                for(var i=0;i<items.length;i++){
+                    addLoadWidget(items[i]);
+                }
+            }
+        }
+    }
+
     function addWidget() {
-        
+        var demotr = $("#table-list-demo tbody tr:first");
+        $("#table-info tbody").append(demotr.clone());
+        bindEvent();
+    }
+
+    function addLoadWidget(widgetId) {
+        var demotr = $("#table-list-demo tbody tr:first");
+        var clone = demotr.clone();
+        $(clone).find("select[name=row]").find("option[value="+widgetId+"]").attr("selected", true);
+        $("#table-info tbody").append(clone);
+        bindEvent();
+    }
+
+    function bindEvent() {
+        $(".table-widget tbody .tool-delete").unbind("click");
+        $(".table-widget tbody .tool-up").unbind("click");
+        $(".table-widget tbody .tool-down").unbind("click");
+
+        $(".table-widget tbody .tool-delete").bind("click", function () {
+            $(this).closest("tr").remove();
+        });
+        $(".table-widget tbody .tool-up").bind("click", function () {
+            var prevTr = $(this).closest("tr").prev("tr");
+            var currentTr = $(this).closest("tr");
+            if (prevTr) {
+                prevTr.before(currentTr);
+            }
+        });
+        $(".table-widget tbody .tool-down").bind("click", function () {
+            var nextTr = $(this).closest("tr").next("tr");
+            var currentTr = $(this).closest("tr");
+            if (nextTr) {
+                nextTr.after(currentTr);
+            }
+        });
     }
 </script>

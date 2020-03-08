@@ -51,13 +51,15 @@ $this->title = '幻灯片';
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <table class="table table-label table-widget" style="width: 100%;" id="table-slider">
+                                            <table class="table table-label table-widget" style="width: 100%;"
+                                                   id="table-slider">
                                                 <thead>
                                                 <td>图片</td>
                                                 <td>标题</td>
                                                 <td>链接</td>
                                                 <td>描述</td>
-                                                <td><i class="fa fa-plus-circle fa-lg text-success" onclick="addWidget()"></i></td>
+                                                <td><i class="fa fa-plus-circle fa-lg text-success"
+                                                       onclick="addWidget()"></i></td>
                                                 </thead>
                                                 <tbody></tbody>
                                             </table>
@@ -114,15 +116,15 @@ $this->title = '幻灯片';
     var propList = <?php echo $model->attributes['properties']; ?>;
     var editor = null;
 
-        $(function () {
+    $(function () {
 
         $('#from-edit').on('beforeSubmit', function (e) {
             //设置内容
 
             var propObject = Array();
             var trs = $("#table-slider tbody tr");
-            if(trs.length>0){
-                for(var i=0;i<trs.length;i++){
+            if (trs.length > 0) {
+                for (var i = 0; i < trs.length; i++) {
 
                     var image = $(trs[i]).find("input[name=image]").val();
                     var title = $(trs[i]).find("input[name=title]").val();
@@ -130,10 +132,10 @@ $this->title = '幻灯片';
                     var description = $(trs[i]).find("input[name=description]").val();
 
                     propObject.push({
-                        'image':image,
-                        'title':title,
-                        'link':link,
-                        'description':description
+                        'image': image,
+                        'title': title,
+                        'link': link,
+                        'description': description
                     });
                 }
             }
@@ -145,30 +147,26 @@ $this->title = '幻灯片';
 
         loadProperties();
 
-/*        if($("#table-slider tbody").find("tr").length==0){
-            addWidget();
-        }*/
-
-
     });
 
-    KindEditor.ready(function(K) {
+    KindEditor.ready(function (K) {
         editor = K.editor({
-            allowFileManager : true,
-            fileManagerJson : 'static/backend/lib/kindeditor/php/file_manager_json.php'
+            allowFileManager: true,
+            fileManagerJson: 'static/backend/lib/kindeditor/php/file_manager_json.php'
         });
     });
 
     function bindFileSelect() {
         $('.fileSelect').unbind("click");
-        $('.fileSelect').click(function() {
+        $('.fileSelect').click(function () {
             var obj = $(this);
-            editor.loadPlugin('insertfile', function() {
+            editor.loadPlugin('insertfile', function () {
                 editor.plugin.fileDialog({
-                    fileUrl : $(obj).val(),
-                    clickFn : function(url, title) {
+                    fileUrl: $(obj).val(),
+                    clickFn: function (url, title) {
 
-                        $(obj).val(url);;
+                        $(obj).val(url);
+                        ;
                         editor.hideDialog();
                     }
                 });
@@ -209,8 +207,7 @@ $this->title = '幻灯片';
     }
 
     function loadProperties() {
-        debugger;
-        for(var i=0;i<propList.length;i++){
+        for (var i = 0; i < propList.length; i++) {
             var demotr = $("#table-slider-demo tbody tr:first");
             var democlone = demotr.clone();
             $(democlone).find("input[name=image]").val(propList[i]['image']);
