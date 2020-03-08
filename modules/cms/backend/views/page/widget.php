@@ -5,6 +5,7 @@ $widgetJsonObject = null;
 if ($widgetJson!=null && $widgetJson!='') {
     $widgetJsonObject = json_decode($widgetJson, true);
 }
+
 ?>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -36,81 +37,50 @@ if ($widgetJson!=null && $widgetJson!='') {
                         <thead>
                         <tr>
                             <td class="text-center">
-                                片段
+                                组件类型
                             </td>
-                            <td width="40%">
+                            <td class="text-center">
+                                组件
+                            </td>
+                            <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success"
                                    onclick="addWidget()"></i>
                             </td>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        if($widgetJsonObject!=null){
-                            foreach ($widgetJsonObject as $widgetId) {
-                                ?>
-                                <tr>
-                                    <td>
-                                        <select class="form-control">
-                                            <?php
-                                            foreach ($fragmentList as $fragment) {
-                                                ?>
-                                                <optgroup label="<?php echo $fragment['type']['optionDesc']; ?>">
-                                                    <?php
-                                                    foreach ($fragment['list'] as $item) {
-                                                        if ($widgetId == $item['id']) {
-                                                            ?>
-                                                            <option selected="selected"
-                                                                    value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <option value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </optgroup>
-                                                <?php
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
-                                        <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
-                                        <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
-                                    </td>
-                                </tr>
-                                <?php
-                            }
-                        }
-                        ?>
                         </tbody>
                     </table>
                 </div>
 
                 <div style="display: none;">
-                    <table class="table table-bordered " id="table-fragment-demo">
+                    <table class="table table-bordered " id="table-list-demo">
                         <tbody>
                         <tr>
                             <td>
-                                <select class="form-control">
-                                    <?php
-                                    foreach ($fragmentList as $fragment) {
-                                        ?>
-                                        <optgroup label="<?php echo $fragment['type']['optionDesc']; ?>">
-                                            <?php
-                                            foreach ($fragment['list'] as $item) {
-                                                ?>
-                                                <option value="<?php echo $item['id']; ?>"><?php echo $item['fragmentName']; ?></option>
-                                                <?php
-                                            }
-                                            ?>
-                                        </optgroup>
+                                <select class="form-control" name="widgetType" onchange="loadWidgetIds(this.value,this)" >
+                                    <optgroup label="布局">
                                         <?php
-                                    }
-                                    ?>
+                                        foreach ($layouts as $layout){
+                                            ?>
+                                            <option value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </optgroup>
+                                    <optgroup label="组件">
+                                        <?php
+                                        foreach ($widgets as $widget){
+                                            ?>
+                                            <option  value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </optgroup>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="widgetId">
                                 </select>
                             </td>
                             <td>
@@ -128,14 +98,84 @@ if ($widgetJson!=null && $widgetJson!='') {
     </div>
 </div>
 <script>
-    $(function () {
 
+    var widgetJson = <?php echo $widgetJson; ?>;
+
+    $(function () {
+        loadProperties();
     });
 
-    function addWidget(widgetTable) {
-        var demotr = $("#table-fragment-demo tbody tr:first");
-        $("#page-widget tbody").append(demotr.clone());
-        bindEvent();
+    function loadProperties() {
+        if(widgetJson.length!=0){
+            for(var i=0;i<widgetJson.length;i++){
+                addLoadWidget(widgetJson[i]);
+            }
+        }
+    }
+
+    function addLoadWidget(widget) {
+        var demotr = $("#table-list-demo tbody tr:first");
+        var clone = demotr.clone();
+        $(clone).find("select[name=widgetType]").val(widget['widgetType']);
+        $.post('index.php?r=cms-backend/page/getwidget',{
+            "widgetType":widget['widgetType'],
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
+        },function (data) {
+            if(data.length>0){
+
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                }
+                $(clone).find("select[name=widgetId]").html(html);
+            }else{
+                $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
+            }
+            $("#page-widget tbody").append(clone);
+            bindEvent();
+        },'json');
+    }
+
+    function addWidget() {
+        var demotr = $("#table-list-demo tbody tr:first");
+        var clone = demotr.clone();
+        var widgetType = $(clone).find("select[name=widgetType]").val();
+
+        $.post('index.php?r=cms-backend/page/getwidget',{
+            "widgetType":widgetType,
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
+        },function (data) {
+            if(data.length>0){
+
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                }
+                $(clone).find("select[name=widgetId]").html(html);
+            }else{
+                $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
+            }
+            $("#page-widget tbody").append(clone);
+            bindEvent();
+        },'json');
+    }
+
+    function loadWidgetIds(widgetType,object) {
+        $.post('index.php?r=cms-backend/page/getwidget',{
+            "widgetType":widgetType,
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
+        },function (data) {
+            if(data.length>0){
+
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                }
+                $(object).closest("tr").find("select[name=widgetId]").html(html);
+            }else{
+                $(object).closest("tr").find("select[name=widgetId]").html("<option value='0'>无</option>");
+            }
+        },'json');
     }
 
     function bindEvent() {
@@ -164,13 +204,18 @@ if ($widgetJson!=null && $widgetJson!='') {
 
     function saveWidget() {
         //获取widgetLayout
-        var tableWidgets = $(".table-widget");
+        var trs = $("#page-widget tbody tr");
 
         var widgets = new Array();
-        var selects = $(tableWidgets[0]).find("select");
-        for (var j = 0; j < selects.length; j++) {
-            var value = $(selects[j]).val();
-            widgets.push(value);
+        if(trs.length>0){
+            for (var j = 0; j < trs.length; j++) {
+                var widgetType = $(trs[j]).find("select[name=widgetType]").val();
+                var widgetId = $(trs[j]).find("select[name=widgetId]").val();
+                widgets.push({
+                    'widgetType':widgetType,
+                    'widgetId':widgetId
+                });
+            }
         }
 
         var widgetsJSON = JSON.stringify(widgets);

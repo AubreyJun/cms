@@ -34,7 +34,7 @@ function echoTr($navgation, $level)
                 <td>
                     <a class="text-primary mr-1"
                        href="index.php?r=cms-backend/navigation/update&id=<?php echo $child['object']['id']; ?>">
-                        <i class="fa fa-pencil-square-o fa-lg"></i>
+                        <i class="fa fa-pencil fa-lg"></i>
                     </a>
                     <a class="text-danger"
                        href="index.php?r=cms-backend/navigation/delete&id=<?php echo $child['object']['id']; ?>">

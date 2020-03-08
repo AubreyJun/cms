@@ -154,6 +154,30 @@ ORDER BY
         $this->data['fragmentKV'] = $fragmentKV;
         $this->data['fragmentList'] = $fragmentList;
 
+        $layouts = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'layout' ) 
+ORDER BY
+	t.sequencenumber ASC")
+            ->queryAll();
+
+        $this->data['layouts'] = $layouts;
+
+        $widgets = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'widget' ) 
+ORDER BY
+	t.sequencenumber ASC")
+            ->queryAll();
+
+        $this->data['widgets'] = $widgets;
+
         return $this->render('widget',$this->data);
     }
 
@@ -208,6 +232,17 @@ ORDER BY
             return $this->actionIndex($page['pageType']);
         }
         return $this->actionIndex();
+    }
+
+    public function actionGetwidget(){
+        $widgetType = $_REQUEST['widgetType'];
+
+        $widgetList = $this->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
+            ->bindParam(":fragmentType",$widgetType)
+            ->bindParam(":themeId",$this->data['editThemeId'])
+            ->queryAll();
+
+        return json_encode($widgetList);
     }
 
 }
