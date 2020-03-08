@@ -115,7 +115,9 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
         eval($evalStr);
         $this->data['editorMapping'] = $editorMapping;
 
-        return $this->render('edit', $this->data);
+        $fragmentType = $fragment['fragmentType'];
+
+        return $this->render('widget/'.$fragmentType, $this->data);
     }
 
     public function actionEdit()
