@@ -8,10 +8,16 @@ use yii\widgets\ActiveForm;
 $this->title = '栅格设置';
 $editThemeId = $this->context->data['editThemeId'];
 $widgetSelect = $this->context->query("select * from cms_select where selectName = 'widget'")->queryOne();
-$widgets = $this->context->query("select * from cms_theme_fragment t where t.fragmentType in (select optionvalue from cms_select_options 
-where selectId = :selectId) and t.themeId = :themeId")
-    ->bindParam(":selectId",$widgetSelect['id'])
-    ->bindParam(":themeId",$editThemeId)->queryAll();
+
+$widgetTypes = $this->context->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'widget' ) 
+ORDER BY
+	t.sequencenumber ASC")
+    ->queryAll();
 
 
 ?>
@@ -76,6 +82,7 @@ where selectId = :selectId) and t.themeId = :themeId")
                             <td colspan="2">
                                 <table class="table table-label table-widget" style="width: 100%;" id="table-info">
                                     <thead>
+                                    <td>组件类型</td>
                                     <td>内容</td>
                                     <td><i class="fa fa-plus-circle fa-lg text-success" onclick="addWidget()"></i></td>
                                     </thead>
@@ -97,14 +104,18 @@ where selectId = :selectId) and t.themeId = :themeId")
                         <tbody>
                         <tr>
                             <td>
-                                <select class="form-control" name="widget">
+                                <select class="form-control" name="widgetType"  onchange="loadWidgetIds(this.value,this)" >
                                     <?php
-                                    foreach ($widgets as $widget){
+                                    foreach ($widgetTypes as $widgetType){
                                         ?>
-                                        <option value="<?php echo $widget['id']; ?>"><?php echo $widget['fragmentName']; ?></option>
+                                        <option value="<?php echo $widgetType['optionValue']; ?>"><?php echo $widgetType['optionDesc']; ?></option>
                                         <?php
                                     }
                                     ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="widgetId">
                                 </select>
                             </td>
                             <td>
@@ -134,8 +145,12 @@ where selectId = :selectId) and t.themeId = :themeId")
             var trs = $("#table-info tbody tr");
             if (trs.length > 0) {
                 for (var i = 0; i < trs.length; i++) {
-                    var widget = $(trs[i]).find("select[name=widget]").val();
-                    items.push(widget);
+                    var widgetType = $(trs[i]).find("select[name=widgetType]").val();
+                    var widgetId = $(trs[i]).find("select[name=widgetId]").val();
+                    items.push({
+                        'widgetType':widgetType,
+                        'widgetId':widgetId
+                    });
                 }
             }
 
@@ -171,20 +186,79 @@ where selectId = :selectId) and t.themeId = :themeId")
         }
     }
 
+    function loadWidgetIds(widgetType,object) {
+        $.post('index.php?r=cms-backend/page/getwidget',{
+            "widgetType":widgetType,
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
+        },function (data) {
+            if(data.length>0){
+
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                }
+                $(object).closest("tr").find("select[name=widgetId]").html(html);
+            }else{
+                $(object).closest("tr").find("select[name=widgetId]").html("<option value='0'>无</option>");
+            }
+        },'json');
+    }
+
 
     function addWidget() {
         var demotr = $("#table-list-demo tbody tr:first");
-        $("#table-info tbody").append(demotr.clone());
-        bindEvent();
+        var clone = demotr.clone();
+        var widgetType = $(clone).find("select[name=widgetType]").val();
+
+        $.post('index.php?r=cms-backend/page/getwidget',{
+            "widgetType":widgetType,
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
+        },function (data) {
+            if(data.length>0){
+
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                }
+                $(clone).find("select[name=widgetId]").html(html);
+            }else{
+                $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
+            }
+            $("#table-info tbody").append(clone);
+            bindEvent();
+        },'json');
     }
 
-    function addLoadWidget(widgetId) {
+    function addLoadWidget(widget) {
+        var demotr = $("#table-list-demo tbody tr:first");
+        var clone = demotr.clone();
+        $(clone).find("select[name=widgetType]").val(widget['widgetType']);
+        $.post('index.php?r=cms-backend/page/getwidget',{
+            "widgetType":widget['widgetType'],
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
+        },function (data) {
+            if(data.length>0){
+
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                }
+                $(clone).find("select[name=widgetId]").html(html);
+            }else{
+                $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
+            }
+            $("#table-info tbody").append(clone);
+            bindEvent();
+        },'json');
+    }
+
+/*    function addLoadWidget(widgetId) {
         var demotr = $("#table-list-demo tbody tr:first");
         var clone = demotr.clone();
         $(clone).find("select[name=widget]").find("option[value="+widgetId+"]").attr("selected", true);
         $("#table-info tbody").append(clone);
         bindEvent();
-    }
+    }*/
 
     function bindEvent() {
         $(".table-widget tbody .tool-delete").unbind("click");

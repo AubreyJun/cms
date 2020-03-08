@@ -26,6 +26,14 @@ class LayoutColumnWidget extends BasicWidget
         parent::init();
     }
 
+    public function run()
+    {
+
+        $this->data['fragment'] = $fragment;
+
+        return $this->render("layoutColumn", $this->data);
+
+    }
 
 
 
