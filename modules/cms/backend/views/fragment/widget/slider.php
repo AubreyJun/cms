@@ -26,9 +26,8 @@ $this->title = '幻灯片';
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
                 <div class="form-group field-formfragment-fragmentname required">
                     <label class="control-label" for="formfragment-fragmentname">片段类型</label>
-                    <input type="text" class="form-control" value="<?php echo $fragmentKV[$model->fragmentType]; ?>"
+                    <input type="text" class="form-control" value="<?php echo $fragment['optionDesc']; ?>"
                            readonly="readonly">
-
                     <div class="error mt-2 text-danger"></div>
                 </div>
                 <?= $form->field($model, 'fragmentType')->textInput()->label(false)->hiddenInput(['value' => $model->fragmentType]) ?>

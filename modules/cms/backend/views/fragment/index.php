@@ -12,21 +12,36 @@
                             <div class="form-group mr-2">
                                 <select class="form-control form-control-sm" style="padding: 3px;" name="fragmentType"
                                         onchange="changeType(this.value)">
-                                    <?php
-                                    foreach ($fragmentType as $ptype) {
-                                        if ($current == $ptype['optionValue']) {
-                                            ?>
-                                            <option selected="selected"
-                                                    value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <option value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
-                                            <?php
+                                    <optgroup label="布局">
+                                        <?php
+                                        foreach ($layouts as $layout){
+                                            if($current ==  $layout['optionValue']){
+                                                ?>
+                                                <option selected="selected" value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <option value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
+                                                <?php
+                                            }
                                         }
-
-                                    }
-                                    ?>
+                                        ?>
+                                    </optgroup>
+                                    <optgroup label="组件">
+                                        <?php
+                                        foreach ($widgets as $widget){
+                                            if($current ==  $widget['optionValue']){
+                                                ?>
+                                                <option selected="selected" value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <option  value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </optgroup>
                                 </select>
                             </div>
                             <div class="form-group ">

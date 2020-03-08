@@ -36,10 +36,33 @@ ORDER BY
         }
         $this->data['fragmentKV'] = $fragmentKV;
 
-        if($fragmentType==null){
-            $fragmentType = $this->data['fragmentType'][0]['optionValue'];
-        }
+        $layouts = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'layout' ) 
+ORDER BY
+	t.sequencenumber ASC")
+            ->queryAll();
 
+        $this->data['layouts'] = $layouts;
+
+        $widgets = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'widget' ) 
+ORDER BY
+	t.sequencenumber ASC")
+            ->queryAll();
+
+        $this->data['widgets'] = $widgets;
+
+        if($fragmentType==null){
+            $fragmentType = $layouts[0]['optionValue'];
+        }
         $this->data['current'] = $fragmentType;
 
         $fragmentList = $this->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
@@ -67,6 +90,9 @@ ORDER BY
             $fragmentKV[$item['optionValue']] = $item['optionDesc'];
         }
         $this->data['fragmentKV'] = $fragmentKV;
+
+
+
     }
 
     public function actionAdd($fragmentType)
@@ -86,6 +112,10 @@ ORDER BY
         $this->data['model'] = $model;
 
         $this->data['fragmentType'] = $fragmentType;
+
+        $this->data['fragment'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
+            ->bindParam(":fragmentType",$fragmentType)
+            ->queryOne();
 
         return $this->render('widget/'.$fragmentType, $this->data);
     }
@@ -116,6 +146,10 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
         $this->data['editorMapping'] = $editorMapping;
 
         $fragmentType = $fragment['fragmentType'];
+
+        $this->data['fragment'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
+            ->bindParam(":fragmentType",$fragmentType)
+            ->queryOne();
 
         return $this->render('widget/'.$fragmentType, $this->data);
     }
