@@ -9,6 +9,7 @@
 namespace app\components\cms;
 
 
+use app\models\cms\Fragment;
 use yii\base\Widget;
 
 class LayoutColumnWidget extends BasicWidget
@@ -29,7 +30,11 @@ class LayoutColumnWidget extends BasicWidget
     public function run()
     {
 
-        $this->data['fragment'] = $fragment;
+        if($this->id!=null){
+            $this->fragment = Fragment::findOne($this->id);
+        }
+        $this->data['fragment'] = $this->fragment;
+        $this->data['context'] = $this->context;
 
         return $this->render("layoutColumn", $this->data);
 

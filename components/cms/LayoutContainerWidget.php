@@ -9,6 +9,7 @@
 namespace app\components\cms;
 
 
+use app\models\cms\Fragment;
 use yii\base\Widget;
 
 class LayoutContainerWidget extends BasicWidget
@@ -16,6 +17,7 @@ class LayoutContainerWidget extends BasicWidget
 
     public $fragment;
     public $context;
+    public $id;
     private $data = array();
 
     public static $editorMapping = array(
@@ -27,6 +29,17 @@ class LayoutContainerWidget extends BasicWidget
     }
 
 
+    public function run()
+    {
 
+        if($this->id!=null){
+            $this->fragment = Fragment::findOne($this->id);
+        }
+        $this->data['fragment'] = $this->fragment;
+        $this->data['context'] = $this->context;
+
+        return $this->render("layoutContainer", $this->data);
+
+    }
 
 }

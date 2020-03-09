@@ -4,6 +4,8 @@ $widgetJson = $page['widgetjson'];
 $widgetJsonObject = null;
 if ($widgetJson!=null && $widgetJson!='') {
     $widgetJsonObject = json_decode($widgetJson, true);
+}else{
+    $widgetJson = '[]';
 }
 
 ?>

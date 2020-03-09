@@ -173,6 +173,7 @@ ORDER BY
     });
 
     function loadProperties() {
+        $.ajaxSettings.async = false;
         if(propList.length!=0){
             $("input[name=gridWidth]").val(propList['gridWidth']);
             $("input[name=cssStyle]").val(propList['cssStyle']);
@@ -247,6 +248,7 @@ ORDER BY
             }else{
                 $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
             }
+            $(clone).find("select[name=widgetId]").find("option[value="+widget['widgetId']+"]").attr("selected",true);
             $("#table-info tbody").append(clone);
             bindEvent();
         },'json');

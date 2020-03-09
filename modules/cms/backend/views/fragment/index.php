@@ -57,8 +57,7 @@
                     foreach ($fragmentList as $item) {
                         ?>
                         <tr>
-                            <td width="40%">&lt;?php echo <?php echo ucfirst($item['fragmentType']); ?>
-                                Widget::widget(['id' => <?php echo $item['id']; ?>,'context'=>$this->context]);?&gt;
+                            <td width="40%">&lt;?php echo <?php echo ucfirst($item['fragmentType']); ?>Widget::widget(['id' => <?php echo $item['id']; ?>,'context'=>$this->context]);?&gt;
                             </td>
                             <td><?php echo $item['fragmentName']; ?></td>
                             <td width="20%">

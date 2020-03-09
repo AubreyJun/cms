@@ -3,6 +3,6 @@
 return [
     'demo'=>'true',
     'themeids'=>array(
-        'dev.biz.cms.cn'=>'basic'
+        'dev.biz.cms.cn'=>'guanggao_1'
     )
 ];

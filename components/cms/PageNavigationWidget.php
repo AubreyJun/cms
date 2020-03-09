@@ -4,23 +4,33 @@
 namespace app\components\cms;
 
 
+use app\models\cms\Fragment;
+
 class PageNavigationWidget extends BasicWidget
 {
     public $fragment;
+    public $id;
     public $context;
     private $data = array();
 
     public static $editorMapping = array(
-        'logo' => array(
-            'title' => 'LOGO图片',
+        'logo1' => array(
+            'title' => 'LOGO(1)图片',
             'editor' => 'image'
+        ),
+        'logo2' => array(
+            'title' => 'LOGO(2)图片',
+            'editor' => 'image'
+        ),
+        'title' => array(
+            'title' => '标题',
+            'editor' => 'text'
         ),
         'style' => array(
             'title' => '样式',
             'editor' => 'select',
             'selectData'=>array(
-                'classic'=>'经典',
-                'flat'=>'扁平'
+                'common'=>'通用'
             )
         )
     );
@@ -32,12 +42,98 @@ class PageNavigationWidget extends BasicWidget
 
     public function run()
     {
-        $properties = json_decode($this->fragment['properties'], true);
-        foreach ($properties as $property) {
+
+        if($this->id!=null){
+            $this->fragment = Fragment::findOne($this->id);
+        }
+
+        $properties = json_decode($this->fragment['properties'],true);
+        foreach ($properties as $property){
             $this->data[$property['pname']] = $property;
         }
 
-        return $this->render("pagepiece", $this->data);
+        $this->data['navgation'] = $this->getNavgation('navigation',$this->context->defaultTheme['id']);
+
+        return $this->render("pageNavigation", $this->data);
 
     }
+
+    public function getNavgation($catalogType,$themeId){
+
+        $navgation = array();
+
+        $topNavgation = $this->context->query("SELECT
+	cc.*,
+	( SELECT count( * ) FROM cms_catalog WHERE parentId = cc.id ) cld 
+FROM
+	cms_catalog cc 
+WHERE
+	parentid = 0 
+	AND deleted = 0 
+	and themeId = :themeId and catalogType = :catalogType
+ORDER BY
+	sequencenumber ASC")
+            ->bindParam(":themeId",$themeId)
+            ->bindParam(":catalogType",$catalogType)
+            ->queryAll();
+        $level = 1;
+        foreach ($topNavgation as $item){
+            if($item['cld']>0){
+                $children = $this->getNavgationChildren($item['id'],$level,$catalogType);
+                $navgation[] = array(
+                    'object'=>$item,
+                    'children'=>$children,
+                    'level'=>$level
+                );
+            }else{
+                $navgation[] = array(
+                    'object'=>$item,
+                    'level'=>$level
+                );
+            }
+        }
+
+        return $navgation;
+    }
+
+    private function getNavgationChildren($itemId,$level,$catalogType){
+        $level ++;
+
+        $childrenArray = array();
+
+        $children = $this->context->query("SELECT
+	cc.*,
+	( SELECT count( * ) FROM cms_catalog WHERE parentId = cc.id ) cld 
+FROM
+	cms_catalog cc 
+WHERE
+	parentid = :parentId  and catalogType = :catalogType
+	AND deleted = 0 
+ORDER BY
+	sequencenumber ASC")
+            ->bindParam(":parentId",$itemId)
+            ->bindParam(":catalogType",$catalogType)
+            ->queryAll();
+
+        foreach ($children as $child){
+            if($child['cld']>0){
+                $childrenSub = $this->getNavgationChildren($child['id'],$level,$catalogType);
+                $childrenArray[] = array(
+                    'object'=>$child,
+                    'children'=>$childrenSub,
+                    'level'=>$level
+                );
+            }else{
+                $childrenArray[] = array(
+                    'object'=>$child,
+                    'level'=>$level
+                );
+            }
+        }
+
+        return $childrenArray;
+
+    }
+
+
 }

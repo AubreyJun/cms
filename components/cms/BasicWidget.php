@@ -9,6 +9,7 @@
 namespace app\components\cms;
 
 
+use app\models\cms\Fragment;
 use Yii;
 use yii\base\Widget;
 
@@ -22,5 +23,6 @@ class BasicWidget extends Widget
             ->queryOne();
         return $fragment;
     }
+
 
 }
