@@ -50,7 +50,7 @@ ORDER BY
         }
         $this->data['contentType_select'] = $contentType_select;
 
-        $this->data['navgation'] = $this->getNavgation($this->data['defaultThemeId']);
+        $this->data['navgation'] = $this->getNavgation('cms');
     }
 
 

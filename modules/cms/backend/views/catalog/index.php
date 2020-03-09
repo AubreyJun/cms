@@ -71,7 +71,7 @@ function echoTr($navgation, $level)
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th width="5%" class="text-center">ID</th>
+                        <th width="10%" class="text-center">ID</th>
                         <th>标题</th>
                         <th>排序</th>
                         <th width="10%">操作</th>
