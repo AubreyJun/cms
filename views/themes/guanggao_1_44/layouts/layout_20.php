@@ -42,11 +42,7 @@ use app\components\cms\PageNavigationWidget;
 
     </header>
 
-    <!-- Site Content
-    ============================================= -->
-    <section id="content">
-        <?php echo $content ?>
-    </section>
+    <?php echo $content ?>
 
     <footer id="footer" class="dark mt-lg-3">
 

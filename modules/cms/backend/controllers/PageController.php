@@ -91,10 +91,6 @@ ORDER BY
                 }else{
                     $page = Page::findOne($model->attributes['id']);
 
-                    if($page->layout != $model->layout){
-                        $page->widgetjson = null;
-                    }
-
                     $page->setAttributes($model->attributes,false);
                     $page->save();
                     if($page['isDefault']==1){
