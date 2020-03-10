@@ -12,7 +12,7 @@ namespace app\components\cms;
 use app\models\cms\Fragment;
 use yii\base\Widget;
 
-class ImageBlockWidget extends BasicWidget
+class ContentBlockWidget extends BasicWidget
 {
     public $fragment;
     public $context;
@@ -35,13 +35,9 @@ class ImageBlockWidget extends BasicWidget
         }
         $this->data['fragment'] = $this->fragment;
 
-        $properties = json_decode($this->fragment['properties'], true);
-        foreach ($properties as $property) {
-            $this->data[$property['pname']] = $property;
-        }
         $this->data['context'] = $this->context;
 
-        return $this->render("imageBlock", $this->data);
+        return $this->render("contentBlock", $this->data);
 
     }
 }

@@ -1,4 +1,6 @@
 <?php
+
+use app\components\cms\LayoutContainerWidget;
 use app\components\cms\PageNavigationWidget;
 
 ?>
@@ -32,10 +34,10 @@ use app\components\cms\PageNavigationWidget;
 
     <!-- Header
     ============================================= -->
-    <header id="header" >
+    <header id="header">
 
         <div id="header-wrap">
-            <?php echo PageNavigationWidget::widget(['id' => 37,'context'=>$this->context]);?>
+            <?php echo PageNavigationWidget::widget(['id' => 37, 'context' => $this->context]); ?>
         </div>
 
     </header>
@@ -43,34 +45,21 @@ use app\components\cms\PageNavigationWidget;
     <!-- Site Content
     ============================================= -->
     <section id="content">
-
         <?php echo $content ?>
-
     </section>
 
-    <!-- Footer
-    ============================================= -->
-    <footer id="footer" class="dark">
-
-        <div class="container">
-
-            ...
-
-        </div>
+    <footer id="footer" class="dark mt-lg-3">
 
         <!-- Copyrights
         ============================================= -->
         <div id="copyrights">
 
-            <div class="container clearfix">
+            <?php echo LayoutContainerWidget::widget(['id' => 56,'context'=>$this->context]);?>
 
-                ...
-
-            </div>
-
-        </div>
+        </div><!-- #copyrights end -->
 
     </footer>
+
 
 </div>
 

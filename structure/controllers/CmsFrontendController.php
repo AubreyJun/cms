@@ -271,12 +271,13 @@ ORDER BY
     }
 
 
-    public function getRecentPost($postType, $size)
+    public function getRecentPost($postType, $catalogId,$size)
     {
         $list = array();
 
-        $articles = $this->query("select * from cms_post where postType = :postType and `status` = 'online' order by id desc  limit 0,:size")
+        $articles = $this->query("select * from cms_post where postType = :postType and `status` = 'online' and catalogId = :catalogId order by id desc  limit 0,:size")
             ->bindParam(":postType", $postType)
+            ->bindParam(":catalogId", $catalogId)
             ->bindParam(":size", $size)
             ->queryAll();
         foreach ($articles as $article) {

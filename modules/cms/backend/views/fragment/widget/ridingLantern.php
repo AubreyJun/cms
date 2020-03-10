@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 
-$this->title = '图标盒子';
+$this->title = '走马灯';
 
 ?>
 <style>
@@ -20,7 +20,7 @@ $this->title = '图标盒子';
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">图标盒子</h4>
+                <h4 class="card-title">走马灯</h4>
                 <?php $form = ActiveForm::begin(['id' => 'from-edit']); ?>
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
@@ -28,44 +28,30 @@ $this->title = '图标盒子';
                     <label class="control-label" for="formfragment-fragmentname">片段类型</label>
                     <input type="text" class="form-control" value="<?php echo $fragmentType['optionDesc']; ?>"
                            readonly="readonly">
-                    <div class="error mt-2 text-danger"></div>
                 </div>
                 <?= $form->field($model, 'fragmentType')->textInput()->label(false)->hiddenInput(['value' => $model->fragmentType]) ?>
                 <?= $form->field($model, 'fragmentName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
 
 
-                <div class="mb-3">
-                    <input type="hidden" name="FormFragment[properties]" id="fragment-properties" value="">
-
-                    <label class="control-label" >属性设置</label>
+                <input type="hidden" name="FormFragment[properties]" id="fragment-properties" value="">
+                <div class=" mb-3" id="page-properties">
+                    <label class="control-label" for="formfragment-fragmentname">属性设置</label>
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <td class="table-label ">
-                                <strong>类型</strong>
-                            </td>
-                            <td>
-                                <select class="form-control" name="iconType">
-                                    <option value="three">三格</option>
-                                    <option value="four">四格</option>
-                                </select>
-                            </td>
+                            <td colspan="2"><strong>内容设置</strong></td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <strong>内容</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <table class="table table-bordered table-widget" style="width: 100%;"
-                                       id="table-list">
+                                <table class="table table-label table-widget" style="width: 100%;"
+                                       id="table-slider">
                                     <thead>
-                                    <td>ICON</td>
+                                    <td>图片</td>
                                     <td>标题</td>
+                                    <td>链接</td>
                                     <td>描述</td>
-                                    <td style="width: 20%;"><i class="fa fa-plus-circle fa-lg text-success"
-                                                               onclick="addWidget()"></i></td>
+                                    <td><i class="fa fa-plus-circle fa-lg text-success"
+                                           onclick="addWidget()"></i></td>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -73,8 +59,6 @@ $this->title = '图标盒子';
                         </tr>
                         </tbody>
                     </table>
-
-
                 </div>
 
                 <div class="form-group">
@@ -87,14 +71,17 @@ $this->title = '图标盒子';
                         <tbody>
                         <tr>
                             <td>
-                                <input type="text" class="form-control " name="icon">
+                                <input type="text" class="form-control fileSelect" name="image">
                             </td>
                             <td>
                                 <input type="text" class="form-control" name="title">
                             </td>
                             <td>
-                                <input type="text" class="form-control" name="description">
+                                <input type="text" class="form-control" name="link">
                             </td>
+<!--                            <td>-->
+<!--                                <input type="text" class="form-control" name="description">-->
+<!--                            </td>-->
                             <td>
                                 <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
                                 <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
@@ -112,35 +99,30 @@ $this->title = '图标盒子';
 <script>
 
     var propList = <?php echo $model->attributes['properties']; ?>;
+    var editor = null;
+
     $(function () {
 
         $('#from-edit').on('beforeSubmit', function (e) {
             //设置内容
 
             var propObject = Array();
-            var trs = $("#table-list tbody tr");
-            var items = Array();
-            var iconType = $("select[name=iconType]").val();
+            var trs = $("#table-slider tbody tr");
             if (trs.length > 0) {
                 for (var i = 0; i < trs.length; i++) {
 
-                    var icon = $(trs[i]).find("input[name=icon]").val();
+                    var image = $(trs[i]).find("input[name=image]").val();
                     var title = $(trs[i]).find("input[name=title]").val();
-                    var description = $(trs[i]).find("input[name=description]").val();
+                    var link = $(trs[i]).find("input[name=link]").val();
+                    // var description = $(trs[i]).find("input[name=description]").val();
 
-                    items.push({
-                        'icon': icon,
+                    propObject.push({
+                        'image': image,
                         'title': title,
-                        'description': description
+                        'link': link
                     });
                 }
             }
-
-            propObject = {
-                'iconType':iconType,
-                'items':items
-            };
-
             var jsonStr = JSON.stringify(propObject);
             $("#fragment-properties").val(jsonStr);
         });
@@ -151,11 +133,37 @@ $this->title = '图标盒子';
 
     });
 
+    KindEditor.ready(function (K) {
+        editor = K.editor({
+            allowFileManager: true,
+            fileManagerJson: 'static/backend/lib/kindeditor/php/file_manager_json.php'
+        });
+    });
+
+    function bindFileSelect() {
+        $('.fileSelect').unbind("click");
+        $('.fileSelect').click(function () {
+            var obj = $(this);
+            editor.loadPlugin('insertfile', function () {
+                editor.plugin.fileDialog({
+                    fileUrl: $(obj).val(),
+                    clickFn: function (url, title) {
+
+                        $(obj).val(url);
+                        ;
+                        editor.hideDialog();
+                    }
+                });
+
+            });
+        });
+    }
 
     function addWidget() {
         var demotr = $("#table-slider-demo tbody tr:first");
-        $("#table-list tbody").append(demotr.clone());
+        $("#table-slider tbody").append(demotr.clone());
         bindEvent();
+        bindFileSelect();
     }
 
     function bindEvent() {
@@ -183,22 +191,31 @@ $this->title = '图标盒子';
     }
 
     function loadProperties() {
-        if(propList.length==0){
-            return;
-        }
-        $("select[name=iconType]").find("option[value="+propList['iconType']+"]").attr("selected", true);
-        var items = propList['items'];
-        for (var i = 0; i < items.length; i++) {
+        for (var i = 0; i < propList.length; i++) {
             var demotr = $("#table-slider-demo tbody tr:first");
             var democlone = demotr.clone();
-            $(democlone).find("input[name=icon]").val(items[i]['icon']);
-            $(democlone).find("input[name=title]").val(items[i]['title']);
-            $(democlone).find("input[name=description]").val(items[i]['description']);
-            $("#table-list tbody").append(democlone);
+            $(democlone).find("input[name=image]").val(propList[i]['image']);
+            $(democlone).find("input[name=title]").val(propList[i]['title']);
+            $(democlone).find("input[name=link]").val(propList[i]['link']);
+            $(democlone).find("input[name=description]").val(propList[i]['description']);
+            $("#table-slider tbody").append(democlone);
         }
 
         bindEvent();
+        bindFileSelect();
     }
 
+    function codeMirror(htmlId, size) {
+        var editor = CodeMirror.fromTextArea(document.getElementById(htmlId), {
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            theme: "midnight"
+        });
+        if (size != null) {
+            editor.setSize('auto', size + 'px');
+        }
+        return editor;
+    }
 
 </script>

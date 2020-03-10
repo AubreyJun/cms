@@ -12,12 +12,13 @@ namespace app\components\cms;
 use app\models\cms\Fragment;
 use yii\base\Widget;
 
-class ImageBlockWidget extends BasicWidget
+class LayoutFooterWidget extends BasicWidget
 {
+
     public $fragment;
     public $context;
-    private $data = array();
     public $id;
+    private $data = array();
 
     public static $editorMapping = array(
     );
@@ -27,6 +28,7 @@ class ImageBlockWidget extends BasicWidget
         parent::init();
     }
 
+
     public function run()
     {
 
@@ -34,14 +36,10 @@ class ImageBlockWidget extends BasicWidget
             $this->fragment = Fragment::findOne($this->id);
         }
         $this->data['fragment'] = $this->fragment;
-
-        $properties = json_decode($this->fragment['properties'], true);
-        foreach ($properties as $property) {
-            $this->data[$property['pname']] = $property;
-        }
         $this->data['context'] = $this->context;
 
-        return $this->render("imageBlock", $this->data);
+        return $this->render("layoutContainer", $this->data);
 
     }
+
 }

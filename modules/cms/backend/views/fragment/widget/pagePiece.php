@@ -26,7 +26,7 @@ $this->title = '片段设置';
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
                 <div class="form-group field-formfragment-fragmentname required">
                     <label class="control-label" for="formfragment-fragmentname">片段类型</label>
-                    <input type="text" class="form-control" value="<?php echo $fragment['optionDesc']; ?>"
+                    <input type="text" class="form-control" value="<?php echo $fragmentType['optionDesc']; ?>"
                            readonly="readonly">
 
                     <div class="error mt-2 text-danger"></div>
@@ -57,7 +57,7 @@ $this->title = '片段设置';
                                                       name="<?php echo $key; ?>"></textarea>
                                             <script>
                                                 $(function () {
-                                                    editor = codeMirror('properties-<?php echo $key; ?>', 100);
+                                                    editor = codeMirror('properties-<?php echo $key; ?>', 300);
                                                     widgetList['properties-<?php echo $key; ?>'] = editor;
                                                 });
                                             </script>

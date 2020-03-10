@@ -189,10 +189,9 @@ FROM
 FROM
 	cms_select_options t 
 WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = :selectName and t.themeId = :themeId ) 
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = :selectName and t.themeId =0  ) 
 ORDER BY
 	t.sequencenumber ASC")
-            ->bindParam(':themeId',$this->data['editThemeId'])
             ->bindParam(':selectName',$selectName)
             ->queryAll();
         foreach ($propProperties as $item){

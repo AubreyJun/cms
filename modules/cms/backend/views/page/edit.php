@@ -68,6 +68,9 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 <script>
+
+
+
     $(function () {
         CodeMirror.fromTextArea(document.getElementById('code-editable'), {
             lineNumbers: true,
@@ -77,5 +80,6 @@ use yii\widgets\ActiveForm;
             lineWrapping: true,
             smartIndent: true
         });
+
     });
 </script>

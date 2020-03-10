@@ -27,7 +27,7 @@ $layoutColumns = $this->context->query("select * from cms_theme_fragment t where
 
                 <div class="form-group field-formfragment-fragmentname required">
                     <label class="control-label" for="formfragment-fragmentname">片段类型</label>
-                    <input type="text" class="form-control" value="<?php echo $fragment['optionDesc']; ?>"
+                    <input type="text" class="form-control" value="<?php echo $fragmentType['optionDesc']; ?>"
                            readonly="readonly">
                 </div>
                 <?= $form->field($model, 'fragmentType')->textInput()->label(false)->hiddenInput(['value' => $model->fragmentType]) ?>

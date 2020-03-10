@@ -20,6 +20,15 @@ ORDER BY
     ->queryAll();
 
 
+$propObject = null;
+
+$properties = $fragment['properties'];
+if($properties!=null){
+    $propObject = json_decode($properties,true);
+}
+
+
+
 ?>
 <style>
     .table-label {
@@ -37,7 +46,7 @@ ORDER BY
 
                 <div class="form-group field-formfragment-fragmentname required">
                     <label class="control-label" for="formfragment-fragmentname">片段类型</label>
-                    <input type="text" class="form-control" value="<?php echo $fragment['optionDesc']; ?>"
+                    <input type="text" class="form-control" value="<?php echo $fragmentType['optionDesc']; ?>"
                            readonly="readonly">
                 </div>
                 <?= $form->field($model, 'fragmentType')->textInput()->label(false)->hiddenInput(['value' => $model->fragmentType]) ?>
@@ -86,7 +95,62 @@ ORDER BY
                                     <td>内容</td>
                                     <td><i class="fa fa-plus-circle fa-lg text-success" onclick="addWidget()"></i></td>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                    <?php
+                                    if(isset($propObject['items'])){
+                                        foreach ($propObject['items'] as $item){
+                                            $widgetList = $this->context->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
+                                                ->bindParam(":fragmentType",$item['widgetType'])
+                                                ->bindParam(":themeId",$this->context->data['editThemeId'])
+                                                ->queryAll();
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <select class="form-control" name="widgetType"  onchange="loadWidgetIds(this.value,this)" >
+                                                        <?php
+                                                        foreach ($widgetTypes as $widgetType){
+                                                            if($item['widgetType']==$widgetType['optionValue']){
+                                                                ?>
+                                                                <option selected="selected" value="<?php echo $widgetType['optionValue']; ?>"><?php echo $widgetType['optionDesc']; ?></option>
+                                                                <?php
+                                                            }else{
+                                                                ?>
+                                                                <option value="<?php echo $widgetType['optionValue']; ?>"><?php echo $widgetType['optionDesc']; ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" name="widgetId">
+                                                        <?php
+                                                        foreach ($widgetList as $widget){
+                                                            if($widget['id']==$item['widgetId']){
+                                                                ?>
+                                                                <option selected="selected" value="<?php echo $widget['id']; ?>"><?php echo $widget['fragmentName']; ?></option>
+                                                                <?php
+                                                            }else{
+                                                                ?>
+                                                                <option value="<?php echo $widget['id']; ?>"><?php echo $widget['fragmentName']; ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <i class="fa fa-plus-circle fa-lg text-success tool-add mr-1" title="添加" ></i>
+                                                    <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
+                                                    <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
+                                                    <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>
@@ -178,12 +242,12 @@ ORDER BY
             $("input[name=gridWidth]").val(propList['gridWidth']);
             $("input[name=cssStyle]").val(propList['cssStyle']);
             $("input[name=customStyle]").val(propList['customStyle']);
-            var items = propList['items'];
-            if(items.length>0){
-                for(var i=0;i<items.length;i++){
-                    addLoadWidget(items[i]);
-                }
-            }
+            // var items = propList['items'];
+            // if(items.length>0){
+            //     for(var i=0;i<items.length;i++){
+            //         addLoadWidget(items[i]);
+            //     }
+            // }
         }
     }
 
@@ -254,13 +318,6 @@ ORDER BY
         },'json');
     }
 
-/*    function addLoadWidget(widgetId) {
-        var demotr = $("#table-list-demo tbody tr:first");
-        var clone = demotr.clone();
-        $(clone).find("select[name=widget]").find("option[value="+widgetId+"]").attr("selected", true);
-        $("#table-info tbody").append(clone);
-        bindEvent();
-    }*/
 
     function bindEvent() {
         $(".table-widget tbody .tool-delete").unbind("click");

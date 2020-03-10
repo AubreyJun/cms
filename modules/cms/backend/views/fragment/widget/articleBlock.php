@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 
-$this->title = '图片内容区块';
+$this->title = '文章内容区块';
 
 $catalogs = $this->context->getNavgation('cms');;
 
@@ -24,6 +24,13 @@ function echoNavSelect($nav){
         }
     }
 }
+
+$propObject = null;
+$properties = $fragment['properties'];
+if($properties!=null){
+    $propObject = json_decode($properties,true);
+}
+
 ?>
 <style>
     .table-label {
@@ -37,7 +44,7 @@ function echoNavSelect($nav){
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">图片内容区块</h4>
+                <h4 class="card-title">文章内容区块</h4>
                 <?php $form = ActiveForm::begin(['id' => 'from-edit']); ?>
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
@@ -57,16 +64,15 @@ function echoNavSelect($nav){
                         <tr>
                             <td class="table-label"><strong>展示栅格</strong></td>
                             <td>
-                                <select class="form-control fragmentProperties" name="gridNumber"  editor="select" >
+                                <select class="form-control" name="gridNumber" >
                                     <option value="3">三格</option>
-                                    <option value="4">四格</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td class="table-label"><strong>分类</strong></td>
                             <td>
-                                <select class="form-control fragmentProperties" name="catalogId" editor="select">
+                                <select class="form-control " name="catalogId" >
                                     <?php
                                     foreach ($catalogs as $nav){
                                         if($nav['object']['id'])
@@ -82,7 +88,7 @@ function echoNavSelect($nav){
                         <tr>
                             <td class="table-label"><strong>显示数</strong></td>
                             <td>
-                                <input type="text" class="form-control fragmentProperties"  editor="text" name="size" >
+                                <input type="text" class="form-control "  name="size" >
                             </td>
                         </tr>
                         </tbody>
@@ -102,51 +108,37 @@ function echoNavSelect($nav){
 </div>
 <script>
 
-    var propList = <?php echo $model->attributes['properties']; ?>;
+    var propObject = <?php echo $propObject == null?'null':json_encode($propObject); ?>;
 
     $(function () {
 
         $('#from-edit').on('beforeSubmit', function (e) {
+            var gridNumber = $("select[name=gridNumber]").val();
+            var catalogId = $("select[name=catalogId]").val();
+            var size = $("input[name=size]").val();
             //设置内容
-            var properties = $(".fragmentProperties");
-            var propObject = Array();
-            if(properties.length>0){
-                for(var i=0;i<properties.length;i++){
-                    var pname = $(properties[i]).attr("name");
-                    var pvalue = $(properties[i]).val();
-                    var editor = $(properties[i]).attr("editor");
-                    propObject.push({
-                        'pname':pname,
-                        'pvalue':pvalue,
-                        'editor':editor
-                    });
-                }
-            }
+            var propObject = {
+                "gridNumber":gridNumber,
+                "catalogId":catalogId,
+                "size":size
+            };
             var jsonStr = JSON.stringify(propObject);
             $("#fragment-properties").val(jsonStr);
         });
 
         $(".tableresize").colResizable();
 
-        loadProperties();
+        loadProp();
 
     });
 
-
-    function loadProperties() {
-        for(var i=0;i<propList.length;i++){
-            var propobject = propList[i];
-            if(propobject['editor']=='html'){
-                widgetList["properties-"+propobject['pname']].setValue(propobject['pvalue']);
-            }else if(propobject['editor']=='text'){
-                $("input[name="+propobject['pname']+"]").val(propobject['pvalue']);
-            }else if(propobject['editor']=='image'){
-                $("input[name="+propobject['pname']+"]").val(propobject['pvalue']);
-            }else if(propobject['editor']=='select'){
-                $("select[name="+propobject['pname']+"]").find("option[value="+propobject['pvalue']+"]").attr("selected", true);
-            }
+    function loadProp() {
+        if(propObject!=null){
+            $("select[name=gridNumber]").find("option[value="+propObject['gridNumber']+"]").attr("selected",true);
+            $("select[name=catalogId]").find("option[value="+propObject['catalogId']+"]").attr("selected",true);
+            $("input[name=size]").val(propObject['size']);
         }
-
     }
+
 
 </script>

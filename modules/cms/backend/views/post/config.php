@@ -31,14 +31,13 @@
 <script>
     KindEditor.ready(function(K) {
         var editor = K.editor({
-            fileManagerJson : 'static/backend/lib/kindeditor/php/file_manager_json.php'
+            allowFileManager: true,
+            fileManagerJson: 'static/backend/lib/kindeditor/php/file_manager_json.php'
         });
         $('.fileSelect').click(function() {
             var obj = $(this);
             editor.loadPlugin('filemanager', function() {
                 editor.plugin.filemanagerDialog({
-                    viewType : 'VIEW',
-                    dirName : 'files',
                     clickFn : function(url, title) {
                         $(obj).val(url);
                         editor.hideDialog();

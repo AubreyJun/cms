@@ -92,46 +92,6 @@ function echoNavSelect($nav){
 
         });
 
-        //tinymce.init({
-        //    selector: '#formarticle-content',
-        //    plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern code',
-        //    toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent |  removeformat | ',
-        //    height: 500,
-        //    language: 'zh_CN',
-        //    images_upload_url: 'index.php?r=cms-backend/upload/index',
-        //    images_upload_handler: function (blobInfo, success, failure) {
-        //        var xhr, formData;
-        //
-        //        xhr = new XMLHttpRequest();
-        //        xhr.withCredentials = false;
-        //        xhr.open('POST', 'index.php?r=cms-backend/upload/index');
-        //
-        //        xhr.onload = function() {
-        //            var json;
-        //
-        //            if (xhr.status != 200) {
-        //                failure('HTTP Error: ' + xhr.status);
-        //                return;
-        //            }
-        //
-        //            json = JSON.parse(xhr.responseText);
-        //
-        //            if (!json || typeof json.location != 'string') {
-        //                failure('Invalid JSON: ' + xhr.responseText);
-        //                return;
-        //            }
-        //
-        //            success(json.location);
-        //        };
-        //
-        //        formData = new FormData();
-        //        formData.append("_csrf","<?//= Yii::$app->request->csrfToken ?>//");
-        //        formData.append('FormFileImage[imageFile]', blobInfo.blob(), blobInfo.filename());
-        //
-        //        xhr.send(formData);
-        //
-        //    }
-        // });
         $('#from-edit').on('beforeValidate', function (e) {
             return true;
         });
@@ -161,6 +121,10 @@ function echoNavSelect($nav){
         var catalogId = <?php echo $model->attributes['catalogId'] ?>;
         $(function () {
             $("select[id=formCatalogId]").val(catalogId);
+
+            $('#from-edit').on('beforeSubmit', function (e) {
+                editor_content.sync();
+            });
         });
     });
 </script>

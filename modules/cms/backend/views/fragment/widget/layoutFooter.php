@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 
-$this->title = '容器设置';
+$this->title = '底部设置';
 $editThemeId = $this->context->data['editThemeId'];
 $layoutRows = $this->context->query("select * from cms_theme_fragment t where t.fragmentType = 'layoutRow' and t.themeId = :themeId")
     ->bindParam(":themeId",$editThemeId)->queryAll();
@@ -21,7 +21,7 @@ $layoutRows = $this->context->query("select * from cms_theme_fragment t where t.
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">容器设置</h4>
+                <h4 class="card-title">底部设置</h4>
                 <?php $form = ActiveForm::begin(['id' => 'from-edit']); ?>
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>

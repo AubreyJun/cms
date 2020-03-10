@@ -111,11 +111,11 @@ ORDER BY
 
         $this->data['model'] = $model;
 
-        $this->data['fragmentType'] = $fragmentType;
-
-        $this->data['fragment'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
+        $this->data['fragmentType'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
             ->bindParam(":fragmentType",$fragmentType)
             ->queryOne();
+
+
 
         return $this->render('widget/'.$fragmentType, $this->data);
     }
@@ -147,9 +147,11 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
 
         $fragmentType = $fragment['fragmentType'];
 
-        $this->data['fragment'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
+        $this->data['fragmentType'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
             ->bindParam(":fragmentType",$fragmentType)
             ->queryOne();
+
+        $this->data['fragment'] = $fragment;
 
         return $this->render('widget/'.$fragmentType, $this->data);
     }
@@ -194,7 +196,7 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
         $newFragment->fragmentName = "复制 - ".$newFragment->fragmentName;
         $newFragment->id = null;
         $newFragment->save();
-        return $this->redirect("index.php?r=cms-backend/fragment/index");
+        return $this->redirect("/index.php?r=cms-backend/fragment/index&fragmentType=".$fragment['fragmentType']);
     }
 
     public function actionConfig($id)
