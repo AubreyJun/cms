@@ -269,6 +269,8 @@ ORDER BY
             $this->data['meta_title'] = "首页";
         }else if($page['pageType']=='companyinfo'){
             $this->data['meta_title'] = "公司简介";
+        }else if($page['pageType']=='articleList'){
+            $this->data['meta_title'] = "文章列表";
         }
     }
 

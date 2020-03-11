@@ -13,6 +13,11 @@ class Post extends ActiveRecord
         return '{{cms_post}}';
     }
 
+    public function getCatalog()
+    {
+        return $this->hasOne(Catalog::className(), ['id' => 'catalogId']);
+    }
+
     public function behaviors()
     {
         return [

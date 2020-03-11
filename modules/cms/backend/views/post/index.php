@@ -42,8 +42,10 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
+                        <th width="8%">ID</th>
                         <th>标题</th>
-                        <th>状态</th>
+                        <th>分类</th>
+                        <th width="8%">状态</th>
                         <th>创建时间</th>
                         <th width="15%">操作</th>
                     </tr>
@@ -53,7 +55,9 @@
                     foreach ($post_list as $post) {
                         ?>
                         <tr>
+                            <td><?php echo $post['id']; ?></td>
                             <td><?php echo $post['title']; ?></td>
+                            <td><?php echo $post['catalog']['catalogName']; ?></td>
                             <th><?php echo $post['status'] == 'online' ? '<i class="text-success fa fa-check fa-lg"></i>'
                                     : '<i class="fa fa-minus-circle  text-danger fa-lg"></i>'; ?></th>
                             <td><?php echo $post['createtime']; ?></td>
