@@ -1,5 +1,35 @@
 <?php
-if($style['pvalue']=='common'){
+function getLink($navObject){
+    if($navObject['navigationType']=='link'){
+        return $navObject['link'];
+    }else{
+        return $navObject['navigationType'].'-'.$navObject['navigationRel'].'.html';
+    }
+}
+function echoNavigation($navigation)
+{
+    foreach ($navigation as $nav) {
+        if (isset($nav['children'])) {
+            ?>
+            <li><a href="<?php echo getLink($nav['object']); ?>" >
+                    <div><?php echo $nav['object']['catalogName']; ?></div>
+                </a>
+                <ul>
+                    <?php echoNavigation($nav['children']); ?>
+                </ul>
+            </li>
+            <?php
+        } else {
+            ?>
+            <li><a href="<?php echo getLink($nav['object']); ?>"">
+                    <div><?php echo $nav['object']['catalogName']; ?></div>
+                </a></li>
+            <?php
+        }
+
+    }
+}
+if ($style['pvalue'] == 'common') {
     ?>
     <div class="container clearfix">
 
@@ -20,24 +50,9 @@ if($style['pvalue']=='common'){
         <nav id="primary-menu">
 
             <ul class="sf-js-enabled" style="touch-action: pan-y;">
-                <li><a href="index.html" class="sf-with-ul">
-                        <div>首页</div>
-                    </a></li>
-                <li><a href="companyinfo.html" class="sf-with-ul">
-                        <div>公司简介</div>
-                    </a></li>
-                <li><a href="productList.html" class="sf-with-ul">
-                        <div>产品中心</div>
-                    </a></li>
-                <li><a href="imageList.html" class="sf-with-ul">
-                        <div>成功案例</div>
-                    </a></li>
-                <li><a href="articleList.html" class="sf-with-ul">
-                        <div>服务支持</div>
-                    </a></li>
-                <li><a href="feedback.html" class="sf-with-ul">
-                        <div>联系我们</div>
-                    </a></li>
+                <?php
+                echoNavigation($navigation);
+                ?>
             </ul>
 
         </nav><!-- #primary-menu end -->

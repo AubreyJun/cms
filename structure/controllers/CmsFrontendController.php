@@ -96,6 +96,7 @@ class CmsFrontendController extends AppController
             return $this->errorPage($message);
         } else {
             $this->data['page'] = $page;
+            $this->setDefMeta($page);
             $this->setLayout($page['layoutId']);
             return $this->viewer($page['pageType'] . '_' . $page['id'],$this->data);
         }
@@ -261,6 +262,14 @@ ORDER BY
 
         return $childrenArray;
 
+    }
+
+    public function setDefMeta($page){
+        if($page['pageType']=='home'){
+            $this->data['meta_title'] = "首页";
+        }else if($page['pageType']=='companyinfo'){
+            $this->data['meta_title'] = "公司简介";
+        }
     }
 
     public function setMeta($title, $keywords, $description)

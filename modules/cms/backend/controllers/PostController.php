@@ -154,6 +154,8 @@ FROM
 
         $lastId = Yii::$app->db->getLastInsertID();
 
+        $this->query("update cms_post set createtime = now() ,updatetime = now() where id = :id")->bindParam(":id",$id)->execute();
+
         $this->query("INSERT INTO cms_post_prop ( `postId`, `ppKey`, `ppValue` ) SELECT
 :lastId, `ppKey`, `ppValue`
 FROM
@@ -168,7 +170,7 @@ FROM
 	cms_post_tag where postId = :postId")->bindParam(":postId",$id)->bindParam(":lastId",$lastId)->execute();
 
 
-        return $this->actionIndex($article['postType']);
+        return $this->redirect("index.php?r=cms-backend/post/index&queryPostType=".$article['postType']);
     }
 
     public function actionConfig($id){

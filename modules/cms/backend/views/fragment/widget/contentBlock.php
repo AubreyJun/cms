@@ -45,8 +45,8 @@ if($fragment['properties']){
                             <td class="table-label"><strong>内容显示样式</strong></td>
                             <td>
                                 <select class="form-control" name="style">
-                                    <option value="left">内容左侧显示</option>
-                                    <option value="right">内容右侧侧显示</option>
+                                    <option value="left" <?php echo $propObject['style']=='left'?"selected":""; ?>>内容左侧显示</option>
+                                    <option value="right" <?php echo $propObject['style']=='right'?"selected":""; ?>>内容右侧侧显示</option>
                                 </select>
                             </td>
                         </tr>
@@ -117,7 +117,6 @@ if($fragment['properties']){
 
         bindFileSelect();
 
-        loadProperties();
 
     });
 
@@ -135,6 +134,7 @@ if($fragment['properties']){
         });
 
     });
+
 
     function bindFileSelect() {
         $('.fileSelect').click(function () {

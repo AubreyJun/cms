@@ -96,7 +96,7 @@ class BackendPanelController extends AppController
         $count = $query->count();
         $post_pagination = new Pagination(['totalCount' => $count]);
         $post_pagination->pageSize = $pageSize;
-        $post_list = $query->offset($post_pagination->offset)
+        $post_list = $query ->orderBy('createtime desc')->offset($post_pagination->offset)
             ->limit($post_pagination->limit)
             ->all();
         $this->data['post_pagination'] = $post_pagination;

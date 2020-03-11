@@ -52,7 +52,7 @@ class PageNavigationWidget extends BasicWidget
             $this->data[$property['pname']] = $property;
         }
 
-        $this->data['navgation'] = $this->getNavgation('navigation',$this->context->defaultTheme['id']);
+        $this->data['navigation'] = $this->getNavgation('navigation',$this->context->defaultTheme['id']);
 
         return $this->render("pageNavigation", $this->data);
 

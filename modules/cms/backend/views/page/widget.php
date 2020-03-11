@@ -1,12 +1,8 @@
 <?php $this->title = '页面片段'; ?>
 <?php
-$widgetJson = $page['widgetjson'];
-$widgetJsonObject = null;
-if ($widgetJson!=null && $widgetJson!='') {
-    $widgetJsonObject = json_decode($widgetJson, true);
-}else{
-    $widgetJson = '[]';
-}
+
+$widgetjson = $page['widgetjson'];
+$widgetObject = json_decode($widgetjson,true);
 
 ?>
 <div class="row">
@@ -21,7 +17,7 @@ if ($widgetJson!=null && $widgetJson!='') {
                         <form class="form-inline" id="from-edit" style="float: right;" method="post"
                               action="index.php?r=cms-backend/page/savewidget">
                             <input type="hidden" name="id" value="<?= $page['id']; ?>">
-                            <input type="hidden" name="widgetJSON" value="<?php echo $widgetJson; ?>">
+                            <input type="hidden" name="widgetJSON" value="">
                             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                             <div class="form-group mr-2">
 
@@ -51,6 +47,80 @@ if ($widgetJson!=null && $widgetJson!='') {
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+
+                        if($widgetObject && sizeof($widgetObject)>0) {
+                            foreach ($widgetObject as $widget) {
+                                $widgetList = $this->context->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
+                                    ->bindParam(":fragmentType",$widget['widgetType'])
+                                    ->bindParam(":themeId",$this->context->data['editThemeId'])
+                                    ->queryAll();
+
+                                ?>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" name="widgetType" onchange="loadWidgetIds(this.value,this)" >
+                                            <optgroup label="布局">
+                                                <?php
+                                                foreach ($layouts as $layout){
+                                                    if($widget['widgetType']==$layout['optionValue']){
+                                                        ?>
+                                                        <option selected="selected" value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                        <option value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
+                                                        <?php
+                                                    }
+
+                                                }
+                                                ?>
+                                            </optgroup>
+                                            <optgroup label="组件">
+                                                <?php
+                                                foreach ($widgets as $widgetitem){
+                                                    if($widget['widgetType']==$widgetitem['optionValue']){
+                                                        ?>
+                                                        <option selected="selected" value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                        <option value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </optgroup>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" name="widgetId">
+                                            <?php
+                                            foreach ($widgetList as $witem){
+                                                if($witem['id']==$widget['widgetId']){
+                                                    ?>
+                                                    <option selected="selected" value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
+                                        <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
+                                        <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+
+                        ?>
                         </tbody>
                     </table>
                 </div>
@@ -101,10 +171,9 @@ if ($widgetJson!=null && $widgetJson!='') {
 </div>
 <script>
 
-    var widgetJson = <?php echo $widgetJson; ?>;
 
     $(function () {
-        loadProperties();
+        // loadProperties();
     });
 
     function loadProperties() {
