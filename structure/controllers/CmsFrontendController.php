@@ -4,9 +4,7 @@
 namespace app\structure\controllers;
 
 
-use app\components\cms\PagePieceWidget;
 use app\models\cms\Fragment;
-use app\models\cms\Post;
 use app\structure\constants\MsgType;
 use Yii;
 use yii\data\Pagination;
@@ -320,8 +318,7 @@ ORDER BY
 //        PagePieceWidget::widget();
         $fragment = Fragment::findOne($widgetId);
 
-        $evalStr = 'use app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget;';
-        $evalStr .= '$html =  '.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
+        $evalStr .= '$html =  app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
 
         eval($evalStr);
 
