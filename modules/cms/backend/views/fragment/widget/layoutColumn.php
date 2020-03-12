@@ -242,12 +242,6 @@ if($properties!=null){
             $("input[name=gridWidth]").val(propList['gridWidth']);
             $("input[name=cssStyle]").val(propList['cssStyle']);
             $("input[name=customStyle]").val(propList['customStyle']);
-            // var items = propList['items'];
-            // if(items.length>0){
-            //     for(var i=0;i<items.length;i++){
-            //         addLoadWidget(items[i]);
-            //     }
-            // }
         }
     }
 

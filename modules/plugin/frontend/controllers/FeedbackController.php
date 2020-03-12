@@ -17,11 +17,13 @@ class FeedbackController extends CmsFrontendController
         $subject = $_POST['subject'];
         $message = $_POST['message'];
         $email = $_POST['email'];
+        $phone = $_POST['phone'];
 
-        $this->query("insert into plugin_feedback (subject,username,email,message,createtime,themeid) values (:subject,:username,:email,:message,now(),:themeid)")
+        $this->query("insert into plugin_feedback (subject,username,email,message,createtime,themeid,phone) values (:subject,:username,:email,:message,now(),:themeid,:phone)")
             ->bindParam(":subject",$subject)
             ->bindParam(":username",$name)
             ->bindParam(":email",$email)
+            ->bindParam(":phone",$phone)
             ->bindParam(":message",$message)
             ->bindParam(":themeid",$this->defaultTheme['id'])
             ->execute();

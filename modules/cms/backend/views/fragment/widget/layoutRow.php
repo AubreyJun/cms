@@ -10,6 +10,9 @@ $editThemeId = $this->context->data['editThemeId'];
 $layoutColumns = $this->context->query("select * from cms_theme_fragment t where t.fragmentType = 'layoutColumn' and t.themeId = :themeId")
     ->bindParam(":themeId",$editThemeId)->queryAll();
 
+$properties = $fragment['properties'];
+$propObject = json_decode($properties,true);
+
 ?>
 <style>
     .table-label {
@@ -39,6 +42,14 @@ $layoutColumns = $this->context->query("select * from cms_theme_fragment t where
                     <label class="control-label" >属性设置</label>
                     <table class="table table-bordered">
                         <tbody>
+                        <tr>
+                            <td class="table-label ">
+                                <strong>外部Container</strong>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="container" value="1" <?php echo $propObject['container']=='1'?"checked":""; ?>/>
+                            </td>
+                        </tr>
                         <tr>
                             <td class="table-label ">
                                 <strong>CSS样式</strong>
@@ -129,10 +140,16 @@ $layoutColumns = $this->context->query("select * from cms_theme_fragment t where
 
             var cssStyle = $("input[name=cssStyle]").val();
             var customStyle = $("input[name=customStyle]").val();
+            var cked = $("input[name=container]").prop("checked");
+            var container = 0;
+            if(cked){
+                container = 1;
+            }
 
             var propObject = {
                 'cssStyle':cssStyle,
                 'customStyle':customStyle,
+                'container':container,
                 'items':items
             };
 

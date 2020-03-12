@@ -27,8 +27,6 @@ if($properties!=null){
     $propObject = json_decode($properties,true);
 }
 
-
-
 ?>
 <style>
     .table-label {
@@ -228,6 +226,24 @@ if($properties!=null){
         },'json');
     }
 
+
+    function loadWidgetIds(widgetType,object) {
+        $.post('index.php?r=cms-backend/page/getwidget',{
+            "widgetType":widgetType,
+            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
+        },function (data) {
+            if(data.length>0){
+
+                var html = "";
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                }
+                $(object).closest("tr").find("select[name=widgetId]").html(html);
+            }else{
+                $(object).closest("tr").find("select[name=widgetId]").html("<option value='0'>无</option>");
+            }
+        },'json');
+    }
 
     function bindEvent() {
         $(".table-widget tbody .tool-delete").unbind("click");

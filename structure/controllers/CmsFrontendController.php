@@ -271,6 +271,8 @@ ORDER BY
             $this->data['meta_title'] = "公司简介";
         }else if($page['pageType']=='articleList'){
             $this->data['meta_title'] = "文章列表";
+        }else if($page['pageType']=="feedback"){
+            $this->data['meta_title'] = "在线反馈";
         }
     }
 

@@ -36,18 +36,6 @@ ORDER BY
         }
         $this->data['fragmentKV'] = $fragmentKV;
 
-        $layouts = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'layout' ) 
-ORDER BY
-	t.sequencenumber ASC")
-            ->queryAll();
-
-        $this->data['layouts'] = $layouts;
-
         $widgets = $this->query("SELECT
 	* 
 FROM
@@ -61,7 +49,7 @@ ORDER BY
         $this->data['widgets'] = $widgets;
 
         if($fragmentType==null){
-            $fragmentType = $layouts[0]['optionValue'];
+            $fragmentType = $widgets[0]['optionValue'];
         }
         $this->data['current'] = $fragmentType;
 
