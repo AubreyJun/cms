@@ -60,37 +60,19 @@ $widgetObject = json_decode($widgetjson,true);
                                 <tr>
                                     <td>
                                         <select class="form-control" name="widgetType" onchange="loadWidgetIds(this.value,this)" >
-                                            <optgroup label="布局">
-                                                <?php
-                                                foreach ($layouts as $layout){
-                                                    if($widget['widgetType']==$layout['optionValue']){
-                                                        ?>
-                                                        <option selected="selected" value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
-                                                        <?php
-                                                    }else{
-                                                        ?>
-                                                        <option value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
-                                                        <?php
-                                                    }
-
+                                            <?php
+                                            foreach ($widgets as $widgetitem){
+                                                if($widget['widgetType']==$widgetitem['optionValue']){
+                                                    ?>
+                                                    <option selected="selected" value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <option value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
+                                                    <?php
                                                 }
-                                                ?>
-                                            </optgroup>
-                                            <optgroup label="组件">
-                                                <?php
-                                                foreach ($widgets as $widgetitem){
-                                                    if($widget['widgetType']==$widgetitem['optionValue']){
-                                                        ?>
-                                                        <option selected="selected" value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                        <?php
-                                                    }else{
-                                                        ?>
-                                                        <option value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </optgroup>
+                                            }
+                                            ?>
                                         </select>
                                     </td>
                                     <td>
@@ -131,24 +113,13 @@ $widgetObject = json_decode($widgetjson,true);
                         <tr>
                             <td>
                                 <select class="form-control" name="widgetType" onchange="loadWidgetIds(this.value,this)" >
-                                    <optgroup label="布局">
-                                        <?php
-                                        foreach ($layouts as $layout){
-                                            ?>
-                                            <option value="<?php echo $layout['optionValue']; ?>"><?php echo $layout['optionDesc']; ?></option>
-                                            <?php
-                                        }
+                                    <?php
+                                    foreach ($widgets as $widget){
                                         ?>
-                                    </optgroup>
-                                    <optgroup label="组件">
+                                        <option  value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
                                         <?php
-                                        foreach ($widgets as $widget){
-                                            ?>
-                                            <option  value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </optgroup>
+                                    }
+                                    ?>
                                 </select>
                             </td>
                             <td>
@@ -173,7 +144,7 @@ $widgetObject = json_decode($widgetjson,true);
 
 
     $(function () {
-        // loadProperties();
+        bindEvent();
     });
 
     function loadProperties() {

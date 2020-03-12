@@ -58,6 +58,8 @@ function echoNavSelect($nav){
                             <td class="table-label"><strong>展示栅格</strong></td>
                             <td>
                                 <select class="form-control fragmentProperties" name="gridNumber"  editor="select" >
+                                    <option value="1">一格</option>
+                                    <option value="2">二格</option>
                                     <option value="3">三格</option>
                                     <option value="4">四格</option>
                                 </select>
