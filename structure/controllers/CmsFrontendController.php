@@ -4,7 +4,7 @@
 namespace app\structure\controllers;
 
 
-use app\components\cms\PagemetaWidget;
+use app\components\cms\PageMetaWidget;
 use app\models\cms\Fragment;
 use app\structure\constants\MsgType;
 use Yii;
@@ -316,18 +316,10 @@ ORDER BY
 
     public function widget($widgetId){
 
-//        PagePieceWidget::widget();
         $fragment = Fragment::findOne($widgetId);
 
-//        $html = PageMetaWidget::widget(['fragment'=>$fragment,'context'=>$this]);
-//        echo $html;
-//        exit();
-
         $evalStr .= 'use \app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget; $html =  \app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
-
-//        echo $evalStr;
-//        exit($evalStr);
-
+        
         eval($evalStr);
 
         return $html;

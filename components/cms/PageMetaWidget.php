@@ -11,7 +11,7 @@ namespace app\components\cms;
 
 use yii\base\Widget;
 
-class PagemetaWidget extends BasicWidget
+class PageMetaWidget extends BasicWidget
 {
     public $fragment;
     public $context;
