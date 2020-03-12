@@ -320,6 +320,8 @@ ORDER BY
 
         $evalStr .= '$html =  app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
 
+        echo $evalStr;
+
         eval($evalStr);
 
         return $html;
