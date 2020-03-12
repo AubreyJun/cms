@@ -32,8 +32,6 @@ tests/_support/_generated
 /.vagrant
 /web/html/node_modules
 /web/upload
-/config/test
-/config/prod
 /web/themes/normal/node_modules
 /web/assets
 /composer.lock
