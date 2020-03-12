@@ -25,19 +25,47 @@ $this->title = "企业网站后台管理";
                                         <?php
 
                                     }
+
+                                    if (Yii::$app->params['debug']['enable']) {
+                                        ?>
+                                        <div class="form-group">
+                                            <label class="mb-3">登入账户</label>
+                                            <input type="text" class="form-control login-input"
+                                                   value="<?php echo Yii::$app->params['debug']['name']; ?>"
+                                                   readonly="readonly" autocomplete="false"
+                                                   name="FormLogin[username]">
+                                            <i class="mdi mdi-account"></i>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="mb-3">登入密码</label>
+                                            <input type="password" class="form-control login-input"
+                                                   value="<?php echo Yii::$app->params['debug']['password']; ?>"
+                                                   readonly="readonly" autocomplete="false"
+                                                   name="FormLogin[password]">
+                                            <i class="mdi mdi-eye"></i>
+                                        </div>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <div class="form-group">
+                                            <label class="mb-3">登入账户</label>
+                                            <input type="text" class="form-control login-input" readonly="readonly"
+                                                   autocomplete="false"
+                                                   name="FormLogin[username]">
+                                            <i class="mdi mdi-account"></i>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="mb-3">登入密码</label>
+                                            <input type="password" class="form-control login-input" readonly="readonly"
+                                                   autocomplete="false"
+                                                   name="FormLogin[password]">
+                                            <i class="mdi mdi-eye"></i>
+                                        </div>
+                                        <?php
+                                    }
+
                                     ?>
-                                    <div class="form-group">
-                                        <label class="mb-3">登入账户</label>
-                                        <input type="text" class="form-control login-input" readonly="readonly" autocomplete="false"
-                                               name="FormLogin[username]">
-                                        <i class="mdi mdi-account"></i>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-3">登入密码</label>
-                                        <input type="password" class="form-control login-input"  readonly="readonly" autocomplete="false"
-                                               name="FormLogin[password]">
-                                        <i class="mdi mdi-eye"></i>
-                                    </div>
+
                                     <div class="mt-5">
                                         <button class="btn btn-block btn-info btn-lg" type="submit">登 入</button>
                                     </div>
@@ -59,5 +87,5 @@ $this->title = "企业网站后台管理";
 <script>
     setTimeout(function () {
         $(".login-input").removeAttr("readonly")
-    },1000)
+    }, 1000)
 </script>
