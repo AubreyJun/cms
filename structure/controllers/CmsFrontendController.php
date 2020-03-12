@@ -318,7 +318,7 @@ ORDER BY
 //        PagePieceWidget::widget();
         $fragment = Fragment::findOne($widgetId);
 
-        $evalStr .= '$html =  app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this])';
+        $evalStr .= '$html =  app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
 
         eval($evalStr);
 
