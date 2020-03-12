@@ -318,10 +318,14 @@ ORDER BY
 //        PagePieceWidget::widget();
         $fragment = Fragment::findOne($widgetId);
 
-        $evalStr .= '$html =  app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
+//        $html = \app\components\cms\PageMetaWidget::widget(['fragment'=>$fragment,'context'=>$this]);
+//        echo $html;
+//        exit();
 
-        echo $evalStr;
-        exit($evalStr);
+        $evalStr .= '$html =  \app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
+
+//        echo $evalStr;
+//        exit($evalStr);
 
         eval($evalStr);
 
