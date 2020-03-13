@@ -8,6 +8,8 @@ class FormLayout extends \yii\base\Model
     public $layoutName;
     public $layoutText;
     public $themeId;
+    public $header;
+    public $footer;
 
     public function rules()
     {
@@ -23,7 +25,9 @@ class FormLayout extends \yii\base\Model
     {
         return [
             'layoutName' => '布局描述',
-            'layoutText' => '布局内容'
+            'layoutText' => '布局内容',
+            'header' => '头部组件',
+            'footer' => '底部组件',
         ];
     }
 

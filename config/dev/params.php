@@ -3,7 +3,7 @@
 return [
     'demo'=>'true',
     'themeids'=>array(
-        'dev.biz.cms.cn'=>'guanggao_1'
+        'dev.biz.cms.cn'=>'guanggao_2'
     ),
     'debug'=>array(
         'enable'=>true,

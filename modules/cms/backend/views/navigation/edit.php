@@ -64,6 +64,19 @@ function echoNavSelect($nav)
                     </select>
                 </div>
                 <?= $form->field($model, 'catalogName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
+
+
+                <div class="form-group">
+                    <label>
+                        ICON
+                    </label>
+                    <div class="clearfix">
+                        <input id="fonticonItem" name="FormNav[icon]"  value="<?php echo $model->attributes['icon']; ?>" class="form-control clearfix" />
+                    </div>
+                </div>
+
+
+
                 <?= $form->field($model, 'sequenceNumber', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
                 <div class="form-group">
                     <label>
@@ -148,6 +161,12 @@ function echoNavSelect($nav)
             $("#navigationRel").find("option:contains('"+navigationRel+"')").attr("selected", true);
 
         }
+
+        $('#fonticonItem').fontIconPicker({
+            'source': fontIconSource,
+            'allCategoryText':'所有分类'
+        });
+
 
     });
 </script>

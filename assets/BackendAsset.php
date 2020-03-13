@@ -19,6 +19,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/mdi/css/materialdesignicons.min.css',
         'static/backend/lib/flag-icon-css/css/flag-icon.min.css',
         'static/backend/lib/perfect-scrollbar/css/perfect-scrollbar.css',
+        'static/backend/lib/fonticonpicker/css/jquery.fonticonpicker.css',
         'static/backend/lib/font-awesome/css/font-awesome.min.css',
         'static/backend/lib/jquery-tags-input/dist/jquery.tagsinput.min.css',
         'static/backend/lib/jquery-toast-plugin/dist/jquery.toast.min.css',
@@ -26,6 +27,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/codemirror/theme/midnight.css',
         'static/backend/lib/kindeditor/themes/default/default.css',
         'static/backend/css/style.css',
+        'static/backend/lib/fonticonpicker/themes/grey-theme/jquery.fonticonpicker.grey.min.css',
         'static/backend/css/custom.css'
     ];
 
@@ -46,6 +48,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/sweetalert/dist/sweetalert.min.js',
         'static/backend/lib/kindeditor/kindeditor-all-min.js',
         'static/backend/lib/kindeditor/lang/zh-CN.js',
+        'static/backend/lib/fonticonpicker/jquery.fonticonpicker.js',
         'static/backend/js/custom.js'
 
     ];

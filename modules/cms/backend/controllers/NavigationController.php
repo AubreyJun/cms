@@ -88,8 +88,9 @@ ORDER BY
             $link = $_REQUEST['FormNav']['link'];
             $navigationType = $_REQUEST['FormNav']['navigationType'];
             $navigationRel = $_REQUEST['FormNav']['navigationRel'];
+            $icon = $_REQUEST['FormNav']['icon'];
 
-            $model->setAttributes(['catalogType'=>'navigation','link'=>$link,'navigationType'=>$navigationType,'navigationRel'=>$navigationRel],false);
+            $model->setAttributes(['catalogType'=>'navigation','link'=>$link,'navigationType'=>$navigationType,'navigationRel'=>$navigationRel,'icon'=>$icon],false);
 
             if ($model->validate()) {
                 if ($model->id == 0) {
