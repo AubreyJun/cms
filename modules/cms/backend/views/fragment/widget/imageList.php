@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 
-$this->title = '幻灯片';
+$this->title = '列表>图+标题+内容';
 
 $propObject = null;
 $properties = $fragment['properties'];
@@ -26,7 +26,7 @@ if($properties!=null){
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">幻灯片</h4>
+                <h4 class="card-title">列表>图+标题+内容</h4>
                 <?php $form = ActiveForm::begin(['id' => 'from-edit']); ?>
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
@@ -34,21 +34,44 @@ if($properties!=null){
                     <label class="control-label" for="formfragment-fragmentname">片段类型</label>
                     <input type="text" class="form-control" value="<?php echo $fragmentType['optionDesc']; ?>"
                            readonly="readonly">
-                    <div class="error mt-2 text-danger"></div>
                 </div>
                 <?= $form->field($model, 'fragmentType')->textInput()->label(false)->hiddenInput(['value' => $model->fragmentType]) ?>
                 <?= $form->field($model, 'fragmentName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
 
+
                 <input type="hidden" name="FormFragment[properties]" id="fragment-properties" value="">
-                <div class=" mb-3">
+                <div class=" mb-3" id="page-properties">
                     <label class="control-label" for="formfragment-fragmentname">属性设置</label>
                     <table class="table table-bordered">
+                        <tbody>
                         <tr>
-                            <td class="table-label"><strong>幻灯片样式</strong></td>
+                            <td class="table-label"><strong>外部Container</strong></td>
                             <td>
-                                <select class="form-control" name="sliderStyle">
-                                    <option value="common">通用</option>
-                                    <option value="widescreen">宽屏</option>
+                                <div class="form-check ">
+                                    <label class="form-check-label">
+                                        <?php
+                                        if ($propObject['container'] == '1') {
+                                            ?>
+                                            <input type="checkbox" name="container" value="1" class="form-check-input"
+                                                   checked="checked">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <input type="checkbox" name="container" value="1" class="form-check-input">
+                                            <?php
+                                        }
+                                        ?>
+                                        设置</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-label ">
+                                <strong>类型</strong>
+                            </td>
+                            <td>
+                                <select class="form-control" name="imageListType">
+                                    <option value="four" <?php echo $propObject['imageListType']=='four'?"selected":""; ?> >四格</option>
                                 </select>
                             </td>
                         </tr>
@@ -69,21 +92,21 @@ if($properties!=null){
                                     </thead>
                                     <tbody>
                                     <?php
-                                    if(isset($propObject['items'])&&sizeof($propObject['items'])>0){
+                                    if( isset($propObject['items']) && sizeof($propObject['items'])>0){
                                         foreach ($propObject['items'] as $item){
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <input type="text" value="<?php echo $item['image']; ?>" class="form-control fileSelect" name="image">
+                                                    <input type="text" class="form-control fileSelect" value="<?php echo $item['image']; ?>" name="image">
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<?php echo $item['title']; ?>" class="form-control" name="title">
+                                                    <input type="text" class="form-control" name="title" value="<?php echo $item['title']; ?>">
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<?php echo $item['link']; ?>" class="form-control" name="link">
+                                                    <input type="text" class="form-control" name="link" value="<?php echo $item['link']; ?>">
                                                 </td>
                                                 <td>
-                                                    <input type="text" value="<?php echo $item['description']; ?>" class="form-control" name="description">
+                                                    <input type="text" class="form-control" name="description" value="<?php echo $item['description']; ?>">
                                                 </td>
                                                 <td>
                                                     <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
@@ -99,6 +122,7 @@ if($properties!=null){
                                 </table>
                             </td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
 
@@ -141,7 +165,6 @@ if($properties!=null){
 
     var propList = <?php echo $model->attributes['properties']; ?>;
     var editor = null;
-    var sliderStyle = '<?php echo $propObject['sliderStyle']; ?>';
 
     $(function () {
 
@@ -162,18 +185,19 @@ if($properties!=null){
                         'image': image,
                         'title': title,
                         'link': link,
-                        'description': description
+                        'description':description
                     });
                 }
             }
 
-            var sliderStyle = $("select[name=sliderStyle]").val();
+            var imageListType = $("select[name=imageListType]").val();
+            var container = $("input[name=container]").val();
 
             var propObject = {
                 'items':items,
-                'sliderStyle':sliderStyle
+                'imageListType':imageListType,
+                'container':container
             };
-
             var jsonStr = JSON.stringify(propObject);
             $("#fragment-properties").val(jsonStr);
         });
@@ -201,7 +225,7 @@ if($properties!=null){
                     clickFn: function (url, title) {
 
                         $(obj).val(url);
-                        ;
+
                         editor.hideDialog();
                     }
                 });
@@ -242,9 +266,6 @@ if($properties!=null){
     }
 
     function loadProperties() {
-        if(sliderStyle!=''){
-            $("select[name=sliderStyle]").find("option[value="+sliderStyle+"]").attr("selected",true);
-        }
         bindEvent();
         bindFileSelect();
     }

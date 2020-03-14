@@ -1,9 +1,13 @@
 <?php
 $properties = $fragment['properties'];
 $counters = json_decode($properties, true);
-?>
-<div class="clear"></div>
-<?php
+
+if ($counters['container'] == 1){
+    ?>
+    <div class="container clearfix">
+    <?php
+}
+
 if($counters['iconType']=='three'){
     $index = 1;
     foreach ($counters['items'] as $item){
@@ -18,4 +22,11 @@ if($counters['iconType']=='three'){
     }
 
 }
+
+if ($counters['container'] == 1){
+    ?>
+    </div>
+    <?php
+}
+
 ?>

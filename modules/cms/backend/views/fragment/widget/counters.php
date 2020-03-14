@@ -7,6 +7,10 @@ use yii\widgets\ActiveForm;
 
 $this->title = '数据统计';
 
+$properties = $fragment['properties'];
+$propObject = json_decode($properties, true);
+
+
 ?>
 <style>
     .table-label {
@@ -39,6 +43,27 @@ $this->title = '数据统计';
                     <label class="control-label" >属性设置</label>
                     <table class="table table-bordered">
                         <tbody>
+                        <tr>
+                            <td class="table-label"><strong>外部Container</strong></td>
+                            <td>
+                                <div class="form-check ">
+                                    <label class="form-check-label">
+                                        <?php
+                                        if ($propObject['container'] == '1') {
+                                            ?>
+                                            <input type="checkbox" name="container" value="1" class="form-check-input"
+                                                   checked="checked">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <input type="checkbox" name="container" value="1" class="form-check-input">
+                                            <?php
+                                        }
+                                        ?>
+                                        设置</label>
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td class="table-label ">
                                 <strong>类型</strong>
@@ -123,6 +148,7 @@ $this->title = '数据统计';
             var trs = $("#table-list tbody tr");
             var items = Array();
             var iconType = $("select[name=iconType]").val();
+            var container = $("input[name=container]").val();
             if (trs.length > 0) {
                 for (var i = 0; i < trs.length; i++) {
 
@@ -142,7 +168,8 @@ $this->title = '数据统计';
 
             propObject = {
                 'iconType':iconType,
-                'items':items
+                'items':items,
+                'container':container
             };
 
             var jsonStr = JSON.stringify(propObject);

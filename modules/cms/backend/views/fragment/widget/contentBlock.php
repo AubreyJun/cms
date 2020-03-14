@@ -42,6 +42,27 @@ if($fragment['properties']){
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
+                            <td class="table-label"><strong>外部Container</strong></td>
+                            <td>
+                                <div class="form-check ">
+                                    <label class="form-check-label">
+                                        <?php
+                                        if ($propObject['container'] == '1') {
+                                            ?>
+                                            <input type="checkbox" name="container" value="1" class="form-check-input"
+                                                   checked="checked">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <input type="checkbox" name="container" value="1" class="form-check-input">
+                                            <?php
+                                        }
+                                        ?>
+                                        设置</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="table-label"><strong>内容显示样式</strong></td>
                             <td>
                                 <select class="form-control" name="style">
@@ -101,12 +122,14 @@ if($fragment['properties']){
             var title = $("input[name=title]").val();
             var description = $("textarea[name=description]").val();
             var image = $("input[name=image]").val();
+            var container = $("input[name=container]").val();
 
             propObject = {
                 'style': style,
                 'title': title,
                 'description': description,
-                'image': image
+                'image': image,
+                'container':container
             };
 
             var jsonStr = JSON.stringify(propObject);

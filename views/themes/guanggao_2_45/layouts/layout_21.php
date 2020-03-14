@@ -6,7 +6,7 @@ use app\components\cms\PageNavigationWidget;
 
 ?>
 <!DOCTYPE html>
-<html>
+<html dir="ltr">
 <head>
 
 
@@ -14,6 +14,7 @@ use app\components\cms\PageNavigationWidget;
 
     <link rel="stylesheet" href="themes/cms/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="themes/cms/style.css" type="text/css"/>
+    <link rel="stylesheet" href="themes/cms/css/swiper.css" type="text/css" />
     <link rel="stylesheet" href="themes/cms/css/dark.css" type="text/css"/>
     <link rel="stylesheet" href="themes/cms/css/font-icons.css" type="text/css"/>
     <link rel="stylesheet" href="themes/cms/css/animate.css" type="text/css"/>
@@ -30,7 +31,7 @@ use app\components\cms\PageNavigationWidget;
     <title><?php echo $this->context->data['meta_title']; ?> - Powered by ranko.cn </title>
 
 </head>
-<body>
+<body class="stretched">
 <!-- The Main Wrapper
 	============================================= -->
 <div id="wrapper" class="clearfix">

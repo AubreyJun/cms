@@ -5,7 +5,13 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 
-$this->title = '页面着重标题设置';
+$this->title = '背景标题设置';
+
+$propObject = null;
+$properties = $fragment['properties'];
+if($properties!=null){
+    $propObject = json_decode($properties,true);
+}
 
 ?>
 <style>
@@ -20,7 +26,7 @@ $this->title = '页面着重标题设置';
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">页面着重标题设置</h4>
+                <h4 class="card-title">背景标题设置</h4>
                 <?php $form = ActiveForm::begin(['id' => 'from-edit']); ?>
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
@@ -40,13 +46,13 @@ $this->title = '页面着重标题设置';
                         <tr>
                             <td class="table-label"><strong>标题</strong></td>
                             <td>
-                                <input type="text" class="form-control fragmentProperties"  editor="text" name="title" >
+                                <input type="text" class="form-control " value="<?php echo $propObject['title']; ?>"   editor="text" name="title" >
                             </td>
                         </tr>
                         <tr>
-                            <td class="table-label"><strong>描述</strong></td>
+                            <td class="table-label"><strong>背景图片</strong></td>
                             <td>
-                                <input type="text" class="form-control fragmentProperties"  editor="text" name="description" >
+                                <input type="text" class="form-control fileSelect"  value="<?php echo $propObject['bgImage']; ?>"    editor="text" name="bgImage" >
                             </td>
                         </tr>
                         </tbody>
@@ -57,8 +63,6 @@ $this->title = '页面着重标题设置';
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
-
-
 
             </div>
         </div>
@@ -72,45 +76,39 @@ $this->title = '页面着重标题设置';
 
         $('#from-edit').on('beforeSubmit', function (e) {
             //设置内容
-            var properties = $(".fragmentProperties");
-            var propObject = Array();
-            if(properties.length>0){
-                for(var i=0;i<properties.length;i++){
-                    var pname = $(properties[i]).attr("name");
-                    var pvalue = $(properties[i]).val();
-                    var editor = $(properties[i]).attr("editor");
-                    propObject.push({
-                        'pname':pname,
-                        'pvalue':pvalue,
-                        'editor':editor
-                    });
-                }
-            }
+            var title = $("input[name=title]").val();
+            var bgImage = $("input[name=bgImage]").val();
+            var propObject = {
+                'title':title,
+                'bgImage':bgImage
+            };
             var jsonStr = JSON.stringify(propObject);
             $("#fragment-properties").val(jsonStr);
         });
-
-        $(".tableresize").colResizable();
-
-        loadProperties();
-
+        
     });
 
+    KindEditor.ready(function(K) {
+        var editor = K.editor({
+            allowFileManager : true,
+            fileManagerJson : 'static/backend/lib/kindeditor/php/file_manager_json.php'
+        });
+        $('.fileSelect').click(function() {
+            var obj = $(this);
+            editor.loadPlugin('insertfile', function() {
+                editor.plugin.fileDialog({
+                    fileUrl : $(obj).val(),
+                    clickFn : function(url, title) {
 
-    function loadProperties() {
-        for(var i=0;i<propList.length;i++){
-            var propobject = propList[i];
-            if(propobject['editor']=='html'){
-                widgetList["properties-"+propobject['pname']].setValue(propobject['pvalue']);
-            }else if(propobject['editor']=='text'){
-                $("input[name="+propobject['pname']+"]").val(propobject['pvalue']);
-            }else if(propobject['editor']=='image'){
-                $("input[name="+propobject['pname']+"]").val(propobject['pvalue']);
-            }else if(propobject['editor']=='select'){
-                $("select[name="+propobject['pname']+"]").find("option[value="+propobject['pvalue']+"]").attr("selected", true);
-            }
-        }
+                        $(obj).val(url);;
+                        editor.hideDialog();
+                    }
+                });
 
-    }
+            });
+        });
+    });
+
+    
 
 </script>
