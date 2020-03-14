@@ -45,6 +45,9 @@ class PageNavigationWidget extends BasicWidget
 
         if($this->id!=null){
             $this->fragment = Fragment::findOne($this->id);
+        }else if($this->id == 0){
+            //获取默认的widget
+            $this->fragment = Fragment::find()->where(['isDefault'=>1,'fragmentType'=>'pageNavigation'])->one();
         }
 
         $properties = json_decode($this->fragment['properties'],true);

@@ -4,7 +4,7 @@ namespace app\forms\cms\backend;
 class FormFragment extends \yii\base\Model
 {
 
-    public $id, $themeId, $fragmentName, $fragmentType,$properties = '[]';
+    public $id, $themeId, $fragmentName, $fragmentType,$properties = '[]',$isDefault;
 
     public function rules()
     {
@@ -39,7 +39,8 @@ class FormFragment extends \yii\base\Model
         return [
             'fragmentName' => '片段名称',
             'fragmentType' => '片段类型',
-            'properties' => '属性配置'
+            'properties' => '属性配置',
+            'isDefault'=>'是否默认'
         ];
     }
 

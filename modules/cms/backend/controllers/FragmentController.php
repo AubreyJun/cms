@@ -151,6 +151,12 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
         $model = new FormFragment();
         if ($model->load(Yii::$app->request->post())) {
             $model->themeId = $this->data['editThemeId'];
+            if(isset($_REQUEST['FormFragment']['isDefault'])){
+                $model->isDefault = 1;
+            }else{
+                $model->isDefault = 0;
+            }
+
             if ($model->validate()) {
 
                 if ($model->id == 0) {

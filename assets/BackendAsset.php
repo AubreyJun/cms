@@ -28,6 +28,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/kindeditor/themes/default/default.css',
         'static/backend/css/style.css',
         'static/backend/lib/fonticonpicker/themes/grey-theme/jquery.fonticonpicker.grey.min.css',
+        'static/backend/lib/spectrum/spectrum.css',
         'static/backend/css/custom.css'
     ];
 
@@ -49,6 +50,9 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/kindeditor/kindeditor-all-min.js',
         'static/backend/lib/kindeditor/lang/zh-CN.js',
         'static/backend/lib/fonticonpicker/jquery.fonticonpicker.js',
+        'static/backend/lib/bootstrap-input-spinner/bootstrap-input-spinner.js',
+        'static/backend/lib/spectrum/spectrum.js',
+        'static/backend/lib/spectrum/jquery.spectrum-zh-cn.js',
         'static/backend/js/custom.js'
 
     ];

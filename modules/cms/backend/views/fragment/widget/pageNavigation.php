@@ -33,7 +33,25 @@ $this->title = '片段设置';
                 </div>
                 <?= $form->field($model, 'fragmentType')->textInput()->label(false)->hiddenInput(['value' => $model->fragmentType]) ?>
                 <?= $form->field($model, 'fragmentName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
-
+                <div class="form-group">
+                    <label>默认HEADER</label>
+                    <div class="form-check ">
+                        <label class="form-check-label">
+                            <?php
+                            if ($model->attributes['isDefault'] == '1') {
+                                ?>
+                                <input type="checkbox" name="FormFragment[isDefault]" value="1" class="form-check-input"
+                                       checked="checked">
+                                <?php
+                            } else {
+                                ?>
+                                <input type="checkbox" name="FormFragment[isDefault]" value="1" class="form-check-input">
+                                <?php
+                            }
+                            ?>
+                            默认</label>
+                    </div>
+                </div>
 
                 <?php
                 if (isset($editorMapping)) {

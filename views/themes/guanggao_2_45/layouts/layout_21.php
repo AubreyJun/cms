@@ -1,6 +1,7 @@
 <?php
 
 use app\components\cms\LayoutContainerWidget;
+use app\components\cms\LayoutFooterWidget;
 use app\components\cms\PageNavigationWidget;
 
 ?>
@@ -18,7 +19,9 @@ use app\components\cms\PageNavigationWidget;
     <link rel="stylesheet" href="themes/cms/css/animate.css" type="text/css"/>
     <link rel="stylesheet" href="themes/cms/css/magnific-popup.css" type="text/css"/>
 
-    <link rel="stylesheet" href="themes/cms/css/responsive.css" type="text/css"/>
+    <link rel="stylesheet" href="themes/cms/css/magnific-popup.css" type="text/css"/>
+
+    <link rel="stylesheet" href="themes/cms/css/lib/font-awesome/css/font-awesome.min.css" type="text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!--    title,keywords,description-->
@@ -32,8 +35,21 @@ use app\components\cms\PageNavigationWidget;
 	============================================= -->
 <div id="wrapper" class="clearfix">
 
+    <header id="header">
+
+        <div id="header-wrap">
+            <?php echo PageNavigationWidget::widget(['id' => 0, 'context' => $this->context]); ?>
+        </div>
+
+    </header>
+
     <?php echo $content ?>
 
+    <footer id="footer" class="dark mt-lg-3">
+
+        <?php echo LayoutFooterWidget::widget(['id' => 0,'context'=>$this->context]);?>
+
+    </footer>
 
 </div>
 

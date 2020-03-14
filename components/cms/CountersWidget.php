@@ -12,13 +12,12 @@ namespace app\components\cms;
 use app\models\cms\Fragment;
 use yii\base\Widget;
 
-class LayoutFooterWidget extends BasicWidget
+class CountersWidget extends BasicWidget
 {
-
     public $fragment;
     public $context;
-    public $id;
     private $data = array();
+    public $id;
 
     public static $editorMapping = array(
     );
@@ -28,24 +27,20 @@ class LayoutFooterWidget extends BasicWidget
         parent::init();
     }
 
-
     public function run()
     {
 
         if($this->id!=null){
             $this->fragment = Fragment::findOne($this->id);
-        }else if($this->id==0){
-            $this->fragment = Fragment::find()->where(['isDefault'=>1,'fragmentType'=>'layoutFooter'])->one();
         }
+        $this->data['fragment'] = $this->fragment;
 
-        if($this->fragment){
-            $this->data['fragment'] = $this->fragment;
-            $this->data['context'] = $this->context;
+        $properties = json_decode($this->fragment['properties'], true);
+        $this->data['properties'] = $properties;
 
-            return $this->render("layoutFooter", $this->data);
-        }
+        $this->data['context'] = $this->context;
 
+        return $this->render("counters", $this->data);
 
     }
-
 }
