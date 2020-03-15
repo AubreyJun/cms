@@ -23,6 +23,9 @@ $widgetObject = json_decode($widgetjson,true);
 
                             </div>
                             <div class="form-group ">
+                                <button type="button" class="btn btn-success btn-xs" onclick="preView()"><i
+                                            class="fa fa-eye fa-lg"></i>预览
+                                </button>
                                 <button type="button" class="btn btn-primary btn-xs" onclick="saveWidget()"><i
                                             class="fa fa-save fa-lg"></i>保存
                                 </button>
@@ -200,6 +203,10 @@ $widgetObject = json_decode($widgetjson,true);
             $("#page-widget tbody").append(clone);
             bindEvent();
         },'json');
+    }
+
+    function preView(pageId) {
+
     }
 
     function loadWidgetIds(widgetType,object) {

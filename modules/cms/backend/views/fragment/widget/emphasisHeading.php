@@ -41,7 +41,7 @@ $this->title = '页面着重标题设置';
                             <td class="table-label"><strong>样式</strong></td>
                             <td class="styleSelect">
                                 <select class="image-picker show-html form-control mb-3">
-                                    <option data-img-src="themes/cms/fragment/headblock/case_1.jpg" data-img-class="first" data-img-alt="Page 1" value="1">  Page 1  </option>
+                                    <option data-img-src="themes/cms/fragment/headblock/case_1.jpg"  data-img-class="first" data-img-alt="Page 1" value="1">  Page 1  </option>
                                     <option data-img-src="themes/cms/fragment/headblock/case_2.jpg" data-img-alt="Page 2" value="2">  Page 2  </option>
                                     <option data-img-src="themes/cms/fragment/headblock/case_3.jpg" data-img-alt="Page 3" value="3">  Page 3  </option>
                                     <option data-img-src="themes/cms/fragment/headblock/case_4.jpg" data-img-alt="Page 4" value="4" data-img-class="last" >  Page 4  </option>
@@ -106,7 +106,7 @@ $this->title = '页面着重标题设置';
         $("select.image-picker").imagepicker({
             hide_select : false,
             show_label  : false
-        })
+        });
 
         loadProperties();
 
