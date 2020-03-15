@@ -3,11 +3,9 @@
 $properties = $fragment['properties'];
 $propObject = json_decode($properties, true);
 
-if ($propObject['container'] == 1){
 ?>
 <div class="container clearfix">
     <?php
-    }
 
     if ($propObject['imageListType'] == 'four') {
         $index = 1;
@@ -29,10 +27,5 @@ if ($propObject['container'] == 1){
         }
     }
 
-    if ($propObject['container'] == 1){
     ?>
 </div>
-<?php
-}
-
-?>

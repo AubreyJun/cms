@@ -45,24 +45,11 @@ if($properties!=null){
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <td class="table-label"><strong>外部Container</strong></td>
-                            <td>
-                                <div class="form-check ">
-                                    <label class="form-check-label">
-                                        <?php
-                                        if ($propObject['container'] == '1') {
-                                            ?>
-                                            <input type="checkbox" name="container" value="1" class="form-check-input"
-                                                   checked="checked">
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <input type="checkbox" name="container" value="1" class="form-check-input">
-                                            <?php
-                                        }
-                                        ?>
-                                        设置</label>
-                                </div>
+                            <td class="table-label"><strong>样式</strong></td>
+                            <td class="styleSelect">
+                                <select class="image-picker masonry show-html form-control mb-3">
+                                    <option data-img-src="themes/cms/fragment/imageList/1.png"  data-img-alt="通用样式" value="1">通用样式</option>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -204,9 +191,19 @@ if($properties!=null){
 
         $(".tableresize").colResizable();
 
+        $("select.image-picker").imagepicker({
+            hide_select : false,
+            show_label  : false
+        });
+
+
+
         loadProperties();
+        hoverStyleImage();
 
     });
+
+
 
     KindEditor.ready(function (K) {
         editor = K.editor({
