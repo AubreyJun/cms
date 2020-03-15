@@ -29,6 +29,7 @@ class BackendAsset extends AssetBundle
         'static/backend/css/style.css',
         'static/backend/lib/fonticonpicker/themes/grey-theme/jquery.fonticonpicker.grey.min.css',
         'static/backend/lib/spectrum/spectrum.css',
+        'static/backend/lib/image-picker/image-picker.css',
         'static/backend/css/custom.css'
     ];
 
@@ -53,6 +54,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/bootstrap-input-spinner/bootstrap-input-spinner.js',
         'static/backend/lib/spectrum/spectrum.js',
         'static/backend/lib/spectrum/jquery.spectrum-zh-cn.js',
+        'static/backend/lib/image-picker/image-picker.min.js',
         'static/backend/js/custom.js'
 
     ];

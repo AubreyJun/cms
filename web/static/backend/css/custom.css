@@ -2,3 +2,8 @@
 .JColResizer td a:hover{
     text-decoration: none;
 }
+.styleSelect .table th img.image_picker_image, .jsgrid .jsgrid-table th img.image_picker_image, .table td img.image_picker_image, .jsgrid .jsgrid-table td img.image_picker_image{
+    width: 100px !important;
+    height: 100px !important;
+    border-radius:0px !important;
+}
