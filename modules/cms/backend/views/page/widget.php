@@ -37,14 +37,16 @@ $widgetObject = json_decode($widgetjson,true);
                     <table class="table table-bordered table-widget" id="page-widget" >
                         <thead>
                         <tr>
-                            <td class="text-center">
-                                组件类型
+                            <td class="text-center" width="40%">
+                                【内容】组件类型
                             </td>
-                            <td class="text-center">
+                            <td class="text-center" width="40%">
                                 组件
                             </td>
                             <td width="20%">
-                                <i class="fa fa-plus-circle fa-lg text-success"
+                                <i class="fa fa-plus-circle fa-lg text-success mr-1"
+                                   onclick="addWidget()"></i>
+                                <i class="fa fa-th-list fa-lg text-primary"
                                    onclick="addWidget()"></i>
                             </td>
                         </tr>
