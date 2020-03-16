@@ -90,4 +90,35 @@ class LayoutController extends BackendPanelController
         return $this->actionIndex();
     }
 
+    public function actionWidget($id){
+
+        $layout = Layout::findOne($id);
+        $this->data['layout'] = $layout;
+
+        $widgets = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'widget' ) 
+ORDER BY
+	t.sequencenumber ASC")
+            ->queryAll();
+
+        $this->data['widgets'] = $widgets;
+
+        return $this->render('widget', $this->data);
+    }
+
+    public function actionSavewidget(){
+        $id = $_REQUEST['id'];
+        $widgetJSON = $_POST['widgetJSON'];
+
+        $layout = Layout::findOne($id);
+        $layout->widgetjson = $widgetJSON;
+        $layout->save();
+
+        return $this->redirect("index.php?r=cms-backend/layout/widget&id=".$id);
+    }
+
 }

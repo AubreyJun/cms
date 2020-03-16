@@ -17,7 +17,7 @@
                     <thead>
                     <tr>
                         <th>描述</th>
-                        <th width="10%">操作</th>
+                        <th width="20%">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,6 +32,9 @@
                                 </a>
                                 <a class="text-danger mr-1" onclick="deleteItem(<?php echo $item['id']; ?>)">
                                     <i class="fa fa-trash fa-lg"></i>
+                                </a>
+                                <a class="text-success mr-1" href="index.php?r=cms-backend/layout/widget&id=<?php echo $item['id']; ?>" >
+                                    <i class="fa fa-cogs fa-lg"></i>
                                 </a>
                             </td>
                         </tr>
