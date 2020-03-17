@@ -2,7 +2,7 @@
 <?php
 
 $widgetjson = $page['widgetjson'];
-$widgetObject = json_decode($widgetjson,true);
+$widgetObject = json_decode($widgetjson, true);
 
 ?>
 <div class="row">
@@ -34,7 +34,7 @@ $widgetObject = json_decode($widgetjson,true);
                     </div>
                 </div>
                 <div class="row">
-                    <table class="table table-bordered table-widget" id="page-widget" >
+                    <table class="table table-bordered table-widget" id="page-widget">
                         <thead>
                         <tr>
                             <td class="text-center" width="40%">
@@ -54,24 +54,26 @@ $widgetObject = json_decode($widgetjson,true);
                         <tbody>
                         <?php
 
-                        if($widgetObject && sizeof($widgetObject)>0) {
+                        if ($widgetObject && sizeof($widgetObject) > 0) {
                             foreach ($widgetObject as $widget) {
                                 $widgetList = $this->context->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
-                                    ->bindParam(":fragmentType",$widget['widgetType'])
-                                    ->bindParam(":themeId",$this->context->data['editThemeId'])
+                                    ->bindParam(":fragmentType", $widget['widgetType'])
+                                    ->bindParam(":themeId", $this->context->data['editThemeId'])
                                     ->queryAll();
 
                                 ?>
                                 <tr>
                                     <td>
-                                        <select class="form-control" name="widgetType" onchange="loadWidgetIds(this.value,this)" >
+                                        <select class="form-control" name="widgetType"
+                                                onchange="loadWidgetIds(this.value,this)">
                                             <?php
-                                            foreach ($widgets as $widgetitem){
-                                                if($widget['widgetType']==$widgetitem['optionValue']){
+                                            foreach ($widgets as $widgetitem) {
+                                                if ($widget['widgetType'] == $widgetitem['optionValue']) {
                                                     ?>
-                                                    <option selected="selected" value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
+                                                    <option selected="selected"
+                                                            value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
                                                     <?php
-                                                }else{
+                                                } else {
                                                     ?>
                                                     <option value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
                                                     <?php
@@ -83,12 +85,13 @@ $widgetObject = json_decode($widgetjson,true);
                                     <td>
                                         <select class="form-control" name="widgetId">
                                             <?php
-                                            foreach ($widgetList as $witem){
-                                                if($witem['id']==$widget['widgetId']){
+                                            foreach ($widgetList as $witem) {
+                                                if ($witem['id'] == $widget['widgetId']) {
                                                     ?>
-                                                    <option selected="selected" value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                                    <option selected="selected"
+                                                            value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
                                                     <?php
-                                                }else{
+                                                } else {
                                                     ?>
                                                     <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
                                                     <?php
@@ -98,8 +101,7 @@ $widgetObject = json_decode($widgetjson,true);
                                         </select>
                                     </td>
                                     <td>
-                                        <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
-                                        <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
+                                        <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
                                         <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
                                     </td>
                                 </tr>
@@ -117,11 +119,12 @@ $widgetObject = json_decode($widgetjson,true);
                         <tbody>
                         <tr>
                             <td>
-                                <select class="form-control" name="widgetType" onchange="loadWidgetIds(this.value,this)" >
+                                <select class="form-control" name="widgetType"
+                                        onchange="loadWidgetIds(this.value,this)">
                                     <?php
-                                    foreach ($widgets as $widget){
+                                    foreach ($widgets as $widget) {
                                         ?>
-                                        <option  value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
+                                        <option value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
                                         <?php
                                     }
                                     ?>
@@ -132,8 +135,7 @@ $widgetObject = json_decode($widgetjson,true);
                                 </select>
                             </td>
                             <td>
-                                <i class="fa fa-arrow-up fa-lg text-success mr-1 tool-up" title="上移"></i>
-                                <i class="fa fa-arrow-down fa-lg text-warning  mr-1 tool-down" title="下移"></i>
+                                <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
                                 <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
                             </td>
                         </tr>
@@ -147,14 +149,15 @@ $widgetObject = json_decode($widgetjson,true);
 </div>
 <script>
 
+    var dragger = null;
 
     $(function () {
         bindEvent();
     });
 
     function loadProperties() {
-        if(widgetJson.length!=0){
-            for(var i=0;i<widgetJson.length;i++){
+        if (widgetJson.length != 0) {
+            for (var i = 0; i < widgetJson.length; i++) {
                 addLoadWidget(widgetJson[i]);
             }
         }
@@ -164,23 +167,23 @@ $widgetObject = json_decode($widgetjson,true);
         var demotr = $("#table-list-demo tbody tr:first");
         var clone = demotr.clone();
         $(clone).find("select[name=widgetType]").val(widget['widgetType']);
-        $.post('index.php?r=cms-backend/page/getwidget',{
-            "widgetType":widget['widgetType'],
+        $.post('index.php?r=cms-backend/page/getwidget', {
+            "widgetType": widget['widgetType'],
             '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
-        },function (data) {
-            if(data.length>0){
+        }, function (data) {
+            if (data.length > 0) {
 
                 var html = "";
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i]['id'] + '">' + data[i]['fragmentName'] + '</option>';
                 }
                 $(clone).find("select[name=widgetId]").html(html);
-            }else{
+            } else {
                 $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
             }
             $("#page-widget tbody").append(clone);
             bindEvent();
-        },'json');
+        }, 'json');
     }
 
     function addWidget() {
@@ -188,69 +191,62 @@ $widgetObject = json_decode($widgetjson,true);
         var clone = demotr.clone();
         var widgetType = $(clone).find("select[name=widgetType]").val();
 
-        $.post('index.php?r=cms-backend/page/getwidget',{
-            "widgetType":widgetType,
+        $.post('index.php?r=cms-backend/page/getwidget', {
+            "widgetType": widgetType,
             '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
-        },function (data) {
-            if(data.length>0){
+        }, function (data) {
+            if (data.length > 0) {
 
                 var html = "";
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i]['id'] + '">' + data[i]['fragmentName'] + '</option>';
                 }
                 $(clone).find("select[name=widgetId]").html(html);
-            }else{
+            } else {
                 $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
             }
             $("#page-widget tbody").append(clone);
             bindEvent();
-        },'json');
+        }, 'json');
     }
 
     function preView(pageId) {
 
     }
 
-    function loadWidgetIds(widgetType,object) {
-        $.post('index.php?r=cms-backend/page/getwidget',{
-            "widgetType":widgetType,
+    function loadWidgetIds(widgetType, object) {
+        $.post('index.php?r=cms-backend/page/getwidget', {
+            "widgetType": widgetType,
             '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
-        },function (data) {
-            if(data.length>0){
+        }, function (data) {
+            if (data.length > 0) {
 
                 var html = "";
-                for(var i=0;i<data.length;i++){
-                    html += '<option value="'+data[i]['id']+'">'+data[i]['fragmentName']+'</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i]['id'] + '">' + data[i]['fragmentName'] + '</option>';
                 }
                 $(object).closest("tr").find("select[name=widgetId]").html(html);
-            }else{
+            } else {
                 $(object).closest("tr").find("select[name=widgetId]").html("<option value='0'>无</option>");
             }
-        },'json');
+        }, 'json');
     }
 
     function bindEvent() {
         $(".table-widget tbody .tool-delete").unbind("click");
-        $(".table-widget tbody .tool-up").unbind("click");
-        $(".table-widget tbody .tool-down").unbind("click");
-
         $(".table-widget tbody .tool-delete").bind("click", function () {
             $(this).closest("tr").remove();
         });
-        $(".table-widget tbody .tool-up").bind("click", function () {
-            var prevTr = $(this).closest("tr").prev("tr");
-            var currentTr = $(this).closest("tr");
-            if (prevTr) {
-                prevTr.before(currentTr);
-            }
-        });
-        $(".table-widget tbody .tool-down").bind("click", function () {
-            var nextTr = $(this).closest("tr").next("tr");
-            var currentTr = $(this).closest("tr");
-            if (nextTr) {
-                nextTr.after(currentTr);
-            }
-        });
+
+        if(dragger==null){
+            dragger = tableDragger(document.querySelector("#page-widget"), {mode: "row", onlyBody: true, dragHandler: ".handle"})
+        }else{
+            // debugger;
+            dragger.destroy();
+            dragger = tableDragger(document.querySelector("#page-widget"), {mode: "row", onlyBody: true, dragHandler: ".handle"})
+        }
+
+
     }
 
     function saveWidget() {
@@ -258,13 +254,13 @@ $widgetObject = json_decode($widgetjson,true);
         var trs = $("#page-widget tbody tr");
 
         var widgets = new Array();
-        if(trs.length>0){
+        if (trs.length > 0) {
             for (var j = 0; j < trs.length; j++) {
                 var widgetType = $(trs[j]).find("select[name=widgetType]").val();
                 var widgetId = $(trs[j]).find("select[name=widgetId]").val();
                 widgets.push({
-                    'widgetType':widgetType,
-                    'widgetId':widgetId
+                    'widgetType': widgetType,
+                    'widgetId': widgetId
                 });
             }
         }
