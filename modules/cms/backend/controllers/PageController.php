@@ -119,6 +119,10 @@ ORDER BY
         return $this->redirect("index.php?r=cms-backend/page/widget&id=".$id);
     }
 
+    public function actionPreview($pageId){
+
+    }
+
     public function actionWidget($id){
 
         $page = Page::findOne($id);
