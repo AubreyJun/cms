@@ -18,26 +18,6 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'themeId')->textInput()->label(false)->hiddenInput(['value' => $model->id]) ?>
                 <?= $form->field($model, 'layoutName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
                 <div class="form-group">
-                    <textarea id="code-editable"
-                              class=" w-100" name="FormLayout[layoutText]"><?php echo htmlspecialchars($model->layoutText);?></textarea>
-                    <?php
-                    if (isset($model->getErrors()['layoutText'])) {
-                        ?>
-                        <div class="error mt-2 text-danger">
-                            <?php
-                            foreach ($model->getErrors()['layoutText'] as $error_fc) {
-                                echo $error_fc;
-                                echo '</br>';
-                            }
-                            ?>
-                        </div>
-                        <?php
-
-                    }
-                    ?>
-
-                </div>
-                <div class="form-group">
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
@@ -47,11 +27,5 @@ use yii\widgets\ActiveForm;
 </div>
 <script>
 $(function () {
-    CodeMirror.fromTextArea(document.getElementById('code-editable'), {
-        lineNumbers: true,
-        styleActiveLine: true,
-        matchBrackets: true,
-        theme: "midnight"
-    });
 });
 </script>

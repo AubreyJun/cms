@@ -6,7 +6,6 @@ class FormLayout extends \yii\base\Model
 {
     public $id;
     public $layoutName;
-    public $layoutText;
     public $themeId;
     public $header;
     public $footer;
@@ -16,8 +15,7 @@ class FormLayout extends \yii\base\Model
         return [
             [['id'], 'required'],
             [['themeId'], 'required'],
-            [['layoutName'], 'required', 'message' => '布局描述不能为空'],
-            [['layoutText'], 'required', 'message' => '布局内容不能为空']
+            [['layoutName'], 'required', 'message' => '布局描述不能为空']
         ];
     }
 
@@ -25,7 +23,6 @@ class FormLayout extends \yii\base\Model
     {
         return [
             'layoutName' => '布局描述',
-            'layoutText' => '布局内容',
             'header' => '头部组件',
             'footer' => '底部组件',
         ];

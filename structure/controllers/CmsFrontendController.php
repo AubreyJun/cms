@@ -6,6 +6,7 @@ namespace app\structure\controllers;
 
 use app\components\cms\PageMetaWidget;
 use app\models\cms\Fragment;
+use app\models\cms\Layout;
 use app\structure\constants\MsgType;
 use Yii;
 use yii\data\Pagination;
@@ -73,16 +74,8 @@ class CmsFrontendController extends AppController
         }
     }
 
-
-    public function viewer($view)
-    {
-        $themeKey = $this->defaultTheme['themeKey'];
-        return $this->render('@app/views/themes/' . $themeKey . '_' . $this->defaultTheme['id'] . '/' . $view, $this->data);
-    }
-
     public function show($pageType)
     {
-
         if ($pageType == null) {
             $pageType = 'home';
         }
@@ -94,10 +87,14 @@ class CmsFrontendController extends AppController
             $message = $this->message(MsgType::ERROR, '页面没有配置！页面类型：' . $pageType);
             return $this->errorPage($message);
         } else {
-            $this->data['page'] = $page;
-            $this->setDefMeta($page);
-            $this->setLayout($page['layoutId']);
-            return $this->viewer($page['pageType'] . '_' . $page['id'],$this->data);
+
+            $layout = Layout::findOne($page['id']);
+
+            $this->data['CMS_PAGE'] = $page;
+            $this->data['CMS_LAYOUT'] = $layout;
+
+            $this->layout = '@app/views/layouts/frontend-cms';
+            return $this->render('@app/views/rkcms/page', $this->data);
         }
     }
 
@@ -200,27 +197,6 @@ WHERE
         $themeKey = $this->defaultTheme['themeKey'];
         return $this->renderPartial('@app/views/themes/' . $themeKey . '_' . $this->defaultTheme['id'] . "/" . $filename, $this->data);
     }
-
-    public function setLayout($layoutId)
-    {
-        $themeKey = $this->defaultTheme['themeKey'];
-        $this->layout = '@app/views/themes/' . $themeKey . '_' . $this->defaultTheme['id'] . '/layouts/layout_' . $layoutId;
-    }
-
-    public function setMenuActive($menu)
-    {
-        $this->data['menuActive'] = $menu;
-    }
-
-    public function echoMenuActive($array)
-    {
-        if (array_key_exists($this->data['menuActive'], $array)) {
-            return "active";
-        } else {
-            return "";
-        }
-    }
-
 
     private function getNavgationChildren($itemId, $themeId, $level)
     {

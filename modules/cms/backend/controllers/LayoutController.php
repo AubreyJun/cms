@@ -41,13 +41,11 @@ class LayoutController extends BackendPanelController
                     $formLayout = new Layout();
                     $formLayout->setAttributes($model->attributes,false);
                     $formLayout->save();
-                    $this->saveLayout($formLayout->id);
                     return $this->actionIndex();
                 } else {
                     $formLayout = Layout::findOne($model->attributes['id']);
                     $formLayout->setAttributes($model->attributes,false);
                     $formLayout->save();
-                    $this->saveLayout($formLayout->id);
                     return $this->actionIndex();
                 }
             }
@@ -55,19 +53,6 @@ class LayoutController extends BackendPanelController
         return $this->render('edit', [
             'model' => $model
         ]);
-    }
-
-    private function saveLayout($layoutId){
-        $layout = Layout::findOne($layoutId);
-        $folderPath = Yii::$app->viewPath.'/themes/'. $this->data['defaultThemeName'];
-        if(!file_exists($folderPath)){
-            mkdir($folderPath);
-        }
-        $layoutPath = $folderPath.'/layouts';
-        if(!file_exists($layoutPath)){
-            mkdir($layoutPath);
-        }
-        file_put_contents(Yii::$app->viewPath.'/themes/'.$this->data['defaultThemeName'].'/layouts'.'/layout_'.$layout['id'].'.php',$layout['layoutText']);
     }
 
     public function actionUpdate($id)
