@@ -24,7 +24,7 @@ $widgetObject = json_decode($widgetjson,true);
 
                             </div>
                             <div class="form-group ">
-                                <button type="button" class="btn btn-success btn-xs" onclick="preView()"><i
+                                <button type="button" class="btn btn-success btn-xs" onclick="preView(<?= $page['id']; ?>)"><i
                                             class="fa fa-eye fa-lg"></i>预览
                                 </button>
                                 <button type="button" class="btn btn-primary btn-xs" onclick="saveWidget()"><i
@@ -373,7 +373,7 @@ $widgetObject = json_decode($widgetjson,true);
     }
 
     function preView(pageId) {
-        window.location.href = "index.php?r=cms-frontend/page/index&id="+pageId;
+        window.open("index.php?r=cms-frontend/page/index&pageType=<?php echo $page['pageType']; ?>&pageId="+pageId);
     }
 
     function loadWidgetIds(widgetType, object) {
