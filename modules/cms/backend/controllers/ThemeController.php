@@ -156,7 +156,6 @@ class ThemeController extends BackendPanelController
         }
 
         echo json_encode($this->message(MsgType::SUCCESS, '模板缓存刷新完成'));
-
     }
 
     function actionReset($id)
@@ -217,6 +216,12 @@ class ThemeController extends BackendPanelController
             ->bindParam(":content", $content)
             ->bindParam(":id", $id)
             ->execute();
+    }
+
+    //进行可视化编辑
+    public function actionVisualeditor(){
+        $this->layout = '@app/views/layouts/frontend-cms-editor';
+        return $this->render('@app/views/rkcms/page-editor', $this->data);
     }
 
     private function resetPage($page, $theme)

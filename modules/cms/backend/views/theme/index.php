@@ -53,13 +53,9 @@
                                    href="index.php?r=cms-backend/theme/default&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-check fa-lg"></i>
                                 </a>
-                                <a class="text-success mr-1" title="刷新页面"
-                                   href="javascript:refreshTheme(<?php echo $item['id']; ?>);">
-                                    <i class="fa fa-refresh fa-lg"></i>
-                                </a>
-                                <a class="text-primary mr-1"  title="页面逆向加载"
-                                   href="javascript:resetTheme(<?php echo $item['id']; ?>)">
-                                    <i class="fa fa-reply fa-lg"></i>
+                                <a class="text-success mr-1" title="可视化编辑"
+                                   href="javascript:visualEditor(<?php echo $item['id']; ?>);">
+                                    <i class="fa fa-desktop fa-lg"></i>
                                 </a>
                             </td>
                         </tr>
@@ -79,29 +75,13 @@
         $("table").colResizable();
     });
 
-    function refreshTheme(id) {
-        $.post('index.php?r=cms-backend/theme/refresh&id=' + id, {
-            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>"'
-        }, function (data) {
-            if (data.code == 'success') {
-                toastSuccess(data.message)
-            }
-        }, 'json');
-    }
-
     function deleteItem(id) {
         doConfirm('删除主题？',function () {
             window.location.href = "index.php?r=cms-backend/theme/delete&id="+id;
         });
     }
 
-    function resetTheme(id) {
-        $.post('index.php?r=cms-backend/theme/reset&id=' + id, {
-            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>"'
-        }, function (data) {
-            if (data.code == 'success') {
-                toastSuccess(data.message)
-            }
-        }, 'json');
+    function visualEditor(id) {
+        window.open("index.php?r=cms-backend/theme/visualeditor&id="+id);
     }
 </script>
