@@ -18,165 +18,60 @@ use yii\web\UploadedFile;
 class FragmentController extends BackendPanelController
 {
 
-    public function actionIndex($fragmentType=null)
+    public function actionIndex()
     {
-        $this->data['fragmentType'] = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'fragmentType' ) 
-ORDER BY
-	t.sequencenumber ASC")
-            ->queryAll();
-
-        $fragmentKV = array();
-        foreach ($this->data['fragmentType'] as $item) {
-            $fragmentKV[$item['optionValue']] = $item['optionDesc'];
-        }
-        $this->data['fragmentKV'] = $fragmentKV;
-
-        $widgets = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'widget' ) 
-ORDER BY
-	t.sequencenumber ASC")
-            ->queryAll();
-
-        $this->data['widgets'] = $widgets;
-
-        if($fragmentType==null){
-            $fragmentType = $widgets[0]['optionValue'];
-        }
-        $this->data['current'] = $fragmentType;
-
-        $fragmentList = $this->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
-            ->bindParam(":themeId", $this->data['editThemeId'])
-            ->bindParam(":fragmentType", $fragmentType)->queryAll();
+        $fragmentList = $this->query("select * from cms_theme_fragment where  themeId = :themeId")
+            ->bindParam(":themeId", $this->data['editThemeId'])->queryAll();
         $this->data['fragmentList'] = $fragmentList;
 
         return $this->render('index', $this->data);
     }
 
-    private function setForm(){
-
-        $this->data['fragmentType'] = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'fragmentType' ) 
-ORDER BY
-	t.sequencenumber ASC")
-            ->queryAll();
-
-        $fragmentKV = array();
-        foreach ($this->data['fragmentType'] as $item) {
-            $fragmentKV[$item['optionValue']] = $item['optionDesc'];
-        }
-        $this->data['fragmentKV'] = $fragmentKV;
-
-
-
-    }
-
-    public function actionAdd($fragmentType)
+    public function actionAdd()
     {
 
-        $this->setForm();
         $model = new FormFragment();
-        $model->fragmentType = $fragmentType;
         $model->id = 0;
-
-        //载入模板
-        $evalStr = 'use app\components\cms\\'.ucfirst($fragmentType).'Widget;';
-        $evalStr .= '$editorMapping = '.ucfirst($fragmentType).'Widget::$editorMapping;';
-        eval($evalStr);
-        $this->data['editorMapping'] = $editorMapping;
 
         $this->data['model'] = $model;
 
-        $this->data['fragmentType'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
-            ->bindParam(":fragmentType",$fragmentType)
-            ->queryOne();
-
-
-
-        return $this->render('widget/'.$fragmentType, $this->data);
-    }
-
-    public function actionCopyconfig($fragmentId, $id)
-    {
-        $this->query("insert into cms_theme_fragment_prop (fragmentId,ppKey,ppValue) select fragmentId,ppKey,ppValue 
-from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
-            ->bindParam(":fragmentId", $fragmentId)
-            ->bindParam(":id", $id)
-            ->execute();
-
-        return $this->redirect("index.php?r=cms-backend/fragment/config&id=".$fragmentId);
+        return $this->render('edit', $this->data);
     }
 
     public function actionUpdate($id)
     {
 
-        $this->setForm();
         $fragment = Fragment::findOne($id);
         $model = new FormFragment();
         $model->setAttributes($fragment->attributes, true);
         $this->data['model'] = $model;
 
-        $evalStr = 'use app\components\cms\\'.ucfirst($model->fragmentType).'Widget;';
-        $evalStr .= '$editorMapping = '.ucfirst($model->fragmentType).'Widget::$editorMapping;';
-        eval($evalStr);
-        $this->data['editorMapping'] = $editorMapping;
-
-        $fragmentType = $fragment['fragmentType'];
-
-        $this->data['fragmentType'] = $this->query("select * from cms_select_options where optionvalue = :fragmentType")
-            ->bindParam(":fragmentType",$fragmentType)
-            ->queryOne();
-
         $this->data['fragment'] = $fragment;
 
-        return $this->render('widget/'.$fragmentType, $this->data);
+        return $this->render('edit', $this->data);
     }
 
     public function actionEdit()
     {
 
-        $this->setForm();
         $model = new FormFragment();
         if ($model->load(Yii::$app->request->post())) {
             $model->themeId = $this->data['editThemeId'];
-            if(isset($_REQUEST['FormFragment']['isDefault'])){
-                $model->isDefault = 1;
-            }else{
-                $model->isDefault = 0;
-            }
-
             if ($model->validate()) {
 
                 if ($model->id == 0) {
                     $fragment = new Fragment();
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
-                    return $this->actionIndex($model->attributes['fragmentType']);
+                    return $this->redirect("index.php?r=cms-backend/fragment/index");
                 } else {
                     $fragment = Fragment::findOne($model->attributes['id']);
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
-                    return $this->actionIndex($model->attributes['fragmentType']);
+                    return $this->redirect("index.php?r=cms-backend/fragment/index");
                 }
             }
         }
-
-        $evalStr = 'use app\components\cms\\'.ucfirst($model->attributes['fragmentType']).'Widget;';
-        $evalStr .= '$editorMapping = '.ucfirst($model->attributes['fragmentType']).'Widget::$editorMapping;';
-        eval($evalStr);
-        $this->data['editorMapping'] = $editorMapping;
 
         $this->data['model'] = $model;
         return $this->render('edit', $this->data);
@@ -190,7 +85,7 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
         $newFragment->fragmentName = "复制 - ".$newFragment->fragmentName;
         $newFragment->id = null;
         $newFragment->save();
-        return $this->redirect("/index.php?r=cms-backend/fragment/index&fragmentType=".$fragment['fragmentType']);
+        return $this->redirect("index.php?r=cms-backend/fragment/index");
     }
 
     public function actionConfig($id)
@@ -204,53 +99,6 @@ from cms_theme_fragment_prop where fragmentId = :fragmentId and id =:id")
         $this->data['fragmentProps'] = $fragmentProps;
 
         return $this->render('config', $this->data);
-    }
-
-    public function actionSaveconfig()
-    {
-        $id = $_REQUEST['id'];
-        $fragmentId = $_REQUEST['fragmentId'];
-        $ppKey = $_REQUEST['ppKey'];
-        $ppValue = $_REQUEST['ppValue'];
-
-        if ($id == 0) {
-            $this->query("insert into cms_theme_fragment_prop (fragmentId,ppKey,ppValue,createtime) values (:fragmentId,:ppKey,:ppValue,now())")
-                ->bindParam(":fragmentId", $fragmentId)
-                ->bindParam(":ppKey", $ppKey)
-                ->bindParam(":ppValue", $ppValue)
-                ->execute();
-        } else {
-            $this->query("update cms_theme_fragment_prop set ppKey = :ppKey, ppValue = :ppValue where id = :id")
-                ->bindParam(":id", $id)
-                ->bindParam(":ppKey", $ppKey)
-                ->bindParam(":ppValue", $ppValue)
-                ->execute();
-        }
-
-        return $this->redirect("index.php?r=cms-backend/fragment/config&id=" . $fragmentId);
-
-    }
-
-    public function actionDeleteconfig($id, $fragmentId)
-    {
-
-        $this->query("delete from cms_theme_fragment_prop where id = :id")
-            ->bindParam(":id", $id)
-            ->execute();
-
-        return $this->redirect("index.php?r=cms-backend/fragment/config&id=" . $fragmentId);
-    }
-
-    public function actionUpdateconfig($id, $fragmentId)
-    {
-
-        $props = $this->query("select * from cms_theme_fragment_prop where id = :id")
-            ->bindParam(":id", $id)
-            ->queryOne();
-        $this->data['props'] = $props;
-
-        return $this->actionConfig($fragmentId);
-
     }
 
     public function actionDelete($id)
