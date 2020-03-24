@@ -10,38 +10,28 @@
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
                             <div class="form-group mr-2">
-                                <select class="form-control form-control-sm" style="padding: 3px;" name="fragmentType"
-                                        onchange="changeType(this.value)">
-                                    <?php
-                                    foreach ($widgets as $widget){
-                                        if($current ==  $widget['optionValue']){
-                                            ?>
-                                            <option selected="selected" value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
-                                            <?php
-                                        }else{
-                                            ?>
-                                            <option  value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
                             </div>
                             <div class="form-group ">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="add()"><i
-                                            class="fa fa-plus"></i></button>
+                                <button class="btn btn-primary btn-xs"
+                                        onclick="add()"><i
+                                            class="fa fa-plus"></i>
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <td>名称</td>
+                        <td width="20%">操作</td>
+                    </tr>
+                    </thead>
                     <tbody>
                     <?php
                     foreach ($fragmentList as $item) {
                         ?>
                         <tr>
-                            <td width="40%">&lt;?php echo <?php echo ucfirst($item['fragmentType']); ?>Widget::widget(['id' => <?php echo $item['id']; ?>,'context'=>$this->context]);?&gt;
-                            </td>
                             <td><?php echo $item['fragmentName']; ?></td>
                             <td width="20%">
                                 <a class="text-primary"
@@ -69,21 +59,16 @@
 </div>
 <script>
     $(function () {
-        // $("table").colResizable();
+        $("table").colResizable();
     });
 
     function deleteItem(id) {
-        doConfirm('删除片段？',function () {
-            window.location.href = "index.php?r=cms-backend/fragment/delete&id="+id;
+        doConfirm('删除片段？', function () {
+            window.location.href = "index.php?r=cms-backend/fragment/delete&id=" + id;
         });
     }
 
-    function changeType(fragmentType) {
-        window.location.href = 'index.php?r=cms-backend/fragment/index&fragmentType=' + fragmentType;
-    }
-
     function add() {
-        var fragmentType = $("select[name=fragmentType]").val();
-        window.location.href = 'index.php?r=cms-backend/fragment/add&fragmentType=' + fragmentType;
+        window.location.href = 'index.php?r=cms-backend/fragment/add';
     }
 </script>

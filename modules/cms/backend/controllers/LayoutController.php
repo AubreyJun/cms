@@ -80,18 +80,6 @@ class LayoutController extends BackendPanelController
         $layout = Layout::findOne($id);
         $this->data['layout'] = $layout;
 
-        $widgets = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'widget' ) 
-ORDER BY
-	t.sequencenumber ASC")
-            ->queryAll();
-
-        $this->data['widgets'] = $widgets;
-
         return $this->render('widget', $this->data);
     }
 

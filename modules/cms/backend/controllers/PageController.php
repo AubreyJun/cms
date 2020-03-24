@@ -128,15 +128,6 @@ ORDER BY
         $page = Page::findOne($id);
         $this->data['page'] = $page;
 
-        $this->data['fragmentType'] = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'fragmentType' ) 
-ORDER BY
-	t.sequencenumber ASC")
-            ->queryAll();
 
         $fragmentList = array();
 
