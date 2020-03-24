@@ -408,7 +408,7 @@ $widgetObject = json_decode($widgetjson,true);
     function resetDrag(dragger,pageId) {
         if (dragger == null) {
             if($(pageId).find("tbody tr").length>0){
-                dragger = tableDragger(document.querySelector(pageId), {
+                dragger = tableDragger(document.quresetDragerySelector(pageId), {
                     mode: "row",
                     onlyBody: true,
                     dragHandler: ".handle"
