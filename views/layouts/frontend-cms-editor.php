@@ -66,30 +66,5 @@ $widgetObject = json_decode($widgetjson, true);
 <script src="themes/cms/js/functions.js"></script>
 
 
-<div id='editor_slider'>
-    helloword
-    <i class="i-rounded i-small icon-cogs" id="editor_trigger" style="margin: 0px !important;border-radius: 0px;position: absolute;right: -30px;" ></i>
-</div>
-
-<script src="static/frontend/lib/slidereveal/jquery.slidereveal.min.js"></script>
-<script>
-    $(function () {
-        $("#editor_slider").slideReveal({
-            trigger: $("#editor_trigger"),
-            shown: function(slider, trigger){
-
-            },
-            hidden: function(slider, trigger){
-
-            },
-            show: function(slider, trigger){
-
-            },
-            hide: function(slider, trigger){
-
-            }
-        });
-    });
-</script>
 </body>
 </html>

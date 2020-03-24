@@ -648,7 +648,6 @@
     </div>
 
 </div>
-
 <?php
 $widgetjson = $page['widgetjson'];
 $widgetObject = json_decode($widgetjson, true);
