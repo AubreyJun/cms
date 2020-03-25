@@ -52,9 +52,9 @@ class BackendPanelController extends AppController
     {
         $this->data['error_message'] = null;
 
-        $defaultTheme = $this->query("select id,themeKey,themeName from cms_theme where isActive = 1 ")->queryOne();
+        $defaultTheme = $this->query("select id,themeName from cms_theme where isActive = 1 ")->queryOne();
 
-        $editTheme = $this->query("select id,themeKey,themeName from cms_theme where isEdit = 1 ")->queryOne();
+        $editTheme = $this->query("select id,themeName from cms_theme where isEdit = 1 ")->queryOne();
         if($editTheme==null){
             $this->data['editThemeId'] = $defaultTheme['id'];
 
