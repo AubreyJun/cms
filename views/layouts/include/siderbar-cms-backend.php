@@ -38,7 +38,7 @@
             </a>
         </li>
         <?php
-        if(sizeof($this->context->data['pluginList'])>0){
+        if (sizeof($this->context->data['pluginList']) > 0) {
             ?>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#cms-plugin" aria-expanded="false"
@@ -50,9 +50,11 @@
                 <div class="collapse" id="cms-plugin">
                     <ul class="nav flex-column sub-menu">
                         <?php
-                        foreach ($this->context->data['pluginList'] as $plug){
+                        foreach ($this->context->data['pluginList'] as $plug) {
                             ?>
-                            <li class="nav-item "><a class="nav-link" href="index.php?r=plugin-backend/<?php echo strtolower($plug['pluginId']); ?>/index"><?php echo $plug['pluginName']; ?></a></li>
+                            <li class="nav-item "><a class="nav-link"
+                                                     href="index.php?r=plugin-backend/<?php echo strtolower($plug['pluginId']); ?>/index"><?php echo $plug['pluginName']; ?></a>
+                            </li>
                             <?php
                         }
                         ?>
@@ -76,9 +78,6 @@
                 </ul>
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/catalog/index">目录设置</a></li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item "><a class="nav-link" href="index.php?r=cms-backend/navigation/index">页面导航</a></li>
                 </ul>
             </div>
         </li>
