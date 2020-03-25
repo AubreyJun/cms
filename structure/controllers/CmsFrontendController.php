@@ -46,9 +46,9 @@ class CmsFrontendController extends AppController
 
         if($demo){
             $host = $_SERVER['HTTP_HOST'];
-            $themeKey = Yii::$app->params['themeids'][$host];
-            $this->defaultTheme = $this->query("select * from cms_theme t where t.themeKey = :themeKey")
-                ->bindParam(":themeKey", $themeKey)
+            $id = Yii::$app->params['themeids'][$host];
+            $this->defaultTheme = $this->query("select * from cms_theme t where t.id = :id")
+                ->bindParam(":id", $id)
                 ->queryOne();
         }else{
             //主题设置

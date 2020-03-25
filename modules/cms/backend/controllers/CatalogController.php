@@ -16,7 +16,7 @@ class CatalogController extends BackendPanelController
     public function actionIndex()
     {
 
-        $this->data['navgation'] = $this->getNavgation('cms');
+        $this->data['navgation'] = $this->getNavgation();
 
         return $this->render('index', $this->data);
     }
