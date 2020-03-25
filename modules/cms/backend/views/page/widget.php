@@ -244,7 +244,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
     }
 
     function preView(pageId) {
-        window.open("index.php?r=cms-frontend/page/index&pageType=<?php echo $page['pageType']; ?>&pageId="+pageId);
+        window.open("index.php?r=cms-backend/page/prview&pageId="+pageId);
     }
 
 

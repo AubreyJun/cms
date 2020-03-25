@@ -12,6 +12,7 @@ class DefaultController extends CmsFrontendController
 
         $this->pageId = $pageId;
 
+
         return $this->show($pageType);
     }
 }

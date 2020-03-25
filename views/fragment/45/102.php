@@ -1,0 +1,1 @@
+{"style":"left","title":"喷绘墙体广告","description":"主要以国道、省道、乡镇公路主干道两边显眼建筑立面，直接将喷绘画面固定而成的一种户外广告形式，美观典雅，广告持续时间久，适合大规模、大范围品牌推广。<br />","image":"/uploads/file/guanggao_2/home_service_2.jpg","container":"1"}

@@ -40,6 +40,55 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         <thead>
                         <tr>
                             <td class="text-center" width="80%">
+                                【HEADER】片段
+                            </td>
+                            <td width="20%">
+                                <i class="fa fa-plus-circle fa-lg text-success"
+                                   onclick="addWidget(this)"></i>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        if ($widgetObject['header'] && sizeof($widgetObject['header']) > 0) {
+                            foreach ($widgetObject['header'] as $widget) {
+                                ?>
+                                <tr>
+                                    <td>
+                                        <select class="form-control" name="widgetId">
+                                            <?php
+                                            foreach ($widgetList as $witem) {
+                                                if ($witem['id'] == $widget) {
+                                                    ?>
+                                                    <option selected="selected"
+                                                            value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
+                                        <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table table-bordered table-widget mb-3" id="topWidget">
+                        <thead>
+                        <tr>
+                            <td class="text-center" width="80%">
                                 【头部片段】片段
                             </td>
                             <td width="20%">
@@ -50,8 +99,8 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         </thead>
                         <tbody>
                         <?php
-                        if ($widgetObject && sizeof($widgetObject['header']) > 0) {
-                            foreach ($widgetObject['header'] as $widget) {
+                        if ($widgetObject['top'] && sizeof($widgetObject['top']) > 0) {
+                            foreach ($widgetObject['top'] as $widget) {
                                 ?>
                                 <tr>
                                     <td>
@@ -99,7 +148,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         </thead>
                         <tbody>
                         <?php
-                        if ($widgetObject && sizeof($widgetObject['footer']) > 0) {
+                        if ($widgetObject['footer'] && sizeof($widgetObject['footer']) > 0) {
                             foreach ($widgetObject['footer'] as $widget) {
                                 ?>
                                 <tr>
@@ -166,6 +215,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
 <script>
 
     var dragger_header = null;
+    var dragger_top = null;
     var dragger_footer = null;
 
     $(function () {
@@ -205,6 +255,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
             $(this).closest("tr").remove();
         });
 
+        dragger_top = resetDrag(dragger_header, "#topWidget");
         dragger_header = resetDrag(dragger_header, "#headWidget");
         dragger_footer = resetDrag(dragger_footer, "#footerWidget");
     }
@@ -224,11 +275,14 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
     }
 
     function saveWidget() {
+
         var headerWidgets = getWidgets("headWidget");
+        var topWidgets = getWidgets("topWidget");
         var footerWidgets = getWidgets("footerWidget");
 
         var jsonObject = {
             'header': headerWidgets,
+            'top':topWidgets,
             'footer': footerWidgets
         };
         var widgetsJSON = JSON.stringify(jsonObject);

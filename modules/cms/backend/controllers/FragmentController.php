@@ -63,11 +63,13 @@ class FragmentController extends BackendPanelController
                     $fragment = new Fragment();
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
+                    $this->saveFragment($fragment['id']);
                     return $this->redirect("index.php?r=cms-backend/fragment/index");
                 } else {
                     $fragment = Fragment::findOne($model->attributes['id']);
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
+                    $this->saveFragment($fragment['id']);
                     return $this->redirect("index.php?r=cms-backend/fragment/index");
                 }
             }
@@ -85,20 +87,21 @@ class FragmentController extends BackendPanelController
         $newFragment->fragmentName = "复制 - ".$newFragment->fragmentName;
         $newFragment->id = null;
         $newFragment->save();
+        $this->saveFragment($newFragment['id']);
         return $this->redirect("index.php?r=cms-backend/fragment/index");
     }
 
-    public function actionConfig($id)
-    {
-
-        $this->data['id'] = $id;
-
-        $fragmentProps = $this->query("select * from cms_theme_fragment_prop where fragmentId = :fragmentId")
-            ->bindParam(":fragmentId", $id)
-            ->queryAll();
-        $this->data['fragmentProps'] = $fragmentProps;
-
-        return $this->render('config', $this->data);
+    private function saveFragment($fragmentId){
+        $fragment = Fragment::findOne($fragmentId);
+        $folderPath = Yii::$app->viewPath.'/fragment/';
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        $folderPath = $folderPath. $this->data['editThemeId'];
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        file_put_contents($folderPath.'/'.$fragment['id'].'.php',$fragment['body']);
     }
 
     public function actionDelete($id)
