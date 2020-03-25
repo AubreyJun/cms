@@ -4,7 +4,9 @@
 $widgetjson = $page['widgetjson'];
 $widgetObject = json_decode($widgetjson,true);
 
-
+$widgetList = $this->context->query("select * from cms_theme_fragment where themeId = :themeId")
+    ->bindParam(":themeId", $this->context->data['editThemeId'])
+    ->queryAll();
 ?>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -38,11 +40,8 @@ $widgetObject = json_decode($widgetjson,true);
                     <table class="table table-bordered table-widget mb-3" id="pageTop">
                         <thead>
                         <tr>
-                            <td class="text-center" width="40%">
-                                【内容上方】组件类型
-                            </td>
-                            <td class="text-center" width="40%">
-                                组件
+                            <td class="text-center" width="80%">
+                                【内容上方】组件
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success mr-1"
@@ -55,38 +54,14 @@ $widgetObject = json_decode($widgetjson,true);
 
                         if ($widgetObject['top'] && sizeof($widgetObject['top']) > 0) {
                             foreach ($widgetObject['top'] as $widget) {
-                                $widgetList = $this->context->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
-                                    ->bindParam(":fragmentType", $widget['widgetType'])
-                                    ->bindParam(":themeId", $this->context->data['editThemeId'])
-                                    ->queryAll();
-
                                 ?>
                                 <tr>
-                                    <td>
-                                        <select class="form-control" name="widgetType"
-                                                onchange="loadWidgetIds(this.value,this)">
-                                            <?php
-                                            foreach ($widgets as $widgetitem) {
-                                                if ($widget['widgetType'] == $widgetitem['optionValue']) {
-                                                    ?>
-                                                    <option selected="selected"
-                                                            value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <option value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
                                     <td>
                                         <select class="form-control" name="widgetId">
                                             <option value='0'>无</option>
                                             <?php
                                             foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget['widgetId']) {
+                                                if ($witem['id'] == $widget) {
                                                     ?>
                                                     <option selected="selected"
                                                             value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
@@ -118,11 +93,8 @@ $widgetObject = json_decode($widgetjson,true);
                     <table class="table table-bordered table-widget  mb-3" id="pageMiddle">
                         <thead>
                         <tr>
-                            <td class="text-center" width="40%">
-                                【内容中部】组件类型
-                            </td>
-                            <td class="text-center" width="40%">
-                                组件
+                            <td class="text-center" width="80%">
+                                【内容中部】组件
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success mr-1"
@@ -135,38 +107,14 @@ $widgetObject = json_decode($widgetjson,true);
 
                         if ($widgetObject['middle'] && sizeof($widgetObject['middle']) > 0) {
                             foreach ($widgetObject['middle'] as $widget) {
-                                $widgetList = $this->context->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
-                                    ->bindParam(":fragmentType", $widget['widgetType'])
-                                    ->bindParam(":themeId", $this->context->data['editThemeId'])
-                                    ->queryAll();
-
                                 ?>
                                 <tr>
-                                    <td>
-                                        <select class="form-control" name="widgetType"
-                                                onchange="loadWidgetIds(this.value,this)">
-                                            <?php
-                                            foreach ($widgets as $widgetitem) {
-                                                if ($widget['widgetType'] == $widgetitem['optionValue']) {
-                                                    ?>
-                                                    <option selected="selected"
-                                                            value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <option value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
                                     <td>
                                         <select class="form-control" name="widgetId">
                                             <option value='0'>无</option>
                                             <?php
                                             foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget['widgetId']) {
+                                                if ($witem['id'] == $widget) {
                                                     ?>
                                                     <option selected="selected"
                                                             value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
@@ -198,11 +146,8 @@ $widgetObject = json_decode($widgetjson,true);
                     <table class="table table-bordered table-widget  mb-3" id="pageBottom">
                         <thead>
                         <tr>
-                            <td class="text-center" width="40%">
-                                【内容下方】组件类型
-                            </td>
-                            <td class="text-center" width="40%">
-                                组件
+                            <td class="text-center" width="80%">
+                                【内容下方】组件
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success mr-1"
@@ -215,38 +160,15 @@ $widgetObject = json_decode($widgetjson,true);
 
                         if ($widgetObject['bottom'] && sizeof($widgetObject['bottom']) > 0) {
                             foreach ($widgetObject['bottom'] as $widget) {
-                                $widgetList = $this->context->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
-                                    ->bindParam(":fragmentType", $widget['widgetType'])
-                                    ->bindParam(":themeId", $this->context->data['editThemeId'])
-                                    ->queryAll();
 
                                 ?>
                                 <tr>
-                                    <td>
-                                        <select class="form-control" name="widgetType"
-                                                onchange="loadWidgetIds(this.value,this)">
-                                            <?php
-                                            foreach ($widgets as $widgetitem) {
-                                                if ($widget['widgetType'] == $widgetitem['optionValue']) {
-                                                    ?>
-                                                    <option selected="selected"
-                                                            value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <option value="<?php echo $widgetitem['optionValue']; ?>"><?php echo $widgetitem['optionDesc']; ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
                                     <td>
                                         <select class="form-control" name="widgetId">
                                             <option value='0'>无</option>
                                             <?php
                                             foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget['widgetId']) {
+                                                if ($witem['id'] == $widget) {
                                                     ?>
                                                     <option selected="selected"
                                                             value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
@@ -279,19 +201,15 @@ $widgetObject = json_decode($widgetjson,true);
                         <tbody>
                         <tr>
                             <td>
-                                <select class="form-control" name="widgetType"
-                                        onchange="loadWidgetIds(this.value,this)">
+                                <select class="form-control" name="widgetId">
+                                    <option value='0'>无</option>
                                     <?php
-                                    foreach ($widgets as $widget) {
+                                    foreach ($widgetList as $witem) {
                                         ?>
-                                        <option value="<?php echo $widget['optionValue']; ?>"><?php echo $widget['optionDesc']; ?></option>
+                                        <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
                                         <?php
                                     }
                                     ?>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" name="widgetId">
                                 </select>
                             </td>
                             <td width="20%">
@@ -317,82 +235,18 @@ $widgetObject = json_decode($widgetjson,true);
         bindEvent();
     });
 
-    function loadProperties() {
-        if (widgetJson.length != 0) {
-            for (var i = 0; i < widgetJson.length; i++) {
-                addLoadWidget(widgetJson[i]);
-            }
-        }
-    }
-
-    function addLoadWidget(widget) {
-        var demotr = $("#table-list-demo tbody tr:first");
-        var clone = demotr.clone();
-        $(clone).find("select[name=widgetType]").val(widget['widgetType']);
-        $.post('index.php?r=cms-backend/page/getwidget', {
-            "widgetType": widget['widgetType'],
-            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
-        }, function (data) {
-            if (data.length > 0) {
-
-                var html = "";
-                for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i]['id'] + '">' + data[i]['fragmentName'] + '</option>';
-                }
-                $(clone).find("select[name=widgetId]").html(html);
-            } else {
-                $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
-            }
-            $("#page-widget tbody").append(clone);
-            bindEvent();
-        }, 'json');
-    }
 
     function addWidget(tableId) {
         var demotr = $("#table-list-demo tbody tr:first");
         var clone = demotr.clone();
-        var widgetType = $(clone).find("select[name=widgetType]").val();
-
-        $.post('index.php?r=cms-backend/page/getwidget', {
-            "widgetType": widgetType,
-            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
-        }, function (data) {
-            if (data.length > 0) {
-
-                var html = "";
-                for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i]['id'] + '">' + data[i]['fragmentName'] + '</option>';
-                }
-                $(clone).find("select[name=widgetId]").html(html);
-            } else {
-                $(clone).find("select[name=widgetId]").html("<option value='0'>无</option>");
-            }
-            $("#"+tableId+" tbody").append(clone);
-            bindEvent();
-        }, 'json');
+        $("#"+tableId+" tbody").append(clone);
+        bindEvent();
     }
 
     function preView(pageId) {
         window.open("index.php?r=cms-frontend/page/index&pageType=<?php echo $page['pageType']; ?>&pageId="+pageId);
     }
 
-    function loadWidgetIds(widgetType, object) {
-        $.post('index.php?r=cms-backend/page/getwidget', {
-            "widgetType": widgetType,
-            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
-        }, function (data) {
-            if (data.length > 0) {
-
-                var html = "";
-                for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i]['id'] + '">' + data[i]['fragmentName'] + '</option>';
-                }
-                $(object).closest("tr").find("select[name=widgetId]").html(html);
-            } else {
-                $(object).closest("tr").find("select[name=widgetId]").html("<option value='0'>无</option>");
-            }
-        }, 'json');
-    }
 
     function bindEvent() {
         $(".table-widget tbody .tool-delete").unbind("click");
@@ -408,7 +262,7 @@ $widgetObject = json_decode($widgetjson,true);
     function resetDrag(dragger,pageId) {
         if (dragger == null) {
             if($(pageId).find("tbody tr").length>0){
-                dragger = tableDragger(document.quresetDragerySelector(pageId), {
+                dragger = tableDragger(document.querySelector(pageId), {
                     mode: "row",
                     onlyBody: true,
                     dragHandler: ".handle"
@@ -448,12 +302,8 @@ $widgetObject = json_decode($widgetjson,true);
         var widgets = new Array();
         if (trs.length > 0) {
             for (var j = 0; j < trs.length; j++) {
-                var widgetType = $(trs[j]).find("select[name=widgetType]").val();
                 var widgetId = $(trs[j]).find("select[name=widgetId]").val();
-                widgets.push({
-                    'widgetType': widgetType,
-                    'widgetId': widgetId
-                });
+                widgets.push(widgetId);
             }
         }
 

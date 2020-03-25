@@ -58,7 +58,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                         <select class="form-control" name="widgetId">
                                             <?php
                                             foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget['widgetId']) {
+                                                if ($witem['id'] == $widget) {
                                                     ?>
                                                     <option selected="selected"
                                                             value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
@@ -107,7 +107,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                         <select class="form-control" name="widgetId">
                                             <?php
                                             foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget['widgetId']) {
+                                                if ($witem['id'] == $widget) {
                                                     ?>
                                                     <option selected="selected"
                                                             value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
@@ -172,14 +172,6 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
         bindEvent();
     });
 
-    // function loadProperties() {
-    //     if(widgetJson.length!=0){
-    //         for(var i=0;i<widgetJson.length;i++){
-    //             addLoadWidget(widgetJson[i]);
-    //         }
-    //     }
-    // }
-
     function resetDrag(dragger, pageId) {
         if (dragger == null) {
             if ($(pageId).find("tbody tr").length > 0) {
@@ -207,24 +199,6 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
         bindEvent();
     }
 
-    function loadWidgetIds(widgetType, object) {
-        $.post('index.php?r=cms-backend/page/getwidget', {
-            "widgetType": widgetType,
-            '_csrf': '<?php echo Yii::$app->request->csrfToken; ?>'
-        }, function (data) {
-            if (data.length > 0) {
-
-                var html = "";
-                for (var i = 0; i < data.length; i++) {
-                    html += '<option value="' + data[i]['id'] + '">' + data[i]['fragmentName'] + '</option>';
-                }
-                $(object).closest("tr").find("select[name=widgetId]").html(html);
-            } else {
-                $(object).closest("tr").find("select[name=widgetId]").html("<option value='0'>无</option>");
-            }
-        }, 'json');
-    }
-
     function bindEvent() {
         $(".table-widget tbody .tool-delete").unbind("click");
         $(".table-widget tbody .tool-delete").bind("click", function () {
@@ -238,16 +212,11 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
 
     function getWidgets(id) {
         var trs = $("#" + id + " tbody tr");
-
         var widgets = new Array();
         if (trs.length > 0) {
             for (var j = 0; j < trs.length; j++) {
-                var widgetType = $(trs[j]).find("select[name=widgetType]").val();
                 var widgetId = $(trs[j]).find("select[name=widgetId]").val();
-                widgets.push({
-                    'widgetType': widgetType,
-                    'widgetId': widgetId
-                });
+                widgets.push(widgetId);
             }
         }
 
@@ -255,8 +224,8 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
     }
 
     function saveWidget() {
-        var headerWidgets = getWidgets("header-widget");
-        var footerWidgets = getWidgets("footer-widget");
+        var headerWidgets = getWidgets("headWidget");
+        var footerWidgets = getWidgets("footerWidget");
 
         var jsonObject = {
             'header': headerWidgets,

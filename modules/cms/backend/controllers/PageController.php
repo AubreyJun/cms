@@ -128,35 +128,6 @@ ORDER BY
         $page = Page::findOne($id);
         $this->data['page'] = $page;
 
-
-        $fragmentList = array();
-
-        $fragmentKV = array();
-        foreach ($this->data['fragmentType'] as $item) {
-            $child = array();
-            $fragmentKV[$item['optionValue']] = $item['optionDesc'];
-            $child['type'] = $item;
-            $child['list'] =  $this->query("select * from cms_theme_fragment where fragmentType = :fragmentType and themeId = :themeId")
-                ->bindParam(":themeId", $this->data['editThemeId'])
-                ->bindParam(":fragmentType", $item['optionValue'])->queryAll();
-            $fragmentList[] = $child;
-        }
-
-        $this->data['fragmentKV'] = $fragmentKV;
-        $this->data['fragmentList'] = $fragmentList;
-
-        $widgets = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'widget' ) 
-ORDER BY
-	t.sequencenumber ASC")
-            ->queryAll();
-
-        $this->data['widgets'] = $widgets;
-
         return $this->render('widget',$this->data);
     }
 
