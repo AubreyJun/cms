@@ -119,10 +119,6 @@ ORDER BY
         return $this->redirect("index.php?r=cms-backend/page/widget&id=".$id);
     }
 
-    public function actionPreview($pageId){
-
-    }
-
     public function actionWidget($id){
 
         $page = Page::findOne($id);
@@ -193,6 +189,16 @@ ORDER BY
             ->queryAll();
 
         return json_encode($widgetList);
+    }
+
+
+    public function actionPreview($pageId){
+
+        $page = Page::findOne($pageId);
+        $this->data['page'] = $page;
+
+        $this->layout = '@app/views/layouts/frontend-cms';
+        return $this->render('@app/views/rkcms/page', $this->data);
     }
 
 }
