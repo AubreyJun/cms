@@ -25,7 +25,14 @@ $this->title = '片段设置';
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
                 <?= $form->field($model, 'fragmentName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
-
+                <div class="form-group">
+                    <label>
+                        片段模板
+                    </label>
+                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control">
+                        <option value="0">无</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <textarea id="code-editable" rows="20" class=" w-100"
                               name="FormFragment[body]"><?php echo $model->attributes['body']; ?></textarea>
