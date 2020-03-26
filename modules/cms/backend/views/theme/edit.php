@@ -17,18 +17,6 @@ use yii\widgets\ActiveForm;
                 <?php $form->action = 'index.php?r=cms-backend/theme/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $id]) ?>
                 <?= $form->field($model, 'themeName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
-                <?php
-                if($id==0){
-                    ?>
-                    <?= $form->field($model, 'themeKey', ['errorOptions' => ['class' => 'error mt-2 text-danger']])?>
-                    <?php
-                }else{
-                    ?>
-                    <?= $form->field($model, 'themeKey', ['errorOptions' => ['class' => 'error mt-2 text-danger']])->textInput(['readonly'=>true]) ?>
-                    <?php
-                }
-                ?>
-
                 <div class="form-group">
                     <label>状态</label>
                     <div class="form-check ">

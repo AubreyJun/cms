@@ -52,52 +52,21 @@ class ThemeController extends BackendPanelController
             }
             if ($model->validate()) {
                 if ($model->id == 0) {
-                    $exist = Theme::find()
-                        ->where(['themeKey' => $model->themeKey])
-                        ->one();
-                    if ($exist) {
-                        $model->addError('themeKey', "KEY已经存在");
-                        return $this->render('edit', [
-                            'model' => $model, 'id' => $id
-                        ]);
-                    } else {
-                        $theme = new Theme();
-                        $theme->id = $model->id;
-                        $theme->themeName = $model->themeName;
-                        $theme->themeKey = $model->themeKey;
-                        $theme->isActive = $model->isActive == null ? 0 : $model->isActive;
-                        $theme->save();
-                        $theme->setThemeUnActive($theme->id);
-                        return $this->actionIndex();
-                    }
+                    $theme = new Theme();
+                    $theme->id = $model->id;
+                    $theme->themeName = $model->themeName;
+                    $theme->isActive = $model->isActive == null ? 0 : $model->isActive;
+                    $theme->save();
+                    $theme->setThemeUnActive($theme->id);
+                    return $this->actionIndex();
                 } else {
-                    //update
-                    $exist = Theme::find()
-                        ->where(['themeKey' => $model->themeKey])->andWhere(['!=', 'id', $model->id])
-                        ->one();
-                    if ($exist) {
-                        $model->addError('themeKey', "KEY已经存在");
-                        return $this->render('edit', [
-                            'model' => $model, 'id' => $id
-                        ]);
-                    } else {
-                        if ($model->isActive == 0) {
-                            $countOfActive = $this->query("select count(*) from cms_theme where id !=:id and isActive = 1")
-                                ->bindParam(":id", $model->id)
-                                ->queryScalar();
-                            if ($countOfActive == 0) {
-                                return $this->redirect("index.php?r=cms/theme/index&errortype=" . CmsErrorType::ACTIVE_DEFAULTTHEME);
-                            }
-                        }
-                        $theme = Theme::findOne($model->id);
-                        $theme->id = $model->id;
-                        $theme->themeName = $model->themeName;
-                        $theme->themeKey = $model->themeKey;
-                        $theme->isActive = $model->isActive == null ? 0 : $model->isActive;
-                        $theme->save();
-                        $theme->setThemeUnActive($theme->id);
-                        return $this->actionIndex();
-                    }
+                    $theme = Theme::findOne($model->id);
+                    $theme->id = $model->id;
+                    $theme->themeName = $model->themeName;
+                    $theme->isActive = $model->isActive == null ? 0 : $model->isActive;
+                    $theme->save();
+                    $theme->setThemeUnActive($theme->id);
+                    return $this->actionIndex();
                 }
             }
         }

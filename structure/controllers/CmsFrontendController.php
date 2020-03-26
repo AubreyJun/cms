@@ -18,7 +18,6 @@ class CmsFrontendController extends AppController
     public $pageId = 0;
     public $pageType = null;
     private $app_config = array();
-    private $demo = false;
 
     public function init()
     {
@@ -40,21 +39,20 @@ class CmsFrontendController extends AppController
 
     public function setParam()
     {
-        if(isset(Yii::$app->params['demo'])){
+        if (isset(Yii::$app->params['demo'])) {
             $demo = Yii::$app->params['demo'];
         }
 
-        if($demo){
+        if ($demo) {
             $host = $_SERVER['HTTP_HOST'];
             $id = Yii::$app->params['themeids'][$host];
             $this->defaultTheme = $this->query("select * from cms_theme t where t.id = :id")
                 ->bindParam(":id", $id)
                 ->queryOne();
-        }else{
+        } else {
             //主题设置
             $this->defaultTheme = $this->query("select * from cms_theme t where t.isActive = 1")->queryOne();
         }
-
 
         //系统参数设置
         $configs = $this->query("select * from cms_config t where t.themeId = :themeId")
@@ -88,7 +86,7 @@ class CmsFrontendController extends AppController
             return $this->errorPage($message);
         } else {
 
-            $layout = Layout::findOne($page['id']);
+            $layout = Layout::findOne($page['layoutId']);
 
             $this->data['CMS_PAGE'] = $page;
             $this->data['CMS_LAYOUT'] = $layout;
@@ -119,8 +117,6 @@ class CmsFrontendController extends AppController
                 ->bindParam(":pageId", $this->pageId)
                 ->queryOne();
         }
-
-
     }
 
     public function getPost($postType, $catalogId, $pageSize = 10)
@@ -239,18 +235,6 @@ ORDER BY
 
     }
 
-    public function setDefMeta($page){
-        if($page['pageType']=='home'){
-            $this->data['meta_title'] = "首页";
-        }else if($page['pageType']=='companyinfo'){
-            $this->data['meta_title'] = "公司简介";
-        }else if($page['pageType']=='articleList'){
-            $this->data['meta_title'] = "文章列表";
-        }else if($page['pageType']=="feedback"){
-            $this->data['meta_title'] = "在线反馈";
-        }
-    }
-
     public function setMeta($title, $keywords, $description)
     {
         $this->data['meta_title'] = $title;
@@ -259,7 +243,7 @@ ORDER BY
     }
 
 
-    public function getRecentPost($postType, $catalogId,$size)
+    public function getRecentPost($postType, $catalogId, $size)
     {
         $list = array();
 
@@ -285,20 +269,14 @@ ORDER BY
         return $list;
     }
 
+    public function renderFragment($id,$data=array()){
+        return $this->renderFile("@app/views/fragment/".$this->defaultTheme['id']."/".$id.".php",$data);
+    }
+
     public function query($sql)
     {
         return $this->db->createCommand($sql);
     }
 
-    public function widget($widgetId){
-
-        $fragment = Fragment::findOne($widgetId);
-
-        $evalStr .= 'use \app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget; $html =  \app\components\cms\\'.ucfirst($fragment['fragmentType']).'Widget::widget([\'fragment\'=>$fragment,\'context\'=>$this]);';
-        
-        eval($evalStr);
-
-        return $html;
-    }
 
 }

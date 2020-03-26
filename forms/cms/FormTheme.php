@@ -6,7 +6,6 @@ class FormTheme extends \yii\base\Model
 {
     public $id;
     public $themeName;
-    public $themeKey;
     public $isActive;
 
     public function rules()
@@ -15,7 +14,6 @@ class FormTheme extends \yii\base\Model
             [['id'], 'required'],
             [['isActive'], 'required'],
             [['themeName'], 'required', 'message' => '主题名称不能为空'],
-            [['themeKey'], 'required', 'message' => 'KEY不能为空']
         ];
     }
 
@@ -23,7 +21,6 @@ class FormTheme extends \yii\base\Model
     {
         return [
             'themeName' => '主题名称',
-            'themeKey' => 'KEY',
             'isActive' => '状态',
         ];
     }

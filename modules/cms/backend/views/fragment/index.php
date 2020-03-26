@@ -8,16 +8,13 @@
                         <h4 class="card-title">片段</h4>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <form class="form-inline" style="float: right;">
-                            <div class="form-group mr-2">
-                            </div>
-                            <div class="form-group ">
-                                <button class="btn btn-primary btn-xs"
-                                        onclick="add()"><i
-                                            class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </form>
+                        <div class="form-group mr-2">
+                        </div>
+                        <div class="form-group ">
+                            <button class="btn btn-primary btn-xs" onclick="addFragment()" ><i
+                                        class="fa fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <table class="table table-bordered">
@@ -68,7 +65,7 @@
         });
     }
 
-    function add() {
+    function addFragment() {
         window.location.href = 'index.php?r=cms-backend/fragment/add';
     }
 </script>

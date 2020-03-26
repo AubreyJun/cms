@@ -36,65 +36,13 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         </form>
                     </div>
                 </div>
+
                 <div class="row">
-                    <table class="table table-bordered table-widget mb-3" id="pageTop">
+                    <table class="table table-bordered table-widget  mb-3" id="pageWidgets">
                         <thead>
                         <tr>
                             <td class="text-center" width="80%">
-                                【内容上方】组件
-                            </td>
-                            <td width="20%">
-                                <i class="fa fa-plus-circle fa-lg text-success mr-1"
-                                   onclick="addWidget('pageTop')"></i>
-                            </td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-
-                        if ($widgetObject['top'] && sizeof($widgetObject['top']) > 0) {
-                            foreach ($widgetObject['top'] as $widget) {
-                                ?>
-                                <tr>
-                                    <td>
-                                        <select class="form-control" name="widgetId">
-                                            <option value='0'>无</option>
-                                            <?php
-                                            foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget) {
-                                                    ?>
-                                                    <option selected="selected"
-                                                            value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
-                                    <td width="20%">
-                                        <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
-                                        <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
-                                    </td>
-                                </tr>
-                                <?php
-                            }
-                        }
-
-                        ?>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="row">
-                    <table class="table table-bordered table-widget  mb-3" id="pageMiddle">
-                        <thead>
-                        <tr>
-                            <td class="text-center" width="80%">
-                                【内容中部】组件
+                                组件
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success mr-1"
@@ -104,93 +52,35 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         </thead>
                         <tbody>
                         <?php
-
-                        if ($widgetObject['middle'] && sizeof($widgetObject['middle']) > 0) {
-                            foreach ($widgetObject['middle'] as $widget) {
-                                ?>
-                                <tr>
-                                    <td>
-                                        <select class="form-control" name="widgetId">
-                                            <option value='0'>无</option>
-                                            <?php
-                                            foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget) {
-                                                    ?>
-                                                    <option selected="selected"
-                                                            value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
-                                                    <?php
-                                                }
+                        foreach ($widgetObject as $widget) {
+                            ?>
+                            <tr>
+                                <td>
+                                    <select class="form-control" name="widgetId">
+                                        <option value='0'>无</option>
+                                        <?php
+                                        foreach ($widgetList as $witem) {
+                                            if ($witem['id'] == $widget) {
+                                                ?>
+                                                <option selected="selected"
+                                                        value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                                <?php
                                             }
-                                            ?>
-                                        </select>
-                                    </td>
-                                    <td width="20%">
-                                        <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
-                                        <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
-                                    </td>
-                                </tr>
-                                <?php
-                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td width="20%">
+                                    <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
+                                    <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                                </td>
+                            </tr>
+                            <?php
                         }
-
-                        ?>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="row">
-                    <table class="table table-bordered table-widget  mb-3" id="pageBottom">
-                        <thead>
-                        <tr>
-                            <td class="text-center" width="80%">
-                                【内容下方】组件
-                            </td>
-                            <td width="20%">
-                                <i class="fa fa-plus-circle fa-lg text-success mr-1"
-                                   onclick="addWidget('pageBottom')"></i>
-                            </td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-
-                        if ($widgetObject['bottom'] && sizeof($widgetObject['bottom']) > 0) {
-                            foreach ($widgetObject['bottom'] as $widget) {
-
-                                ?>
-                                <tr>
-                                    <td>
-                                        <select class="form-control" name="widgetId">
-                                            <option value='0'>无</option>
-                                            <?php
-                                            foreach ($widgetList as $witem) {
-                                                if ($witem['id'] == $widget) {
-                                                    ?>
-                                                    <option selected="selected"
-                                                            value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
-                                    <td width="20%">
-                                        <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
-                                        <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
-                                    </td>
-                                </tr>
-                                <?php
-                            }
-                        }
-
                         ?>
                         </tbody>
                     </table>
@@ -227,9 +117,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
 </div>
 <script>
 
-    var dragger_top = null;
-    var dragger_middle = null;
-    var dragger_bottom = null;
+    var dragger = null;
 
     $(function () {
         bindEvent();
@@ -254,9 +142,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
             $(this).closest("tr").remove();
         });
 
-        dragger_top = resetDrag(dragger_top,"#pageTop");
-        dragger_middle = resetDrag(dragger_middle,"#pageMiddle");
-        dragger_bottom = resetDrag(dragger_bottom,"#pageBottom");
+        dragger = resetDrag(dragger,"#pageWidgets");
     }
 
     function resetDrag(dragger,pageId) {
@@ -280,17 +166,9 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
     }
 
     function saveWidget() {
-        var top = getWidget('Top');
-        var middle = getWidget('Middle');
-        var bottom = getWidget('Bottom');
-        var propObject = {
-            'top':top,
-            'middle':middle,
-            'bottom':bottom
-        };
-        var widgetsJSON = JSON.stringify(propObject);
+        var widgets = getWidget('Widgets');
+        var widgetsJSON = JSON.stringify(widgets);
         $("input[name=widgetJSON]").val(widgetsJSON);
-
         $("#from-edit").submit();
 
     }

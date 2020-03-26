@@ -1,10 +1,9 @@
 <?php
-$widgetjson = $page['widgetjson'];
-$widgetObject = json_decode($widgetjson, true);
-
+$widgetJson = $this->context->data['CMS_PAGE']['widgetjson'];
+$widgetObject = json_decode($widgetJson,true);
 if($widgetObject && sizeof($widgetObject)>0){
     foreach ($widgetObject as $widget) {
-        echo $this->context->widget($widget['widgetId']);
+        echo $this->context->renderFragment($widget);
     }
 }
 ?>

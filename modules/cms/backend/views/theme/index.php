@@ -27,7 +27,6 @@
                     <thead>
                     <tr>
                         <th>描述</th>
-                        <th>KEY</th>
                         <th>状态</th>
                         <th width="20%">操作</th>
                     </tr>
@@ -38,7 +37,6 @@
                         ?>
                         <tr>
                             <td><?php echo $item['themeName']; ?></td>
-                            <td><?php echo $item['themeKey']; ?></td>
                             <td><?php echo $item['isActive'] == 1 ? '<i class="text-success fa fa-check fa-lg"></i>'
                                     : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
                             <td>
