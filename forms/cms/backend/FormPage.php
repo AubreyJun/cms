@@ -20,12 +20,9 @@ class FormPage extends \yii\base\Model
             [['pageKey'], 'required'],
             [['themeId'], 'required'],
             [['pageName'], 'required', 'message' => '页面名称不能为空'],
-            [['pageText'], 'required', 'message' => '页面内容不能为空'],
             [['pageType'], 'required', 'message' => '页面类型不能为空'],
             [['isDefault'], 'required'],
             [['layoutId'], 'required', 'message' => '布局不能为空'],
-//            [['layout'], 'required','message'=>'页面组件布局格式不能为空'],
-//            [['layout'], 'mustTwelve', 'message' => '页面组件布局格式不正确，正确格式，需要累计到12：2,10']
         ];
     }
 

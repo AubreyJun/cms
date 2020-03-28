@@ -7,7 +7,7 @@ namespace app\modules\cms\backend\controllers;
 use app\forms\cms\backend\FormFragment;
 use app\forms\cms\backend\FormArticle;
 use app\forms\cms\backend\FormFileImage;
-use app\models\cms\backend\Fragment;
+use app\models\cms\Fragment;
 use app\structure\controllers\BackendPanelController;
 use Yii;
 

@@ -15,7 +15,7 @@ class LayoutController extends BackendPanelController
     public function actionIndex()
     {
         $this->data['list'] = $this->query("select * from cms_theme_layout where themeId = :themeId")
-            ->bindParam(":themeId", $this->data['defaultThemeId'])
+            ->bindParam(":themeId", $this->data['editThemeId'])
             ->queryAll();
 
         return $this->render('index', $this->data);
@@ -35,7 +35,7 @@ class LayoutController extends BackendPanelController
     {
         $model = new FormLayout();
         if ($model->load(Yii::$app->request->post())) {
-            $model->setAttributes(['themeId'=>$this->data['defaultThemeId']]);
+            $model->setAttributes(['themeId'=>$this->data['editThemeId']]);
             if ($model->validate()) {
                 if ($model->id == 0) {
                     $formLayout = new Layout();

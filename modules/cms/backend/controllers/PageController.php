@@ -61,7 +61,7 @@ ORDER BY
         $this->data['pageType_select'] = $pageType_select;
 
 
-        $layouts = Layout::find()->where(['themeId'=>$this->data['defaultThemeId']])->all();
+        $layouts = Layout::find()->where(['themeId'=>$this->data['editThemeId']])->all();
         $layout_select = array();
         foreach ($layouts as $layout){
             $layout_select[$layout['id']] = $layout['layoutName'];
@@ -76,14 +76,13 @@ ORDER BY
             if (!isset($_POST['FormPage']['isDefault'])) {
                 $model->setAttributes(['isDefault' => 0]);
             }
-            $model->setAttributes(['themeId'=>$this->data['defaultThemeId']]);
+            $model->setAttributes(['themeId'=>$this->data['editThemeId']]);
             if ($model->validate()) {
                 if ($model->id == 0) {
                     $page = new Page();
                     $page->setAttributes($model->attributes,false);
                     $page->save();
                     if($page['isDefault']==1){
-                        $this->savePage($page['id']);
                         $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
                     }
                     return $this->actionIndex($model->attributes['pageType']);
@@ -93,7 +92,6 @@ ORDER BY
                     $page->setAttributes($model->attributes,false);
                     $page->save();
                     if($page['isDefault']==1){
-                        $this->savePage($page['id']);
                         $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
                     }
                     return $this->actionIndex($model->attributes['pageType']);
@@ -124,16 +122,6 @@ ORDER BY
         $this->data['page'] = $page;
 
         return $this->render('widget',$this->data);
-    }
-
-    private function savePage($pageId){
-        $page = Page::findOne($pageId);
-        $folderPath = Yii::$app->viewPath.'/themes/'. $this->data['defaultThemeName'];
-        if(!file_exists($folderPath)){
-            mkdir($folderPath);
-        }
-        $pageText = $page['pageText'];
-        file_put_contents(Yii::$app->viewPath.'/themes/'. $this->data['defaultThemeName'].'/'.$page['pageType'].'_'.$page['id'].'.php',$pageText);
     }
 
     public function actionDelete($id){
