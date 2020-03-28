@@ -35,3 +35,6 @@ tests/_support/_generated
 /web/themes/normal/node_modules
 /web/assets
 /composer.lock
+/config/dev
+/config/test
+/config/prod
