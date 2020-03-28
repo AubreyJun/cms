@@ -4,7 +4,7 @@
 namespace app\modules\cms\backend\controllers;
 
 
-use app\forms\cms\FormTheme;
+use app\forms\cms\backend\FormTheme;
 use app\models\cms\Fragment;
 use app\models\cms\Layout;
 use app\models\cms\Page;

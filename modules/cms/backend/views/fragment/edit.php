@@ -75,8 +75,6 @@ $this->title = '片段设置';
                 lineWrapping: true,
                 smartIndent: true
             });
-            editor.setSize('auto', '300px');
-
         });
 
     });

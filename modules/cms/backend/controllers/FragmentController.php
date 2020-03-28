@@ -5,15 +5,11 @@ namespace app\modules\cms\backend\controllers;
 
 
 use app\forms\cms\backend\FormFragment;
-use app\forms\cms\FormArticle;
-use app\forms\cms\FormFileImage;
-use app\models\cms\Article;
-use app\models\cms\Fragment;
-use app\models\cms\PostTag;
+use app\forms\cms\backend\FormArticle;
+use app\forms\cms\backend\FormFileImage;
+use app\models\cms\backend\Fragment;
 use app\structure\controllers\BackendPanelController;
 use Yii;
-use yii\helpers\FileHelper;
-use yii\web\UploadedFile;
 
 class FragmentController extends BackendPanelController
 {

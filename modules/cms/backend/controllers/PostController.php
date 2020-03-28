@@ -2,9 +2,9 @@
 
 namespace app\modules\cms\backend\controllers;
 
-use app\forms\cms\FormArticle;
-use app\forms\cms\FormPage;
-use app\forms\cms\FormParam;
+use app\forms\cms\backend\FormArticle;
+use app\forms\cms\backend\FormPage;
+use app\forms\cms\backend\FormParam;
 use app\models\cms\Article;
 use app\models\cms\Layout;
 use app\models\cms\Page;
@@ -231,6 +231,15 @@ ORDER BY
 
         return $this->actionIndex($post['postType']);
 
+    }
+
+    public function actionDeleteall(){
+        $queryPostType = $_REQUEST['queryPostType'];
+        $items = $_REQUEST['items'];
+
+        $this->query("delete from cms_post where id in (".$items.")")->execute();
+
+        return $this->redirect("index.php?r=cms-backend/post/index&queryPostType=".$queryPostType);
     }
 
 }

@@ -4,9 +4,8 @@
 namespace app\modules\cms\backend\controllers;
 
 
-use app\forms\cms\FormFragment;
-use app\forms\cms\FormPage;
-use app\models\cms\Fragment;
+use app\forms\cms\backend\FormFragment;
+use app\forms\cms\backend\FormPage;
 use app\models\cms\Layout;
 use app\models\cms\Page;
 use app\structure\controllers\AdminController;

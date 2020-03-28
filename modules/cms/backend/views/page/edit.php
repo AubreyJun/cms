@@ -20,25 +20,6 @@ use yii\widgets\ActiveForm;
                     ->dropDownList($layout_select, ['prompt' => '请选择']) ?>
                 <?= $form->field($model, 'pageName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
                 <div class="form-group">
-                    <textarea id="code-editable" rows="20" class=" w-100"
-                              name="FormPage[pageText]"><?php echo $model->attributes['pageText']; ?></textarea>
-                    <?php
-                    if (isset($model->getErrors()['pageText'])) {
-                        ?>
-                        <div class="error mt-2 text-danger">
-                            <?php
-                            foreach ($model->getErrors()['pageText'] as $error_fc) {
-                                echo $error_fc;
-                                echo '</br>';
-                            }
-                            ?>
-                        </div>
-                        <?php
-
-                    }
-                    ?>
-                </div>
-                <div class="form-group">
                     <label>状态</label>
                     <div class="form-check ">
                         <label class="form-check-label">
@@ -68,18 +49,4 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 <script>
-
-
-
-    $(function () {
-        CodeMirror.fromTextArea(document.getElementById('code-editable'), {
-            lineNumbers: true,
-            styleActiveLine: true,
-            matchBrackets: true,
-            theme: "midnight",
-            lineWrapping: true,
-            smartIndent: true
-        });
-
-    });
 </script>

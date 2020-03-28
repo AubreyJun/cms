@@ -1,6 +1,6 @@
 <?php
 
-namespace app\forms\cms;
+namespace app\forms\cms\backend;
 
 class FormParam extends \yii\base\Model
 {

@@ -3,7 +3,7 @@
 
 namespace app\modules\cms\backend\controllers;
 
-use app\forms\cms\FormLayout;
+use app\forms\cms\backend\FormLayout;
 use app\models\cms\Layout;
 use app\models\cms\Page;
 use app\structure\controllers\AdminController;

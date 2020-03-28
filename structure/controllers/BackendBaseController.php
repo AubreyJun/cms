@@ -43,9 +43,8 @@ class BackendBaseController extends AppController
     {
         $this->data['error_message'] = null;
 
-        $defaultTheme = $this->query("select id,themeKey from cms_theme where isActive = 1 ")->queryOne();
+        $defaultTheme = $this->query("select id from cms_theme where isActive = 1 ")->queryOne();
         $this->data['defaultThemeId'] = $defaultTheme['id'];
-        $this->data['defaultThemeName'] = $defaultTheme['themeKey'].'_'.$defaultTheme['id'];
 
         $user = Yii::$app->user;
         $this->userId = $user->id;

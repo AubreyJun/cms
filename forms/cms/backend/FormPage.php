@@ -1,6 +1,6 @@
 <?php
 
-namespace app\forms\cms;
+namespace app\forms\cms\backend;
 
 class FormPage extends \yii\base\Model
 {
@@ -11,7 +11,6 @@ class FormPage extends \yii\base\Model
     public $pageType;
     public $isDefault;
     public $layoutId;
-//    public $layout;
     public $pageKey;
 
     public function rules()

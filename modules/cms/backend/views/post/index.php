@@ -42,7 +42,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th width="8%">ID</th>
+                        <th width="5%"><input type="checkbox" class="form-control" name="ckAll"  onclick="loadCheckBox()"  /></th>
                         <th>标题</th>
                         <th>分类</th>
                         <th width="8%">状态</th>
@@ -55,7 +55,7 @@
                     foreach ($post_list as $post) {
                         ?>
                         <tr>
-                            <td><?php echo $post['id']; ?></td>
+                            <td><input type="checkbox" name="ckItem"  class="form-control" value="<?php echo $post['id']; ?>"/></td>
                             <td><?php echo $post['title']; ?></td>
                             <td><?php echo $post['catalog']['catalogName']; ?></td>
                             <th><?php echo $post['status'] == 'online' ? '<i class="text-success fa fa-check fa-lg"></i>'
@@ -84,8 +84,8 @@
                     ?>
                     </tbody>
                 </table>
-                <div class="row">
-                    <div class="col-lg-12 mt-3 ">
+                <div class="row mt-3 mb-3">
+                    <div class="col-lg-12">
                         <?php
                         echo LinkPager::widget([
                             'pagination' => $post_pagination,
@@ -97,6 +97,54 @@
                         ?>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form class="form-inline" id="form-delete" method="post" style="float: left;" action="index.php?r=cms-backend/post/deleteall">
+                            <input type="hidden" name="items" value=""/>
+                            <input type="hidden" name="queryPostType" value="<?php echo $queryPostType; ?>"/>
+                            <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>"/>
+                            <div class="form-group mr-2">
+                                <select class="form-control form-control-sm" style="padding: 3px;" name="checkAction">
+                                   <option value="deleteSelectItems">删除选择项</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-danger btn-xs" onclick="deleteAll()" >确认
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <form class="form-inline" style="float: right;">
+                            <div class="form-group mr-2">
+                                <select class="form-control form-control-sm" style="padding: 3px;" name="widgetType"
+                                        onchange="changeType(this.value)">
+                                    <?php
+                                    foreach ($contentType as $ptype) {
+                                        if ($queryPostType == $ptype['optionValue']) {
+                                            ?>
+                                            <option selected="selected"
+                                                    value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <option value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
+                                            <?php
+                                        }
+
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary btn-xs"
+                                        onclick="window.location.href='index.php?r=cms-backend/post/add'"><i
+                                            class="fa fa-plus fa-lg"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -104,12 +152,37 @@
 <script>
     $(function () {
         $("table").colResizable();
+        loadCheckBox();
     });
+
+    function loadCheckBox() {
+        var checked = $("input[name=ckAll]").prop("checked")
+        if(checked){
+            $("input[name=ckItem]").prop("checked",true);
+        }else{
+            $("input[name=ckItem]").prop("checked",false);
+        }
+    }
 
     function deletePost(id) {
         doConfirm('删除文章？',function () {
             window.location.href = "index.php?r=cms-backend/post/delete&id="+id;
         });
+    }
+
+    function deleteAll() {
+        var itemvalues = "";
+
+        $("input[name='ckItem']:checkbox:checked").each(function(){
+            if(itemvalues==""){
+                itemvalues+=$(this).val()
+            }else{
+                itemvalues+=","+$(this).val()
+            }
+        });
+
+        $("input[name=items]").val(itemvalues);
+        $("#form-delete").submit();
     }
 
     function changeType(contentType) {

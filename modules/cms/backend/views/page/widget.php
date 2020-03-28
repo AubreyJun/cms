@@ -46,7 +46,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success mr-1"
-                                   onclick="addWidget('pageMiddle')"></i>
+                                   onclick="addWidget('pageWidgets')"></i>
                             </td>
                         </tr>
                         </thead>
@@ -57,7 +57,6 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                             <tr>
                                 <td>
                                     <select class="form-control" name="widgetId">
-                                        <option value='0'>无</option>
                                         <?php
                                         foreach ($widgetList as $witem) {
                                             if ($witem['id'] == $widget) {

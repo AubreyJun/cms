@@ -1,6 +1,6 @@
 <?php
 
-namespace app\forms\cms;
+namespace app\forms\cms\backend;
 
 class FormNav extends \yii\base\Model
 {

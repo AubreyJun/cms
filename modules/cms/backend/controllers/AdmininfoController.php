@@ -5,7 +5,6 @@ namespace app\modules\cms\backend\controllers;
 
 
 use app\forms\cms\FormAdmin;
-use app\forms\cms\FormArticle;
 use app\structure\constants\MsgType;
 use app\structure\controllers\BackendPanelController;
 use Yii;
