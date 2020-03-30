@@ -26,9 +26,6 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
 
                             </div>
                             <div class="form-group ">
-                                <button type="button" class="btn btn-success btn-xs" onclick="preView(<?= $page['id']; ?>)"><i
-                                            class="fa fa-eye fa-lg"></i>预览
-                                </button>
                                 <button type="button" class="btn btn-primary btn-xs" onclick="saveWidget()"><i
                                             class="fa fa-save fa-lg"></i>保存
                                 </button>
