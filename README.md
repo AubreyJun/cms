@@ -7,11 +7,11 @@ GPL
 ## 预览
 
 <img src='http://backend.ranko.cn/uploads/file/cms.png' width="400px" title="预览"/>    
-
+<br>
 <img src='http://backend.ranko.cn/uploads/file/backend.png' width="400px" title="后台管理"/>      
-
+<br>
 <img src='http://backend.ranko.cn/uploads/file/pagewidgets.png' width="400px" title="页面排版"/>      
-
+<br>
 
 ## 安装步骤
 1. 复制install目录下的dev文件至config目录下
