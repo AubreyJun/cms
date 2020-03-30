@@ -33,6 +33,9 @@ class FragmentController extends BackendPanelController
 
         $this->data['model'] = $model;
 
+        $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
+        $this->data['filelist'] = $filelist;
+
         return $this->render('edit', $this->data);
     }
 

@@ -33,10 +33,12 @@ $this->title = '片段设置';
                         <option value="0">无</option>
                         <?php
                         $viewPath = Yii::$app->viewPath;
-                        foreach ($filelist as $file){
-                            ?>
-                            <option value="<?php echo $file; ?>"><?php echo str_replace($viewPath,"",$file); ?></option>
-                            <?php
+                        if(sizeof($filelist)>0){
+                            foreach ($filelist as $file){
+                                ?>
+                                <option value="<?php echo $file; ?>"><?php echo str_replace($viewPath,"",$file); ?></option>
+                                <?php
+                            }
                         }
                         ?>
                     </select>
