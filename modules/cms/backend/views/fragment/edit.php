@@ -63,9 +63,9 @@ $this->title = '片段设置';
 
                 <div class="form-group">
                     <label>
-                        <a class="btn btn-primary btn-xs" onclick="loadPreview()" ><i class="fa fa-refresh"></i>片段预览</a>
+                        <a class="btn btn-primary btn-xs text-white" onclick="loadPreview()" ><i class="fa fa-refresh"></i>片段预览</a>
                     </label>
-                    <iframe width="100%" id="iframe_preview" height="200px" src="index.php?r=cms-backend/fragment/preview">
+                    <iframe width="100%" id="iframe_preview"  height="300px" src="index.php?r=cms-backend/fragment/preview">
                     </iframe>
                 </div>
 
