@@ -179,10 +179,17 @@ ORDER BY
     }
 
 
-    public function actionPreview($pageId){
+    public function actionPreview(){
 
+        $pageId = $_REQUEST['id'];
         $page = Page::findOne($pageId);
-        $this->data['page'] = $page;
+
+        $widgetJSON = $_POST['widgetJSON'];
+        $page->widgetjson = $widgetJSON;
+
+        $layout = Layout::findOne($page['layoutId']);
+        $this->data['CMS_LAYOUT'] = $layout;
+        $this->data['CMS_PAGE'] = $page;
 
         $this->layout = '@app/views/layouts/frontend-cms';
         return $this->render('@app/views/rkcms/page', $this->data);

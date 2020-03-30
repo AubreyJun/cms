@@ -127,10 +127,6 @@ class FragmentController extends BackendPanelController
         return $this->render("preview",$this->data);
     }
 
-    public function renderFragment($id,$data=array()){
-        return $this->renderFile("@app/views/fragment/".$this->data['editThemeId']."/".$id.".php",$data);
-    }
-
     public function actionDelete($id)
     {
 

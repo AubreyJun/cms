@@ -17,7 +17,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         <h4 class="card-title">页面</h4>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <form class="form-inline" id="from-edit" style="float: right;" method="post"
+                        <form class="form-inline" id="form-edit" style="float: right;" method="post"
                               action="index.php?r=cms-backend/page/savewidget">
                             <input type="hidden" name="id" value="<?= $page['id']; ?>">
                             <input type="hidden" name="widgetJSON" value="">
@@ -26,6 +26,9 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
 
                             </div>
                             <div class="form-group ">
+                                <button type="button" class="btn btn-success btn-xs" onclick="preView(<?= $page['id']; ?>)"><i
+                                            class="fa fa-desktop fa-lg"></i>预览
+                                </button>
                                 <button type="button" class="btn btn-primary btn-xs" onclick="saveWidget()"><i
                                             class="fa fa-save fa-lg"></i>保存
                                 </button>
@@ -128,7 +131,12 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
     }
 
     function preView(pageId) {
-        window.open("index.php?r=cms-backend/page/preview&pageId="+pageId);
+        var widgets = getWidget('Widgets');
+        var widgetsJSON = JSON.stringify(widgets);
+        $("input[name=widgetJSON]").val(widgetsJSON);
+        $("#form-edit").attr("action","index.php?r=cms-backend/page/preview");
+        $("#form-edit").attr("target","_blank");
+        $("#form-edit").submit();
     }
 
 
@@ -165,7 +173,9 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
         var widgets = getWidget('Widgets');
         var widgetsJSON = JSON.stringify(widgets);
         $("input[name=widgetJSON]").val(widgetsJSON);
-        $("#from-edit").submit();
+        $("#form-edit").attr("action","index.php?r=cms-backend/page/savewidget");
+        $("#form-edit").attr("target","");
+        $("#form-edit").submit();
 
     }
 

@@ -178,4 +178,14 @@ ORDER BY
 
     }
 
+    public function renderFragment($id,$data=array()){
+        return $this->renderFile("@app/views/fragment/".$this->data['editThemeId']."/".$id.".php",$data);
+    }
+
+    public function setMeta($title, $keywords, $description)
+    {
+        $this->data['meta_title'] = $title;
+        $this->data['meta_keywords'] = $keywords;
+        $this->data['meta_description'] = $description;
+    }
 }
