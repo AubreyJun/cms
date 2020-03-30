@@ -29,8 +29,16 @@ $this->title = '片段设置';
                     <label>
                         片段模板
                     </label>
-                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control">
+                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control" onchange="loadTemplate(this.value)">
                         <option value="0">无</option>
+                        <?php
+                        $viewPath = Yii::$app->viewPath;
+                        foreach ($filelist as $file){
+                            ?>
+                            <option value="<?php echo $file; ?>"><?php echo str_replace($viewPath,"",$file); ?></option>
+                            <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group">
@@ -63,21 +71,23 @@ $this->title = '片段设置';
     </div>
 </div>
 <script>
-
+    var editor = null;
     $(function () {
-
-        $(function () {
-            var editor = CodeMirror.fromTextArea(document.getElementById('code-editable'), {
-                lineNumbers: true,
-                styleActiveLine: true,
-                matchBrackets: true,
-                theme: "midnight",
-                lineWrapping: true,
-                smartIndent: true
-            });
+        editor = CodeMirror.fromTextArea(document.getElementById('code-editable'), {
+            lineNumbers: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            theme: "midnight",
+            lineWrapping: true,
+            smartIndent: true
         });
-
     });
 
+
+    function loadTemplate(path) {
+        $.post('index.php?r=cms-backend/fragment/gettemplate',{'path':path,'_csrf':'<?= Yii::$app->request->csrfToken ?>'},function (data) {
+            editor.setValue(data);
+        });
+    }
 
 </script>

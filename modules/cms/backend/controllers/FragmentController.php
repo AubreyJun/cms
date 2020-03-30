@@ -10,6 +10,7 @@ use app\forms\cms\backend\FormFileImage;
 use app\models\cms\Fragment;
 use app\structure\controllers\BackendPanelController;
 use Yii;
+use yii\helpers\FileHelper;
 
 class FragmentController extends BackendPanelController
 {
@@ -41,6 +42,9 @@ class FragmentController extends BackendPanelController
         $model = new FormFragment();
         $model->setAttributes($fragment->attributes, true);
         $this->data['model'] = $model;
+
+        $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
+        $this->data['filelist'] = $filelist;
 
         $this->data['fragment'] = $fragment;
 
@@ -97,7 +101,16 @@ class FragmentController extends BackendPanelController
         if(!file_exists($folderPath)){
             mkdir($folderPath);
         }
-        file_put_contents($folderPath.'/'.$fragment['id'].'.php',$fragment['body']);
+        file_put_contents($folderPath.DIRECTORY_SEPARATOR.''.$fragment['id'].'.php',$fragment['body']);
+    }
+
+    public function actionGettemplate(){
+        $path = $_POST['path'];
+        if(file_exists($path)){
+            echo file_get_contents($path);
+        }else{
+            echo "";
+        }
     }
 
     public function actionDelete($id)
