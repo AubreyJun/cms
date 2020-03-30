@@ -6,11 +6,11 @@ GPL
 
 ## 预览
 
-<img src='http://backend.ranko.cn/uploads/file/cms.png' width="400px" title="预览"/>  
+<img src='http://backend.ranko.cn/uploads/file/cms.png' width="400px" title="预览"/>    
 
-<img src='http://backend.ranko.cn/uploads/file/backend.png' width="400px" title="后台管理"/>    
+<img src='http://backend.ranko.cn/uploads/file/backend.png' width="400px" title="后台管理"/>      
 
-<img src='http://backend.ranko.cn/uploads/file/pagewidgets.png' width="400px" title="页面排版"/>  
+<img src='http://backend.ranko.cn/uploads/file/pagewidgets.png' width="400px" title="页面排版"/>      
 
 
 ## 安装步骤
