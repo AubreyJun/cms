@@ -18,6 +18,7 @@ class CmsFrontendController extends AppController
     public $pageId = 0;
     public $pageType = null;
     private $app_config = array();
+    private $demo = false;
 
     public function init()
     {
@@ -40,10 +41,10 @@ class CmsFrontendController extends AppController
     public function setParam()
     {
         if (isset(Yii::$app->params['demo'])) {
-            $demo = Yii::$app->params['demo'];
+            $this->demo = Yii::$app->params['demo'];
         }
 
-        if ($demo) {
+        if ($this->demo==true) {
             $host = $_SERVER['HTTP_HOST'];
             $id = Yii::$app->params['themeids'][$host];
             $this->defaultTheme = $this->query("select * from cms_theme t where t.id = :id")

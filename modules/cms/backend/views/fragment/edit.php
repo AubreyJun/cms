@@ -62,6 +62,14 @@ $this->title = '片段设置';
                 </div>
 
                 <div class="form-group">
+                    <label>
+                        <a class="btn btn-primary btn-xs" onclick="loadPreview()" ><i class="fa fa-refresh"></i>片段预览</a>
+                    </label>
+                    <iframe width="100%" id="iframe_preview" height="200px" src="index.php?r=cms-backend/fragment/preview">
+                    </iframe>
+                </div>
+
+                <div class="form-group">
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
@@ -83,11 +91,21 @@ $this->title = '片段设置';
         });
     });
 
-
     function loadTemplate(path) {
         $.post('index.php?r=cms-backend/fragment/gettemplate',{'path':path,'_csrf':'<?= Yii::$app->request->csrfToken ?>'},function (data) {
             editor.setValue(data);
         });
+    }
+    
+    function loadPreview() {
+        var editorValue = editor.getValue();
+        $.post(
+            'index.php?r=cms-backend/fragment/gethtml',
+            {'editorValue':editorValue,'_csrf':'<?= Yii::$app->request->csrfToken ?>'},
+            function (data) {
+                $("#iframe_preview").contents().find("#fragment-content").html(data);
+            }
+        );
     }
 
 </script>

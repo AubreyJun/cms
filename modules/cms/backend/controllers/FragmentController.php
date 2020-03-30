@@ -8,6 +8,7 @@ use app\forms\cms\backend\FormFragment;
 use app\forms\cms\backend\FormArticle;
 use app\forms\cms\backend\FormFileImage;
 use app\models\cms\Fragment;
+use app\models\cms\Layout;
 use app\structure\controllers\BackendPanelController;
 use Yii;
 use yii\helpers\FileHelper;
@@ -104,6 +105,14 @@ class FragmentController extends BackendPanelController
         file_put_contents($folderPath.DIRECTORY_SEPARATOR.''.$fragment['id'].'.php',$fragment['body']);
     }
 
+    private function saveFragmentTemp($editorValue){
+        $folderPath = Yii::$app->viewPath.'/fragment/';
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        file_put_contents($folderPath.DIRECTORY_SEPARATOR.'temp.php',$editorValue);
+    }
+
     public function actionGettemplate(){
         $path = $_POST['path'];
         if(file_exists($path)){
@@ -111,6 +120,15 @@ class FragmentController extends BackendPanelController
         }else{
             echo "";
         }
+    }
+
+    public function actionPreview(){
+        $this->layout = '@app/views/layouts/frontend-cms-preview';
+        return $this->render("preview",$this->data);
+    }
+
+    public function renderFragment($id,$data=array()){
+        return $this->renderFile("@app/views/fragment/".$this->data['editThemeId']."/".$id.".php",$data);
     }
 
     public function actionDelete($id)
@@ -125,6 +143,12 @@ class FragmentController extends BackendPanelController
             ->execute();
 
         return $this->actionIndex($fragment['fragmentType']);
+    }
+
+    public function actionGethtml(){
+        $editorValue = $_REQUEST['editorValue'];
+        $this->saveFragmentTemp($editorValue);
+        return $this->renderFile("@app/views/fragment/temp.php");
     }
 
 }
