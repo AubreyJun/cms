@@ -80,7 +80,7 @@ class ParamController extends BackendPanelController
         $model->setAttributes($param->attributes, true);
 
         $this->data['model'] = $model;
-        
+
         return $this->render('edit', $this->data);
     }
 
