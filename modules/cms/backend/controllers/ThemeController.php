@@ -57,7 +57,9 @@ class ThemeController extends BackendPanelController
                     $theme->themeName = $model->themeName;
                     $theme->isActive = $model->isActive == null ? 0 : $model->isActive;
                     $theme->save();
-                    $theme->setThemeUnActive($theme->id);
+                    if($model->isActive==1){
+                        $theme->setThemeUnActive($theme->id);
+                    }
                     return $this->redirect("index.php?r=cms-backend/theme/index");
                 } else {
                     $theme = Theme::findOne($model->id);
@@ -65,7 +67,9 @@ class ThemeController extends BackendPanelController
                     $theme->themeName = $model->themeName;
                     $theme->isActive = $model->isActive == null ? 0 : $model->isActive;
                     $theme->save();
-                    $theme->setThemeUnActive($theme->id);
+                    if($model->isActive==1){
+                        $theme->setThemeUnActive($theme->id);
+                    }
                     return $this->redirect("index.php?r=cms-backend/theme/index");
                 }
             }
