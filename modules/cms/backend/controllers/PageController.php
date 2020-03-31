@@ -16,20 +16,10 @@ class PageController extends BackendPanelController
 {
     public function actionIndex($pagetype='home')
     {
-        $this->data['pageType'] = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'pageType' ) 
-ORDER BY
-	t.sequencenumber ASC")->queryAll();
 
-        $this->data['list'] = $this->query("select * from cms_theme_page where pageType = :pagetype and themeId = :themeId")
+        $this->data['list'] = $this->query("select * from cms_theme_page where themeId = :themeId")
             ->bindParam(":themeId", $this->data['editThemeId'])
-            ->bindParam(":pagetype",$pagetype)->queryAll();
-
-        $this->data['current'] = $pagetype;
+            ->queryAll();
 
         return $this->render('index', $this->data);
     }

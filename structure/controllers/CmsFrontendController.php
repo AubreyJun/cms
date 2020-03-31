@@ -73,15 +73,15 @@ class CmsFrontendController extends AppController
         }
     }
 
-    public function show($pageType)
+    public function show($pagePath)
     {
-        if ($pageType == null) {
-            $pageType = 'home';
+        if ($pagePath == null) {
+            $pagePath = 'home';
         }
 
-        $this->pageType = $pageType;
+        $this->pageType = $pagePath;
 
-        $page = $this->getPage($pageType);
+        $page = $this->getPage($pagePath);
         if ($page == false) {
             $message = $this->message(MsgType::ERROR, '页面没有配置！页面类型：' . $pageType);
             return $this->errorPage($message);
@@ -104,17 +104,17 @@ class CmsFrontendController extends AppController
         return $this->render('@app/views/site/error', $this->data);
     }
 
-    public function getPage($pageType)
+    public function getPage($pagePath)
     {
         if ($this->pageId == 0) {
-            return $this->query("SELECT * FROM `cms_theme_page` where pageType = :pageType and isDefault = 1 and themeId = :themeId")
+            return $this->query("SELECT * FROM `cms_theme_page` where pagePath = :pagePath and isDefault = 1 and themeId = :themeId")
                 ->bindParam(":themeId", $this->defaultTheme['id'])
-                ->bindParam(":pageType", $pageType)
+                ->bindParam(":pagePath", $pagePath)
                 ->queryOne();
         } else {
-            return $this->query("SELECT * FROM `cms_theme_page` where pageType = :pageType and id = :pageId and themeId = :themeId")
+            return $this->query("SELECT * FROM `cms_theme_page` where pagePath = :pagePath and id = :pageId and themeId = :themeId")
                 ->bindParam(":themeId", $this->defaultTheme['id'])
-                ->bindParam(":pageType", $pageType)
+                ->bindParam(":pagePath", $pagePath)
                 ->bindParam(":pageId", $this->pageId)
                 ->queryOne();
         }

@@ -34,8 +34,6 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'description', ['errorOptions' => ['class' => 'error mt-2 text-danger']])?>
                 <?= $form->field($model, 'cfgkey', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
                 <?= $form->field($model, 'cfgvalue', ['errorOptions' => ['class' => 'error mt-2 text-danger']])->textarea(['rows'=>3]) ?>
-                <?= $form->field($model, 'configtype', ['errorOptions' => ['class' => 'error mt-2 text-danger']])
-                    ->dropDownList($configType_select, []) ?>
                 <div class="form-group">
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>

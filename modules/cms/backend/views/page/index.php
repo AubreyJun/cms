@@ -10,24 +10,6 @@
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
                             <div class="form-group mr-2">
-                                <select class="form-control form-control-sm" style="padding: 3px;" name="widgetType"
-                                        onchange="changeType(this.value)">
-                                    <?php
-                                    foreach ($pageType as $ptype) {
-                                        if ($current == $ptype['optionValue']) {
-                                            ?>
-                                            <option selected="selected"
-                                                    value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <option value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
-                                            <?php
-                                        }
-
-                                    }
-                                    ?>
-                                </select>
                             </div>
                             <div class="form-group ">
                                 <button type="button" class="btn btn-primary btn-xs"
@@ -41,14 +23,8 @@
                     <thead>
                     <tr>
                         <th>描述</th>
+                        <th>路径</th>
                         <th>默认</th>
-                        <?php
-                        if ($current == 'page') {
-                            ?>
-                            <th>KEY</th>
-                            <?php
-                        }
-                        ?>
                         <th width="20%">操作</th>
                     </tr>
                     </thead>
@@ -58,15 +34,9 @@
                         ?>
                         <tr>
                             <td><?php echo $item['pageName']; ?></td>
+                            <td><?php echo $item['pagePath']; ?></td>
                             <td><?php echo $item['isDefault'] == 1 ? '<i class="text-success fa fa-check fa-lg"></i>'
                                     : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
-                            <?php
-                            if ($current == 'page') {
-                                ?>
-                                <td><?php echo $item['pageKey']; ?></td>
-                                <?php
-                            }
-                            ?>
                             <td>
                                 <a class="text-primary mr-2"
                                    href="index.php?r=cms-backend/page/update&id=<?php echo $item['id']; ?>">

@@ -10,24 +10,6 @@
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
                             <div class="form-group mr-2">
-                                <select class="form-control form-control-sm" style="padding: 3px;" name="configType"
-                                        onchange="changeType(this.value)">
-                                    <?php
-                                    foreach ($configType as $ptype) {
-                                        if ($current == $ptype['optionValue']) {
-                                            ?>
-                                            <option selected="selected"
-                                                    value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <option value="<?php echo $ptype['optionValue']; ?>"><?php echo $ptype['optionDesc']; ?></option>
-                                            <?php
-                                        }
-
-                                    }
-                                    ?>
-                                </select>
                             </div>
                             <div class="form-group ">
                                 <button type="button" class="btn btn-primary btn-xs"

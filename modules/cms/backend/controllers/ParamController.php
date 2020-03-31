@@ -15,20 +15,9 @@ class ParamController extends BackendPanelController
 {
     public function actionIndex($configType = 'basic')
     {
-        $this->data['configType'] = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'configType' ) 
-ORDER BY
-	t.sequencenumber ASC")->queryAll();
-
-        $this->data['list'] = $this->query("select * from cms_config where configtype = :configType and themeid = :themeid")
+        $this->data['list'] = $this->query("select * from cms_config where themeid = :themeid")
             ->bindParam(":themeid",$this->data['defaultThemeId'])
-            ->bindParam(":configType", $configType)->queryAll();
-
-        $this->data['current'] = $configType;
+            ->queryAll();
 
         return $this->render('index', $this->data);
     }
@@ -39,26 +28,7 @@ ORDER BY
         $model->id = 0;
         $this->data['model'] = $model;
 
-        $this->setForm();
-
         return $this->render('edit', $this->data);
-    }
-
-    private function setForm()
-    {
-        $configType = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'configType' ) 
-ORDER BY
-	t.sequencenumber ASC")->queryAll();
-        $configType_select = array();
-        foreach ($configType as $item) {
-            $configType_select[$item['optionValue']] = $item['optionDesc'];
-        }
-        $this->data['configType_select'] = $configType_select;
     }
 
     public function actionEdit()
@@ -67,7 +37,7 @@ ORDER BY
         if ($model->load(Yii::$app->request->post())) {
             $model->setAttributes(['themeId' => $this->data['defaultThemeId']]);
             if ($model->validate()) {
-                $exist = Param::find()->where(['cfgkey' => $model->attributes['cfgkey'], 'configtype' => $model->attributes['configtype']]
+                $exist = Param::find()->where(['cfgkey' => $model->attributes['cfgkey']]
                 )->andWhere(['!=', 'id', $model->id])->one();
                 if($exist){
                     $model->addError('tips','不能使用相同类型的配置KEY');
@@ -76,19 +46,18 @@ ORDER BY
                         $param = new Param();
                         $param->setAttributes($model->attributes, false);
                         $param->save();
-                        return $this->actionIndex($model->attributes['configtype']);
+                        return $this->redirect("index.php?r=cms-backend/param/index");
                     } else {
                         $param = Param::findOne($model->attributes['id']);
                         $param->setAttributes($model->attributes, false);
                         $param->save();
-                        return $this->actionIndex($model->attributes['configtype']);
+                        return $this->redirect("index.php?r=cms-backend/param/index");
                     }
                 }
 
             }
         }
 
-        $this->setForm();
         $this->data['model'] = $model;
 
         return $this->render('edit', $this->data);
@@ -111,8 +80,7 @@ ORDER BY
         $model->setAttributes($param->attributes, true);
 
         $this->data['model'] = $model;
-
-        $this->setForm();
+        
         return $this->render('edit', $this->data);
     }
 

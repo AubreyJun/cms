@@ -8,7 +8,6 @@ class FormParam extends \yii\base\Model
     public $cfgkey;
     public $cfgvalue;
     public $description;
-    public $configtype;
     public $themeId;
     public $tips;
 
@@ -19,7 +18,6 @@ class FormParam extends \yii\base\Model
             [['cfgkey'], 'required','message'=>'配置的KEY不能为空'],
             [['cfgvalue'], 'required', 'message' => '配置内容不能为空'],
             [['description'], 'required', 'message' => '描述不能为空'],
-            [['configtype'], 'required', 'message' => '配置类型不能为空'],
             [['themeId'], 'required', 'message' => '主题不能为空']
         ];
     }
