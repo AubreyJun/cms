@@ -7,11 +7,8 @@ use yii\web\Controller;
 
 class DefaultController extends CmsFrontendController
 {
-    public function actionIndex($pageType=null,$pageId=0)
+    public function actionIndex($pagePath)
     {
-
-        $this->pageId = $pageId;
-
-        return $this->show($pageType);
+        return $this->show($pagePath);
     }
 }
