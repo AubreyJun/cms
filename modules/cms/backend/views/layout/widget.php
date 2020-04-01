@@ -40,7 +40,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         <thead>
                         <tr>
                             <td class="text-center" width="80%">
-                                【HEADER】片段
+                                【HEAD】片段
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success"
@@ -89,7 +89,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         <thead>
                         <tr>
                             <td class="text-center" width="80%">
-                                【头部片段】片段
+                                【内容上方】片段
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success"
@@ -138,7 +138,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         <thead>
                         <tr>
                             <td class="text-center" width="80%">
-                                【底部片段】组件
+                                【内容下方】组件
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success"
