@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models\cms;
+namespace app\models\cms\frontend;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Theme extends ActiveRecord
+class Param extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{cms_theme}}';
+        return '{{cms_config}}';
     }
 
     public function behaviors()
@@ -23,14 +23,6 @@ class Theme extends ActiveRecord
                 'value' => new Expression('NOW()'),
             ],
         ];
-    }
-
-    public function setThemeUnActive($themeId)
-    {
-        $db = self::getDb();
-        $db->createCommand("update cms_theme set isActive = 0 where id != :id")
-            ->bindParam(":id", $themeId)
-            ->execute();
     }
 
 }

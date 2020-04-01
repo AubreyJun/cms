@@ -6,11 +6,11 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Layout extends ActiveRecord
+class Catalog extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{cms_theme_layout}}';
+        return '{{cms_catalog}}';
     }
 
     public function behaviors()
@@ -24,4 +24,6 @@ class Layout extends ActiveRecord
             ],
         ];
     }
+
+
 }

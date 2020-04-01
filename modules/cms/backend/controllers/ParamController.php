@@ -3,7 +3,6 @@
 namespace app\modules\cms\backend\controllers;
 
 
-use app\forms\cms\backend\FormPage;
 use app\forms\cms\backend\FormParam;
 use app\models\cms\Page;
 use app\models\cms\Param;

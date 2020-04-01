@@ -1,21 +1,16 @@
 <?php
 
-namespace app\models\cms;
+namespace app\models\cms\frontend;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Post extends ActiveRecord
+class Layout extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{cms_post}}';
-    }
-
-    public function getCatalog()
-    {
-        return $this->hasOne(Catalog::className(), ['id' => 'catalogId']);
+        return '{{cms_theme_layout}}';
     }
 
     public function behaviors()
@@ -29,6 +24,4 @@ class Post extends ActiveRecord
             ],
         ];
     }
-
-
 }
