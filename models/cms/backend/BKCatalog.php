@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\cms;
+namespace app\models\cms\backend;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;

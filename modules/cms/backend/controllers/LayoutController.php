@@ -4,8 +4,7 @@
 namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormLayout;
-use app\models\cms\Layout;
-use app\models\cms\Page;
+use app\models\cms\backend\BKLayout;
 use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;
 use Yii;
@@ -38,14 +37,14 @@ class LayoutController extends BackendPanelController
             $model->setAttributes(['themeId'=>$this->data['editThemeId']]);
             if ($model->validate()) {
                 if ($model->id == 0) {
-                    $formLayout = new Layout();
-                    $formLayout->setAttributes($model->attributes,false);
-                    $formLayout->save();
+                    $layout = new BkLayout();
+                    $layout->setAttributes($model->attributes,false);
+                    $layout->save();
                     return $this->actionIndex();
                 } else {
-                    $formLayout = Layout::findOne($model->attributes['id']);
-                    $formLayout->setAttributes($model->attributes,false);
-                    $formLayout->save();
+                    $layout = BkLayout::findOne($model->attributes['id']);
+                    $layout->setAttributes($model->attributes,false);
+                    $layout->save();
                     return $this->actionIndex();
                 }
             }
@@ -57,7 +56,7 @@ class LayoutController extends BackendPanelController
 
     public function actionUpdate($id)
     {
-        $layout = Layout::findOne($id);
+        $layout = BkLayout::findOne($id);
 
         $model = new FormLayout();
         $model->load($layout->attributes, '');
@@ -68,7 +67,7 @@ class LayoutController extends BackendPanelController
     }
 
     public function actionDelete($id){
-        $layout = Layout::findOne($id);
+        $layout = BkLayout::findOne($id);
         if($layout){
             $layout->delete();
         }
@@ -77,7 +76,7 @@ class LayoutController extends BackendPanelController
 
     public function actionWidget($id){
 
-        $layout = Layout::findOne($id);
+        $layout = BkLayout::findOne($id);
         $this->data['layout'] = $layout;
 
         return $this->render('widget', $this->data);
@@ -87,7 +86,7 @@ class LayoutController extends BackendPanelController
         $id = $_REQUEST['id'];
         $widgetJSON = $_POST['widgetJSON'];
 
-        $layout = Layout::findOne($id);
+        $layout = BkLayout::findOne($id);
         $layout->widgetjson = $widgetJSON;
         $layout->save();
 

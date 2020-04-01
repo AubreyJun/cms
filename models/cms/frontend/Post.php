@@ -18,6 +18,16 @@ class Post extends ActiveRecord
         return $this->hasOne(Catalog::className(), ['id' => 'catalogId']);
     }
 
+    public function getProps()
+    {
+        return $this->hasMany(PostProp::className(), ['id' => 'postId']);
+    }
+
+    public function getTags()
+    {
+        return $this->hasMany(PostTag::className(), ['id' => 'postId']);
+    }
+
     public function behaviors()
     {
         return [

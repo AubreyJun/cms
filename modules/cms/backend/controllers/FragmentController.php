@@ -7,8 +7,8 @@ namespace app\modules\cms\backend\controllers;
 use app\forms\cms\backend\FormFragment;
 use app\forms\cms\backend\FormArticle;
 use app\forms\cms\backend\FormFileImage;
-use app\models\cms\Fragment;
-use app\models\cms\Layout;
+use app\models\cms\backend\BKFragment;
+use app\models\cms\backend\BKLayout;
 use app\structure\controllers\BackendPanelController;
 use Yii;
 use yii\helpers\FileHelper;
@@ -42,7 +42,7 @@ class FragmentController extends BackendPanelController
     public function actionUpdate($id)
     {
 
-        $fragment = Fragment::findOne($id);
+        $fragment = BKFragment::findOne($id);
         $model = new FormFragment();
         $model->setAttributes($fragment->attributes, true);
         $this->data['model'] = $model;
@@ -64,13 +64,13 @@ class FragmentController extends BackendPanelController
             if ($model->validate()) {
 
                 if ($model->id == 0) {
-                    $fragment = new Fragment();
+                    $fragment = new BKFragment();
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
                     $this->saveFragment($fragment['id']);
                     return $this->redirect("index.php?r=cms-backend/fragment/index");
                 } else {
-                    $fragment = Fragment::findOne($model->attributes['id']);
+                    $fragment = BKFragment::findOne($model->attributes['id']);
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
                     $this->saveFragment($fragment['id']);
@@ -85,7 +85,7 @@ class FragmentController extends BackendPanelController
     }
 
     public function actionCopy($id){
-        $fragment = Fragment::findOne($id);
+        $fragment = BKFragment::findOne($id);
         $newFragment = new Fragment();
         $newFragment->setAttributes($fragment->attributes, false);
         $newFragment->fragmentName = "复制 - ".$newFragment->fragmentName;
@@ -96,7 +96,7 @@ class FragmentController extends BackendPanelController
     }
 
     private function saveFragment($fragmentId){
-        $fragment = Fragment::findOne($fragmentId);
+        $fragment = BKFragment::findOne($fragmentId);
         $folderPath = Yii::$app->viewPath.'/fragment/';
         if(!file_exists($folderPath)){
             mkdir($folderPath);
@@ -126,7 +126,10 @@ class FragmentController extends BackendPanelController
     }
 
     public function actionPreview(){
-        $this->layout = '@app/views/rkcms/frontend-cms-preview';
+        $layout = BkLayout::find()->where(['themeId'=> $this->data['editThemeId'],'review'=>1])->one();
+        $this->data['CMS_LAYOUT'] = $layout;
+        $this->data['REVIEW'] = 1;
+        $this->layout = '@app/views/rkcms/frontend-cms';
         return $this->render("preview",$this->data);
     }
 

@@ -56,8 +56,6 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/spectrum/jquery.spectrum-zh-cn.js',
         'static/backend/lib/image-picker/image-picker.min.js',
         'static/backend/lib/table-dragger/table-dragger.min.js',
-        'static/backend/lib/nicescroll/jquery.nicescroll.js',
-        'static/backend/lib/nicescroll/jquery.nicescroll.iframehelper.js',
         'static/backend/js/custom.js'
 
     ];

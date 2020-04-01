@@ -15,7 +15,7 @@ class BKPost extends ActiveRecord
 
     public function getCatalog()
     {
-        return $this->hasOne(Catalog::className(), ['id' => 'catalogId']);
+        return $this->hasOne(BKCatalog::className(), ['id' => 'catalogId']);
     }
 
     public function behaviors()
