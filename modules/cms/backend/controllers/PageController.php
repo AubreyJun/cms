@@ -6,6 +6,8 @@ namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormFragment;
 use app\forms\cms\backend\FormPage;
+use app\models\cms\backend\BKLayout;
+use app\models\cms\backend\BKPage;
 use app\models\cms\Layout;
 use app\models\cms\Page;
 use app\structure\controllers\AdminController;
@@ -36,22 +38,7 @@ class PageController extends BackendPanelController
     }
 
     private function setForm(){
-        $pageType = $this->query("SELECT
-	* 
-FROM
-	cms_select_options t 
-WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'pageType' ) 
-ORDER BY
-	t.sequencenumber ASC")->queryAll();
-        $pageType_select = array();
-        foreach ($pageType as $item){
-            $pageType_select[$item['optionValue']] = $item['optionDesc'];
-        }
-        $this->data['pageType_select'] = $pageType_select;
-
-
-        $layouts = Layout::find()->where(['themeId'=>$this->data['editThemeId']])->all();
+        $layouts = BkLayout::find()->where(['themeId'=>$this->data['editThemeId']])->all();
         $layout_select = array();
         foreach ($layouts as $layout){
             $layout_select[$layout['id']] = $layout['layoutName'];
@@ -68,23 +55,29 @@ ORDER BY
             }
             $model->setAttributes(['themeId'=>$this->data['editThemeId']]);
             if ($model->validate()) {
-                if ($model->id == 0) {
-                    $page = new Page();
-                    $page->setAttributes($model->attributes,false);
-                    $page->save();
-                    if($page['isDefault']==1){
-                        $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
-                    }
-                    return $this->actionIndex($model->attributes['pageType']);
-                }else{
-                    $page = Page::findOne($model->attributes['id']);
 
-                    $page->setAttributes($model->attributes,false);
-                    $page->save();
-                    if($page['isDefault']==1){
-                        $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
+                $pagePath = $model->pagePath;
+                if($this->checkPath($pagePath,$model->id)){
+                    if ($model->id == 0) {
+                        $page = new BKPage();
+                        $page->setAttributes($model->attributes,false);
+                        $page->save();
+                        if($page['isDefault']==1){
+                            $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
+                        }
+                        return $this->actionIndex($model->attributes['pageType']);
+                    }else{
+                        $page = BKPage::findOne($model->attributes['id']);
+
+                        $page->setAttributes($model->attributes,false);
+                        $page->save();
+                        if($page['isDefault']==1){
+                            $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
+                        }
+                        return $this->actionIndex($model->attributes['pageType']);
                     }
-                    return $this->actionIndex($model->attributes['pageType']);
+                }else{
+                    $model->addError('pagePath','网页路径不能重复');
                 }
             }
         }
@@ -95,11 +88,20 @@ ORDER BY
         return $this->render('edit',$this->data);
     }
 
+    public function checkPath($path,$id){
+        $exist = BKPage::find()->where(['pagePath'=>$path])->andWhere(['!=','id',$id])->one();
+        if($exist){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public function actionSavewidget(){
         $id = $_REQUEST['id'];
         $widgetJSON = $_POST['widgetJSON'];
 
-        $page = Page::findOne($id);
+        $page = BKPage::findOne($id);
         $page->widgetjson = $widgetJSON;
         $page->save();
 
@@ -108,23 +110,23 @@ ORDER BY
 
     public function actionWidget($id){
 
-        $page = Page::findOne($id);
+        $page = BKPage::findOne($id);
         $this->data['page'] = $page;
 
         return $this->render('widget',$this->data);
     }
 
     public function actionDelete($id){
-        $page = Page::findOne($id);
+        $page = BKPage::findOne($id);
         if($page){
             $page->delete();
         }
-        return $this->actionIndex($page['pageType']);
+        return $this->redirect("index.php?r=cms-backend/page/index");
     }
 
     public function actionUpdate($id){
 
-        $page = Page::findOne($id);
+        $page = BKPage::findOne($id);
         $model = new FormPage();
         $model->setAttributes($page->attributes,true);
 
@@ -136,7 +138,7 @@ ORDER BY
 
 
     public function actionConfig($id){
-        $page = Page::findOne($id);
+        $page = BKPage::findOne($id);
         $this->data['page'] = $page;
 
         $model = new FormPage();
@@ -149,7 +151,7 @@ ORDER BY
     public function actionSaveconfig(){
         $model = new FormPage();
         if ($model->load(Yii::$app->request->post())) {
-            $page = Page::findOne($model->id);
+            $page = BKPage::findOne($model->id);
             $page->pageKey = $_POST['FormPage']['pageKey'];
             $page->save();
             return $this->actionIndex($page['pageType']);
@@ -172,7 +174,7 @@ ORDER BY
     public function actionPreview(){
 
         $pageId = $_REQUEST['id'];
-        $page = Page::findOne($pageId);
+        $page = BKPage::findOne($pageId);
 
         $widgetJSON = $_POST['widgetJSON'];
         $page->widgetjson = $widgetJSON;

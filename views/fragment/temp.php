@@ -1,36 +1,12 @@
-<!-- Services Section -->
-<section class="page-section" id="services">
+<!-- About Section -->
+<section class="page-section bg-primary" id="about">
     <div class="container">
-        <h2 class="text-center mt-0">我们的服务</h2>
-        <hr class="divider my-4">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 text-center">
-                <div class="mt-5">
-                    <i class="fas fa-4x fa-gem text-primary mb-4"></i>
-                    <h3 class="h4 mb-2">优质的主题</h3>
-                    <p class="text-muted mb-0">应用市场提供多种行业所需的优质主题</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 text-center">
-                <div class="mt-5">
-                    <i class="fas fa-4x fa-laptop-code text-primary mb-4"></i>
-                    <h3 class="h4 mb-2">永久更新</h3>
-                    <p class="text-muted mb-0">开源代码库始终可开发进行中的代码保持一致</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 text-center">
-                <div class="mt-5">
-                    <i class="fas fa-4x fa-globe text-primary mb-4"></i>
-                    <h3 class="h4 mb-2">快速改版</h3>
-                    <p class="text-muted mb-0">可以通过后台主题模板编辑快速修改页面内容</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 text-center">
-                <div class="mt-5">
-                    <i class="fas fa-4x fa-heart text-primary mb-4"></i>
-                    <h3 class="h4 mb-2">按需定制</h3>
-                    <p class="text-muted mb-0">如果你有特殊需求，可以根据你的需求进行定制</p>
-                </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mt-0">提供你想要的服务</h2>
+                <hr class="divider light my-4">
+                <p class="text-white-50 mb-4">RKCMS可以用于快速创建你的网站！下载免费源码，获取你所需要的主题，你的目标很快就能达成！</p>
+                <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">立即开始</a>
             </div>
         </div>
     </div>

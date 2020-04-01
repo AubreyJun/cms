@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'layoutId', ['errorOptions' => ['class' => 'error mt-2 text-danger']])
                     ->dropDownList($layout_select, ['prompt' => '请选择']) ?>
                 <?= $form->field($model, 'pageName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
+                <?= $form->field($model, 'pagePath', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
                 <div class="form-group">
                     <label>状态</label>
                     <div class="form-check ">
@@ -38,8 +39,6 @@ use yii\widgets\ActiveForm;
                             默认</label>
                     </div>
                 </div>
-                <?= $form->field($model, 'pageType', ['errorOptions' => ['class' => 'error mt-2 text-danger']])
-                    ->dropDownList($pageType_select, ['prompt' => '请选择']) ?>
                 <div class="form-group">
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>

@@ -7,11 +7,10 @@ class FormPage extends \yii\base\Model
     public $id;
     public $themeId;
     public $pageName;
-    public $pageText;
-    public $pageType;
     public $isDefault;
     public $layoutId;
     public $pageKey;
+    public $pagePath;
 
     public function rules()
     {
@@ -20,11 +19,12 @@ class FormPage extends \yii\base\Model
             [['pageKey'], 'required'],
             [['themeId'], 'required'],
             [['pageName'], 'required', 'message' => '页面名称不能为空'],
-            [['pageType'], 'required', 'message' => '页面类型不能为空'],
             [['isDefault'], 'required'],
             [['layoutId'], 'required', 'message' => '布局不能为空'],
+            [['pagePath'], 'required', 'message' => '网页路径不能为空'],
         ];
     }
+
 
     public function mustTwelve($attribute, $params)
     {
@@ -64,7 +64,8 @@ class FormPage extends \yii\base\Model
             'isDefault' => '默认',
             'layoutId' => '布局',
             'pageKey' => '页面KEY',
-            'layout' => '页面组件布局'
+            'layout' => '页面组件布局',
+            'pagePath' => '网页路径',
         ];
     }
 
