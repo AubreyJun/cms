@@ -26,6 +26,8 @@ GPL
 ## 免费模板
 默认模板：http://cms.master.ranko.cn/
 
+## 代码地址
+码云：https://gitee.com/wuxi_ranko/cms
 
 ## rewrite设置
 
