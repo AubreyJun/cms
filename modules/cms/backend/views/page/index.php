@@ -24,7 +24,6 @@
                     <tr>
                         <th>描述</th>
                         <th>路径</th>
-                        <th>默认</th>
                         <th width="20%">操作</th>
                     </tr>
                     </thead>
@@ -35,8 +34,6 @@
                         <tr>
                             <td><?php echo $item['pageName']; ?></td>
                             <td><?php echo $item['pagePath']; ?></td>
-                            <td><?php echo $item['isDefault'] == 1 ? '<i class="text-success fa fa-check fa-lg"></i>'
-                                    : '<i class="text-danger fa fa-minus-circle fa-lg"></i>'; ?></td>
                             <td>
                                 <a class="text-primary mr-2"
                                    href="index.php?r=cms-backend/page/update&id=<?php echo $item['id']; ?>">

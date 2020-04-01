@@ -42,7 +42,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         <thead>
                         <tr>
                             <td class="text-center" width="80%">
-                                组件
+                                片段
                             </td>
                             <td width="20%">
                                 <i class="fa fa-plus-circle fa-lg text-success mr-1"

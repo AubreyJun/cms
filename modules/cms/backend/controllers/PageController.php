@@ -89,7 +89,7 @@ class PageController extends BackendPanelController
     }
 
     public function checkPath($path,$id){
-        $exist = BKPage::find()->where(['pagePath'=>$path])->andWhere(['!=','id',$id])->one();
+        $exist = BKPage::find()->where(['pagePath'=>$path,'themeId'=>$this->data['editThemeId']])->andWhere(['!=','id',$id])->one();
         if($exist){
             return false;
         }else{
@@ -179,7 +179,7 @@ class PageController extends BackendPanelController
         $widgetJSON = $_POST['widgetJSON'];
         $page->widgetjson = $widgetJSON;
 
-        $layout = Layout::findOne($page['layoutId']);
+        $layout = BKLayout::findOne($page['layoutId']);
         $this->data['CMS_LAYOUT'] = $layout;
         $this->data['CMS_PAGE'] = $page;
 

@@ -5,7 +5,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="themes/complex/bootswatch/cosmo/bootstrap.css" >
 
-<title><?php echo $meta_title; ?></title>
+<title><?php echo $this->context->data['meta_title']; ?></title>
 
-<meta name="description" content="<?php echo $meta_description; ?>">
-<meta name="keywords" content="<?php echo $meta_keywords; ?>">
+<meta name="description" content="<?php echo $this->context->data['meta_description']; ?>">
+<meta name="keywords" content="<?php echo $this->context->data['meta_keywords']; ?>">
