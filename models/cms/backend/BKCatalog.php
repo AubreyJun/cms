@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models\cms\backend;
+namespace app\models\cms;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Param extends ActiveRecord
+class BKCatalog extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{cms_config}}';
+        return '{{cms_catalog}}';
     }
 
     public function behaviors()
@@ -24,5 +24,6 @@ class Param extends ActiveRecord
             ],
         ];
     }
+
 
 }

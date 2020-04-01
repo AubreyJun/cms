@@ -1,16 +1,18 @@
 <?php
 
+
 namespace app\models\cms\backend;
+
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Layout extends ActiveRecord
+class BKPlugin extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{cms_theme_layout}}';
+        return '{{cms_plugin}}';
     }
 
     public function behaviors()
@@ -24,4 +26,6 @@ class Layout extends ActiveRecord
             ],
         ];
     }
+
+
 }

@@ -6,16 +6,11 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Post extends ActiveRecord
+class BKNav extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{cms_post}}';
-    }
-
-    public function getCatalog()
-    {
-        return $this->hasOne(Catalog::className(), ['id' => 'catalogId']);
+        return '{{cms_catalog}}';
     }
 
     public function behaviors()

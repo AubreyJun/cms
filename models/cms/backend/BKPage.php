@@ -6,7 +6,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Page extends ActiveRecord
+class BKPage extends ActiveRecord
 {
     public static function tableName()
     {
@@ -30,7 +30,7 @@ class Page extends ActiveRecord
         $db = self::getDb();
         if($pageType=='page'){
 
-            $page = Page::findOne($id);
+            $page = BKPage::findOne($id);
             $pageKey = $page['pageKey'];
 
             $db->createCommand("update cms_theme_page set isDefault = 0 where id != :id and pageType = :pageType and pageKey = :pageKey and themeId = :themeId")

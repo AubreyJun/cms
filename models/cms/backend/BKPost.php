@@ -6,11 +6,16 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
-class Theme extends ActiveRecord
+class BKPost extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{cms_theme}}';
+        return '{{cms_post}}';
+    }
+
+    public function getCatalog()
+    {
+        return $this->hasOne(Catalog::className(), ['id' => 'catalogId']);
     }
 
     public function behaviors()
@@ -25,12 +30,5 @@ class Theme extends ActiveRecord
         ];
     }
 
-    public function setThemeUnActive($themeId)
-    {
-        $db = self::getDb();
-        $db->createCommand("update cms_theme set isActive = 0 where id != :id")
-            ->bindParam(":id", $themeId)
-            ->execute();
-    }
 
 }

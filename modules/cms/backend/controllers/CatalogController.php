@@ -2,7 +2,7 @@
 namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormNav;
-use app\models\cms\Catalog;
+use app\models\cms\BKCatalog;
 use app\models\cms\Nav;
 use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;
@@ -63,7 +63,7 @@ class CatalogController extends BackendPanelController
             $model->setAttributes(['catalogType'=>'cms']);
             if ($model->validate()) {
                 if ($model->id == 0) {
-                    $catalog = new Catalog();
+                    $catalog = new BKCatalog();
                     $catalog->setAttributes($model->attributes,false);
                     $catalog->save();
 
@@ -72,11 +72,11 @@ class CatalogController extends BackendPanelController
                     if($parentId == 0 ){
                         $catalogPath = $catalog->attributes['id']."::";
                     }else{
-                        $parentCatalog = Catalog::findOne($parentId);
+                        $parentCatalog = BKCatalog::findOne($parentId);
                         $catalogPath = $parentCatalog->attributes["catalogPath"].$catalog->attributes['id']."::";
                     }
 
-                    $catalog = Catalog::findOne($catalog->attributes['id']);
+                    $catalog = BKCatalog::findOne($catalog->attributes['id']);
                     $catalog ->setAttributes(['catalogPath'=>$catalogPath],false);
                     $catalog->save();
 
@@ -87,14 +87,14 @@ class CatalogController extends BackendPanelController
                         $model->addError('tips','上级导航不能选择自己');
                     }else{
 
-                        $catalog = Catalog::findOne($model->attributes['id']);
+                        $catalog = BKCatalog::findOne($model->attributes['id']);
 
                         $parentId = $model->attributes['parentId'];
                         $catalogPath = "";
                         if($parentId == 0 ){
                             $catalogPath = $catalog->attributes['id']."::";
                         }else{
-                            $parentCatalog = Catalog::findOne($parentId);
+                            $parentCatalog = BKCatalog::findOne($parentId);
                             $catalogPath = $parentCatalog->attributes["catalogPath"].$catalog->attributes['id']."::";
                         }
 
