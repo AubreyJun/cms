@@ -57,7 +57,7 @@ class CmsFrontendController extends AppController
 
         //系统参数设置
         $configs = $this->query("select * from cms_config t where t.themeId = :themeId")
-            ->bindParam(":themeId", $this->defaultTheme['id'])
+            ->bindParam(":themeId", $this->theme['id'])
             ->queryAll();
         foreach ($configs as $config) {
             $this->config[$config['themeId'] . '-' .$config['cfgkey']] = $config['cfgvalue'];
@@ -98,7 +98,7 @@ class CmsFrontendController extends AppController
             $this->data['CMS_PAGE'] = $page;
             $this->data['CMS_LAYOUT'] = $layout;
 
-            $this->layout = '@app/views/layouts/frontend-cms';
+            $this->layout = '@app/views/rkcms/frontend-cms';
             return $this->render('@app/views/rkcms/page', $this->data);
         }
     }
@@ -107,7 +107,7 @@ class CmsFrontendController extends AppController
     {
         $this->layout = "//content";
         $this->data['message'] = $message;
-        return $this->render('@app/views/site/error', $this->data);
+        return $this->render('@app/views/rkcms/error', $this->data);
     }
 
     public function setMeta($title, $keywords, $description)

@@ -126,7 +126,7 @@ class FragmentController extends BackendPanelController
     }
 
     public function actionPreview(){
-        $this->layout = '@app/views/layouts/frontend-cms-preview';
+        $this->layout = '@app/views/rkcms/frontend-cms-preview';
         return $this->render("preview",$this->data);
     }
 

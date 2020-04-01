@@ -181,7 +181,7 @@ ORDER BY
         $this->data['CMS_LAYOUT'] = $layout;
         $this->data['CMS_PAGE'] = $page;
 
-        $this->layout = '@app/views/layouts/frontend-cms';
+        $this->layout = '@app/views/rkcms/frontend-cms';
         return $this->render('@app/views/rkcms/page', $this->data);
     }
 

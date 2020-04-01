@@ -191,12 +191,6 @@ class ThemeController extends BackendPanelController
             ->execute();
     }
 
-    //进行可视化编辑
-    public function actionVisualeditor(){
-        $this->layout = '@app/views/layouts/frontend-cms-editor';
-        return $this->render('@app/views/rkcms/page-editor', $this->data);
-    }
-
     private function resetPage($page, $theme)
     {
         $themeName = $theme['themeKey'] . '_' . $theme['id'];
