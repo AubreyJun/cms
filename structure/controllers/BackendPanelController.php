@@ -178,8 +178,8 @@ ORDER BY
 
     }
 
-    public function renderFragment($id,$data=array()){
-        return $this->renderPartial("@app/views/fragment/".$this->data['editThemeId']."/".$id,$data);
+    public function renderFragment($id){
+        return $this->renderPartial("@app/views/fragment/".$this->data['editThemeId']."/".$id);
     }
 
     public function setMeta($title, $keywords, $description)
