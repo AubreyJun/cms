@@ -3,15 +3,7 @@
 namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormArticle;
-use app\forms\cms\backend\FormPage;
-use app\forms\cms\backend\FormParam;
-use app\models\cms\Article;
-use app\models\cms\Layout;
-use app\models\cms\Page;
-use app\models\cms\Param;
-use app\models\cms\Post;
-use app\models\cms\PostProp;
-use app\models\cms\PostTag;
+use app\models\cms\backend\BKArticle;
 use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;
 use Yii;
@@ -75,7 +67,7 @@ ORDER BY
                 $model->tags = $_POST['FormArticle']['tags'];
 
                 if ($model->id == 0) {
-                    $article = new Article();
+                    $article = new BkArticle();
                     $article->setAttributes($model->attributes, false);
                     $article->save();
                     $this->savePostTags($article->id,$model->tags);
@@ -83,7 +75,7 @@ ORDER BY
                 } else {
                     PostTag::deleteAll(['postId'=>$model->id]);
 
-                    $article = Article::findOne($model->attributes['id']);
+                    $article = BkArticle::findOne($model->attributes['id']);
                     $article->setAttributes($model->attributes, false);
                     $article->save();
 
@@ -104,7 +96,7 @@ ORDER BY
         if($tags!=''){
             $tagsList = explode(",",$tags);
             foreach ($tagsList as $item){
-                $tag = new PostTag();
+                $tag = new BkPostTag();
                 $tag->postId = $postId;
                 $tag->tag = $item;
                 $tag->save();
@@ -113,7 +105,7 @@ ORDER BY
     }
 
     public function actionDelete($id){
-        $article = Article::findOne($id);
+        $article = BkArticle::findOne($id);
         if($article){
             $article->delete();
         }
@@ -122,7 +114,7 @@ ORDER BY
 
     public function actionUpdate($id){
 
-        $article = Article::findOne($id);
+        $article = BkArticle::findOne($id);
         $model = new FormArticle();
         $model->setAttributes($article->attributes,true);
         $model->tags = $article['tags'];
@@ -134,7 +126,7 @@ ORDER BY
     }
 
     public function actionCopy($id){
-        $article = Article::findOne($id);
+        $article = BkArticle::findOne($id);
 
         $this->query("INSERT INTO cms_post ( `title`, `content`, `summary`, `keywords`, `tags`, `createtime`, `updatetime`, `postType`, `status`, `catalogId`,themeid ) SELECT
 `title`,
@@ -174,10 +166,10 @@ FROM
     }
 
     public function actionConfig($id){
-        $post = Post::findOne($id);
+        $post = BkPost::findOne($id);
         $this->data['post'] = $post;
 
-        $props = PostProp::findAll(['postId'=>$id]);
+        $props = BkPostProp::findAll(['postId'=>$id]);
         $propKV = array();
         foreach ($props as $prop){
             $propKV[$prop['ppKey']] = $prop['ppValue'];
@@ -206,10 +198,10 @@ ORDER BY
 
     public function actionSaveconfig(){
         $id = $_POST['id'];
-        $post = Post::findOne($id);
+        $post = BkPost::findOne($id);
         $this->data['post'] = $post;
 
-        PostProp::deleteAll(['postId'=>$id]);
+        BkPostProp::deleteAll(['postId'=>$id]);
         $selectName = $post['postType'].'_properties';
         $propProperties = $this->query("SELECT
 	* 
@@ -222,7 +214,7 @@ ORDER BY
             ->bindParam(':selectName',$selectName)
             ->queryAll();
         foreach ($propProperties as $item){
-            $postProp = new PostProp();
+            $postProp = new BkPostProp();
             $postProp->postId = $id;
             $postProp->ppKey = $item['optionValue'];
             $postProp->ppValue = $_POST[$item['optionValue']];

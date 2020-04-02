@@ -117,8 +117,12 @@ class CmsFrontendController extends AppController
         $this->data['meta_description'] = $description;
     }
 
+    public function setData($dtKey,$dtValule){
+        $this->data[$dtKey] = $dtValule;
+    }
+
     public function renderFragment($id,$data=array()){
-        return $this->renderFile("@app/views/fragment/".$this->defaultTheme['id']."/".$id.".php",$data);
+        return $this->renderPartial("@app/views/fragment/".$this->defaultTheme['id']."/".$id,$data);
     }
 
     public function query($sql)

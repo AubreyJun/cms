@@ -4,8 +4,8 @@
 namespace app\structure\controllers;
 
 
+use app\models\cms\backend\BKPost;
 use app\structure\constants\BackendKeyPrefix;
-use app\models\cms\Post;
 use Yii;
 use yii\data\Pagination;
 
@@ -92,7 +92,7 @@ class BackendPanelController extends AppController
 
 
     public function getPost($postType,$pageSize=10){
-        $query = Post::find()->where(['postType' => $postType,'themeid'=>$this->data['defaultThemeId']]);
+        $query = BkPost::find()->where(['postType' => $postType,'themeid'=>$this->data['defaultThemeId']]);
         $count = $query->count();
         $post_pagination = new Pagination(['totalCount' => $count]);
         $post_pagination->pageSize = $pageSize;
@@ -179,7 +179,7 @@ ORDER BY
     }
 
     public function renderFragment($id,$data=array()){
-        return $this->renderFile("@app/views/fragment/".$this->data['editThemeId']."/".$id.".php",$data);
+        return $this->renderPartial("@app/views/fragment/".$this->data['editThemeId']."/".$id,$data);
     }
 
     public function setMeta($title, $keywords, $description)
@@ -188,4 +188,9 @@ ORDER BY
         $this->data['meta_keywords'] = $keywords;
         $this->data['meta_description'] = $description;
     }
+
+    public function setData($dtKey,$dtValule){
+        $this->data[$dtKey] = $dtValule;
+    }
+
 }
