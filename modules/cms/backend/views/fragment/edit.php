@@ -44,6 +44,9 @@ $this->title = '片段设置';
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>
+                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="autoFormatSelection()" ><i class="fa fa-code"></i>代码格式化</a>
+                    </label>
                     <textarea id="code-editable" rows="20" class=" w-100"
                               name="FormFragment[body]"><?php echo $model->attributes['body']; ?></textarea>
                     <?php
@@ -65,7 +68,7 @@ $this->title = '片段设置';
 
                 <div class="form-group">
                     <label>
-                        <a class="btn btn-primary btn-xs text-white" onclick="loadPreview()" ><i class="fa fa-refresh"></i>片段预览</a>
+                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="loadPreview()" ><i class="fa fa-refresh"></i>片段预览</a>
                     </label>
                     <iframe width="100%" id="iframe_preview"  height="300px" src="index.php?r=cms-backend/fragment/preview">
                     </iframe>
@@ -89,7 +92,8 @@ $this->title = '片段设置';
             matchBrackets: true,
             theme: "midnight",
             lineWrapping: true,
-            smartIndent: true
+            smartIndent: true,
+            mode: "htmlmixed"
         });
     });
 
@@ -108,6 +112,15 @@ $this->title = '片段设置';
                 $("#iframe_preview").contents().find("#fragment-content").html(data);
             }
         );
+    }
+
+    function getSelectedRange() {
+        return { from: editor.getCursor(true), to: editor.getCursor(false) };
+    }
+
+    function autoFormatSelection() {
+        var range = getSelectedRange();
+        editor.autoFormatRange(range.from, range.to);
     }
 
 </script>

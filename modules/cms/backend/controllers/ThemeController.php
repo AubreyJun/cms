@@ -5,6 +5,7 @@ namespace app\modules\cms\backend\controllers;
 
 
 use app\forms\cms\backend\FormTheme;
+use app\models\cms\backend\BKTheme;
 use app\models\cms\Fragment;
 use app\models\cms\Layout;
 use app\models\cms\Page;
@@ -31,7 +32,7 @@ class ThemeController extends BackendPanelController
     }
 
     public function actionDefault($id = null){
-        $theme = Theme::findOne($id);
+        $theme = BKTheme::findOne($id);
         $theme ->isActive = 1;
         $theme ->save();
 
