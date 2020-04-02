@@ -114,13 +114,9 @@ $this->title = '片段设置';
         );
     }
 
-    function getSelectedRange() {
-        return { from: editor.getCursor(true), to: editor.getCursor(false) };
-    }
-
     function autoFormatSelection() {
-        var range = getSelectedRange();
-        editor.autoFormatRange(range.from, range.to);
+        var totalLines = editor.lineCount();
+        editor.autoFormatRange({line:0, ch:0}, {line:totalLines});
     }
 
 </script>
