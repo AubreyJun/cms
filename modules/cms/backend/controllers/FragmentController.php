@@ -87,7 +87,7 @@ class FragmentController extends BackendPanelController
 
     public function actionCopy($id){
         $fragment = BKFragment::findOne($id);
-        $newFragment = new Fragment();
+        $newFragment = new BKFragment();
         $newFragment->setAttributes($fragment->attributes, false);
         $newFragment->fragmentName = "复制 - ".$newFragment->fragmentName;
         $newFragment->id = null;
