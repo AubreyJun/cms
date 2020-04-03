@@ -51,10 +51,6 @@
                                    href="index.php?r=cms-backend/theme/default&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-check fa-lg"></i>
                                 </a>
-<!--                                <a class="text-success mr-1" title="可视化编辑"-->
-<!--                                   href="javascript:visualEditor(--><?php //echo $item['id']; ?><!--);">-->
-<!--                                    <i class="fa fa-desktop fa-lg"></i>-->
-<!--                                </a>-->
                             </td>
                         </tr>
                         <?php

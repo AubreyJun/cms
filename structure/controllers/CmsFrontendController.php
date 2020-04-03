@@ -5,8 +5,7 @@ namespace app\structure\controllers;
 
 
 use app\components\cms\PageMetaWidget;
-use app\models\cms\Fragment;
-use app\models\cms\Layout;
+use app\models\cms\frontend\Layout;
 use app\structure\constants\MsgType;
 use Yii;
 use yii\data\Pagination;
@@ -14,7 +13,7 @@ use yii\data\Pagination;
 class CmsFrontendController extends AppController
 {
 
-    private $theme = null;
+    public $theme = null;
     private $config = array();
     private $demo = false;
 
@@ -38,7 +37,8 @@ class CmsFrontendController extends AppController
 
     private function setParam()
     {
-        if (isset(Yii::$app->params['demo'])) {
+        $demo = isset(Yii::$app->params['demo'])?Yii::$app->params['demo']:false;
+        if ($demo==true) {
             $this->demo = Yii::$app->params['demo'];
             $host = $_SERVER['HTTP_HOST'];
             $id = Yii::$app->params['themeids'][$host];
@@ -83,8 +83,8 @@ class CmsFrontendController extends AppController
             $pagePath = 'home';
         }
 
-        $page = $this->query("SELECT * FROM `cms_theme_page` where pagePath = :pagePath and isDefault = 1 and themeId = :themeId")
-            ->bindParam(":themeId", $this->defaultTheme['id'])
+        $page = $this->query("SELECT * FROM `cms_theme_page` where pagePath = :pagePath and themeId = :themeId")
+            ->bindParam(":themeId", $this->theme['id'])
             ->bindParam(":pagePath", $pagePath)
             ->queryOne();
 
@@ -122,7 +122,7 @@ class CmsFrontendController extends AppController
     }
 
     public function renderFragment($id,$data=array()){
-        return $this->renderPartial("@app/views/fragment/".$this->defaultTheme['id']."/".$id,$data);
+        return $this->renderPartial("@app/views/fragment/".$this->theme['id']."/".$id,$data);
     }
 
     public function query($sql)

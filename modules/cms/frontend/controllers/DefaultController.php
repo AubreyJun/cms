@@ -7,7 +7,7 @@ use yii\web\Controller;
 
 class DefaultController extends CmsFrontendController
 {
-    public function actionIndex($pagePath)
+    public function actionIndex($pagePath='home')
     {
         return $this->show($pagePath);
     }

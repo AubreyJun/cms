@@ -6,10 +6,6 @@ namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormTheme;
 use app\models\cms\backend\BKTheme;
-use app\models\cms\Fragment;
-use app\models\cms\Layout;
-use app\models\cms\Page;
-use app\models\cms\Theme;
 use app\structure\constants\CmsErrorType;
 use app\structure\constants\MsgType;
 use app\structure\controllers\AdminController;
@@ -101,10 +97,15 @@ class ThemeController extends BackendPanelController
         if ($countOfActive == 0) {
             return $this->redirect("index.php?r=cms/theme/index&errortype=" . CmsErrorType::EMPTY_THEME);
         }
-        $theme = Theme::findOne($id);
+        $theme = BkTheme::findOne($id);
         if ($theme) {
             $this->query("delete from cms_theme_layout where themeId = :themeId")->bindParam(":themeId", $id)->execute();
             $this->query("delete from cms_theme_page where themeId = :themeId")->bindParam(":themeId", $id)->execute();
+            $this->query("delete from cms_theme_fragment where themeId = :themeId")->bindParam(":themeId", $id)->execute();
+            //清理内容数据
+            $this->query("delete from cms_post_prop where postId in (select id from cms_post where themeid =:themeId)")->bindParam(":themeId", $id)->execute();
+            $this->query("delete from cms_post_tag where postId in (select id from cms_post where themeid =:themeId)")->bindParam(":themeId", $id)->execute();
+            $this->query("delete from cms_post where themeid = :themeId")->bindParam(":themeId", $id)->execute();
             $theme->delete();
         }
 

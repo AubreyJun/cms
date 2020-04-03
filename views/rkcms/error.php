@@ -1,27 +1,41 @@
 <?php
-
-/* @var $this yii\web\View */
-/* @var $name string */
-/* @var $message string */
-/* @var $exception Exception */
-
 use yii\helpers\Html;
-
-$this->title = $name;
+$exception = Yii::$app->errorHandler->exception;
 ?>
-<div class="site-error">
+<!doctype html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
-    </div>
+    <title>提示信息</title>
+</head>
+<body CLASS="container">
 
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
+<div class="mt-5">
+    <table class="table table-bordered shadow-sm p-3 bg-white rounded">
+        <thead class="bg-danger">
+            <tr>
+                <td class="text-center text-white"><strong>异常信息提示</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr><td><strong>状态码</strong></td></tr>
+        <tr><td><?php echo $exception->statusCode; ?></td></tr>
+        <tr><td><strong>错误信息</strong></td></tr>
+        <tr><td><?php echo $exception->getMessage(); ?></td></tr>
+        </tbody>
+    </table>
 </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
