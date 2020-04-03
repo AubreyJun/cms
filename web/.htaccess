@@ -2,14 +2,10 @@ Allow from all
 RewriteEngine on
 
 RewriteRule index.html index.php?r=cms-frontend/default/index
-RewriteRule ^product-(.*).html$ index.php?r=cms-frontend/default/index&pageType=product&id=$1
-RewriteRule ^article-(.*).html$ index.php?r=cms-frontend/default/index&pageType=article&id=$1
-RewriteRule ^image-(.*).html$ index.php?r=cms-frontend/default/index&pageType=image&id=$1
-RewriteRule ^employee-(.*).html$ index.php?r=cms-frontend/default/index&pageType=employee&id=$1
 
-RewriteRule ^(.*)-(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2&catalogId=$3
-RewriteRule ^(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2
-RewriteRule ^(.*).html$ index.php?r=cms-frontend/default/index&pageType=$1
+RewriteRule ^(.*)-(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1&arg1=$2&arg2=$3
+RewriteRule ^(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1&arg1=$2
+RewriteRule ^(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1
 
 
 

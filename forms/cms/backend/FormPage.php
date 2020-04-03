@@ -7,7 +7,6 @@ class FormPage extends \yii\base\Model
     public $id;
     public $themeId;
     public $pageName;
-    public $isDefault;
     public $layoutId;
     public $pageKey;
     public $pagePath;
@@ -19,7 +18,6 @@ class FormPage extends \yii\base\Model
             [['pageKey'], 'required'],
             [['themeId'], 'required'],
             [['pageName'], 'required', 'message' => '页面名称不能为空'],
-            [['isDefault'], 'required'],
             [['layoutId'], 'required', 'message' => '布局不能为空'],
             [['pagePath'], 'required', 'message' => '网页路径不能为空'],
         ];
@@ -61,7 +59,6 @@ class FormPage extends \yii\base\Model
             'pageName' => '页面名称',
             'pageText' => '页面内容',
             'pageType' => '页面类型',
-            'isDefault' => '默认',
             'layoutId' => '布局',
             'pageKey' => '页面KEY',
             'layout' => '页面组件布局',

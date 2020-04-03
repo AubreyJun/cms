@@ -62,18 +62,12 @@ class PageController extends BackendPanelController
                         $page = new BKPage();
                         $page->setAttributes($model->attributes,false);
                         $page->save();
-                        if($page['isDefault']==1){
-                            $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
-                        }
                         return $this->actionIndex($model->attributes['pageType']);
                     }else{
                         $page = BKPage::findOne($model->attributes['id']);
 
                         $page->setAttributes($model->attributes,false);
                         $page->save();
-                        if($page['isDefault']==1){
-                            $page->setUnActive($page['id'],$page['pageType'],$this->data['editThemeId']);
-                        }
                         return $this->actionIndex($model->attributes['pageType']);
                     }
                 }else{
