@@ -27,10 +27,6 @@
           <a class="nav-link js-scroll-trigger" href="#contact">联系
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="test.html" target="_blank">片段测试
-          </a>
-        </li>
       </ul>
     </div>
   </div>
