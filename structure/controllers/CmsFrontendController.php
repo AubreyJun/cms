@@ -89,8 +89,7 @@ class CmsFrontendController extends AppController
             ->queryOne();
 
         if ($page == false) {
-            $message = $this->message(MsgType::ERROR, '页面没有配置！页面类型：' . $pagePath);
-            return $this->errorPage($message);
+            throw new \yii\web\NotFoundHttpException($pagePath."路由未配置页面");
         } else {
 
             $layout = Layout::findOne($page['layoutId']);
