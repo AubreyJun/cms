@@ -48,8 +48,6 @@ $this->title = '片段设置';
                     <label>
                         <a class="btn btn-primary btn-xs text-white mr-1" onclick="autoFormatSelection()"><i
                                     class="fa fa-code"></i>代码格式化</a>
-                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="loadPreview()"><i
-                                    class="fa fa-refresh"></i>片段预览</a>
                     </label>
                     <textarea id="code-editable" rows="20" class=" w-100"
                               name="FormFragment[body]"><?php echo $model->attributes['body']; ?></textarea>

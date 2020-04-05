@@ -131,7 +131,7 @@ class FragmentController extends BackendPanelController
 
         $this->data['CMS_LAYOUT'] = $layout;
         $this->data['REVIEW'] = 1;
-        $this->layout = '@app/views/rkcms/frontend-cms';
+        $this->layout = '@app/views/rkcms/frontend-cms-preview';
 
         $editValue = $_REQUEST['editValue'];
         $this->saveFragmentTemp($editValue);
