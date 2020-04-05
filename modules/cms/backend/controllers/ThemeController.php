@@ -49,7 +49,7 @@ class ThemeController extends BackendPanelController
             }
             if ($model->validate()) {
                 if ($model->id == 0) {
-                    $theme = new Theme();
+                    $theme = new BkTheme();
                     $theme->id = $model->id;
                     $theme->themeName = $model->themeName;
                     $theme->isActive = $model->isActive == null ? 0 : $model->isActive;

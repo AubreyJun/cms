@@ -29,14 +29,15 @@ $this->title = '片段设置';
                     <label>
                         片段模板
                     </label>
-                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control" onchange="loadTemplate(this.value)">
+                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control"
+                            onchange="loadTemplate(this.value)">
                         <option value="0">无</option>
                         <?php
                         $viewPath = Yii::$app->viewPath;
-                        if(sizeof($filelist)>0){
-                            foreach ($filelist as $file){
+                        if (sizeof($filelist) > 0) {
+                            foreach ($filelist as $file) {
                                 ?>
-                                <option value="<?php echo $file; ?>"><?php echo str_replace($viewPath,"",$file); ?></option>
+                                <option value="<?php echo $file; ?>"><?php echo str_replace($viewPath, "", $file); ?></option>
                                 <?php
                             }
                         }
@@ -45,7 +46,10 @@ $this->title = '片段设置';
                 </div>
                 <div class="form-group">
                     <label>
-                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="autoFormatSelection()" ><i class="fa fa-code"></i>代码格式化</a>
+                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="autoFormatSelection()"><i
+                                    class="fa fa-code"></i>代码格式化</a>
+                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="loadPreview()"><i
+                                    class="fa fa-refresh"></i>片段预览</a>
                     </label>
                     <textarea id="code-editable" rows="20" class=" w-100"
                               name="FormFragment[body]"><?php echo $model->attributes['body']; ?></textarea>
@@ -67,18 +71,13 @@ $this->title = '片段设置';
                 </div>
 
                 <div class="form-group">
-                    <label>
-                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="loadPreview()" ><i class="fa fa-refresh"></i>片段预览</a>
-                    </label>
-                    <iframe width="100%" id="iframe_preview"  height="300px" src="index.php?r=cms-backend/fragment/preview">
-                    </iframe>
-                </div>
-
-                <div class="form-group">
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
-
+                <form method="post" target="_blank" id="form-preview" action="index.php?r=cms-backend/fragment/preview">
+                    <input type="hidden" name="editValue" id="editValue">
+                    <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->csrfToken; ?>">
+                </form>
             </div>
         </div>
     </div>
@@ -98,25 +97,23 @@ $this->title = '片段设置';
     });
 
     function loadTemplate(path) {
-        $.post('index.php?r=cms-backend/fragment/gettemplate',{'path':path,'_csrf':'<?= Yii::$app->request->csrfToken ?>'},function (data) {
+        $.post('index.php?r=cms-backend/fragment/gettemplate', {
+            'path': path,
+            '_csrf': '<?= Yii::$app->request->csrfToken ?>'
+        }, function (data) {
             editor.setValue(data);
         });
     }
-    
+
     function loadPreview() {
         var editorValue = editor.getValue();
-        $.post(
-            'index.php?r=cms-backend/fragment/gethtml',
-            {'editorValue':editorValue,'_csrf':'<?= Yii::$app->request->csrfToken ?>'},
-            function (data) {
-                $("#iframe_preview").contents().find("#fragment-content").html(data);
-            }
-        );
+        $("#editValue").val(editorValue);
+        $("#form-preview").submit();
     }
 
     function autoFormatSelection() {
         var totalLines = editor.lineCount();
-        editor.autoFormatRange({line:0, ch:0}, {line:totalLines});
+        editor.autoFormatRange({line: 0, ch: 0}, {line: totalLines});
     }
 
 </script>

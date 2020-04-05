@@ -128,11 +128,17 @@ class FragmentController extends BackendPanelController
 
     public function actionPreview(){
         $layout = BkLayout::find()->where(['themeId'=> $this->data['editThemeId'],'review'=>1])->one();
+
         $this->data['CMS_LAYOUT'] = $layout;
         $this->data['REVIEW'] = 1;
         $this->layout = '@app/views/rkcms/frontend-cms';
-        return $this->render("preview",$this->data);
+
+        $editValue = $_REQUEST['editValue'];
+        $this->saveFragmentTemp($editValue);
+        return $this->render("@app/views/fragment/temp.php",$this->data);
     }
+
+
 
     public function actionDelete($id)
     {

@@ -23,7 +23,7 @@ if(isset($widgetObject['top'])){
     }
 }
 ?>
-<?php echo $content ?>
+
 <?php
 if(isset($widgetObject['footer'])){
     foreach ($widgetObject['footer'] as $id){
