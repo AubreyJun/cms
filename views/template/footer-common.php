@@ -4,7 +4,7 @@
     <div id="copyrights">
         <div class="container clearfix">
             <div class="col_half">
-                <img src="static/frontend_custom/logo-footer.png" alt="广告公司LOGO" class="footer-logo">
+                <img src="static/frontend_custom/logo-footer.png" alt="公司LOGO" class="footer-logo">
                 Copyrights ©
                 <?php echo date('Y'); ?> All Rights Reserved by Ranko.cn.
             </div>
@@ -14,15 +14,13 @@
                     </a>/
                     <a href="aboutus.html">公司简介
                     </a>/
-                    <a
-                            href="product.html">产品中心
+                    <a href="product.html">产品中心
                     </a>/
-                    <a href="imageList.html">成功案例
+                    <a href="case.html">成功案例
                     </a>/
-                    <a
-                            href="articleList.html">服务支持
+                    <a href="service.html">服务支持
                     </a>/
-                    <a href="feedback.html">联系我们
+                    <a href="contact.html">联系我们
                     </a>
                 </div>
                 <div class="fright clearfix">

@@ -1,4 +1,3 @@
-<!--文章3列展示-->
 <?php
 
 use yii\helpers\StringHelper;

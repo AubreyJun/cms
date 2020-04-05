@@ -1,3 +1,4 @@
+<!--图片展示 3列-->
 <?php
 $objects  = \app\models\cms\frontend\Post::getRecent('image','113',6);
 ?>
