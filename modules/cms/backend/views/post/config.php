@@ -17,7 +17,7 @@
                         ?>
                         <div class="form-group">
                             <label><?php echo $v['optionDesc']; ?></label>
-                            <input type="text" class="form-control <?php echo $v['widgetClass']; ?>"  name="<?php echo $k; ?>" value="<?php echo isset($propKV[$k])?$propKV[$k]:''; ?>" >
+                            <input type="text" class="form-control <?php echo $k=='image_url'?"fileSelect":""; ?>"  name="<?php echo $k; ?>" value="<?php echo isset($propKV[$k])?$propKV[$k]:''; ?>" >
                         </div>
                         <?php
                     }
@@ -36,8 +36,9 @@
         });
         $('.fileSelect').click(function() {
             var obj = $(this);
-            editor.loadPlugin('filemanager', function() {
-                editor.plugin.filemanagerDialog({
+            editor.loadPlugin('insertfile', function() {
+                editor.plugin.fileDialog({
+                    fileUrl : K(obj).val(),
                     clickFn : function(url, title) {
                         $(obj).val(url);
                         editor.hideDialog();

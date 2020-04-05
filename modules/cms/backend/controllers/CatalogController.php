@@ -2,7 +2,7 @@
 namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormNav;
-use app\models\cms\BKCatalog;
+use app\models\cms\backend\BKCatalog;
 use app\models\cms\Nav;
 use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;

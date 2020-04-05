@@ -59,7 +59,7 @@ class ThemeController extends BackendPanelController
                     }
                     return $this->redirect("index.php?r=cms-backend/theme/index");
                 } else {
-                    $theme = Theme::findOne($model->id);
+                    $theme = BkTheme::findOne($model->id);
                     $theme->id = $model->id;
                     $theme->themeName = $model->themeName;
                     $theme->isActive = $model->isActive == null ? 0 : $model->isActive;
@@ -81,7 +81,7 @@ class ThemeController extends BackendPanelController
     {
         $model = new FormTheme;
 
-        $theme = Theme::findOne($id);
+        $theme = BKTheme::findOne($id);
         $model->setAttributes($theme->attributes);
 
         return $this->render('edit', [

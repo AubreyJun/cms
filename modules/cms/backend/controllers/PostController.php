@@ -4,6 +4,9 @@ namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormArticle;
 use app\models\cms\backend\BKArticle;
+use app\models\cms\backend\BKPost;
+use app\models\cms\backend\BKPostProp;
+use app\models\cms\backend\BKPostTag;
 use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;
 use Yii;
@@ -20,7 +23,7 @@ class PostController extends BackendPanelController
 FROM
 	cms_select_options t 
 WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'contentType' ) 
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'content_type' ) 
 ORDER BY
 	t.sequencenumber ASC")->queryAll();
 
@@ -33,7 +36,7 @@ ORDER BY
 FROM
 	cms_select_options t 
 WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'contentType' ) 
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'content_type' ) 
 ORDER BY
 	t.sequencenumber ASC")->queryAll();
         $contentType_select = array();
