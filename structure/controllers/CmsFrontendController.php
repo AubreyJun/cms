@@ -16,6 +16,7 @@ class CmsFrontendController extends AppController
     public $theme = null;
     private $config = array();
     private $demo = false;
+    public $pagedata = array();
 
     public function init()
     {

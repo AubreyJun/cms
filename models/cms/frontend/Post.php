@@ -18,6 +18,24 @@ class Post extends ActiveRecord
         return $this->hasOne(Catalog::className(), ['id' => 'catalogId']);
     }
 
+    public static function getItem($postId){
+        $post = Post::find()->where(['id'=>$postId])->one();
+
+        $object = array();
+        $object['object'] = $post;
+
+        $pps = self::getDb()->createCommand("select * from cms_post_prop where postId = :postId")
+            ->bindParam(":postId",$post['id'])
+            ->queryAll();
+        $prop_array = array();
+        foreach ($pps as $pp){
+            $prop_array[$pp['ppKey']] = $pp['ppValue'];
+        }
+        $object['prop'] = $prop_array;
+
+        return $object;
+    }
+
     public static function getRecent($postType,$catalogId,$size){
         $posts_array = array();
         $posts = Post::find()->where(['postType'=>$postType,'catalogId'=>$catalogId])->orderBy("createtime desc")->limit($size)->all();
