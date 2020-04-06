@@ -47,15 +47,8 @@ $widgetObject = json_decode($widgetJson, true);
             echo $this->context->renderFragment($id);
         }
     }
-    ?>
-    <section id="content">
 
-        <div class="content-wrap">
-            <?php  echo $content; ?>
-        </div>
-    </section>
-    <?php
-
+    echo $content;
 
     if (isset($widgetObject['footer'])) {
         foreach ($widgetObject['footer'] as $id) {

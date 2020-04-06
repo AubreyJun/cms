@@ -7,6 +7,7 @@ use app\models\cms\backend\BKArticle;
 use app\models\cms\backend\BKPost;
 use app\models\cms\backend\BKPostProp;
 use app\models\cms\backend\BKPostTag;
+use app\models\cms\frontend\PostTag;
 use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;
 use Yii;
