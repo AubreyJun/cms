@@ -51,6 +51,7 @@ class FeedbackController extends BackendPanelController
   `createtime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `themeid` int(11) NOT NULL DEFAULT 0,
+  `phone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8';
         $this->query($sql_table)->execute();

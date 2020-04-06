@@ -25,7 +25,7 @@ class FeedbackController extends CmsFrontendController
             ->bindParam(":email",$email)
             ->bindParam(":phone",$phone)
             ->bindParam(":message",$message)
-            ->bindParam(":themeid",$this->defaultTheme['id'])
+            ->bindParam(":themeid",$this->theme['id'])
             ->execute();
 
         $message = $this->message(MsgType::SUCCESS,"OK");
