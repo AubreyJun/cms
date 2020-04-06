@@ -45,10 +45,9 @@ class CmsFrontendController extends AppController
 
             $demomapping = Yii::$app->params['demomapping'];
             $position = strpos($phpself,'/',1);
-            echo $position;
             $folder = substr($phpself,0,$position);
-            echo $folder;
             $id =$demomapping[$folder];
+            echo $id;
 
             $this->theme = $this->query("select * from cms_theme t where t.id = :id")
                 ->bindParam(":id", $id)
