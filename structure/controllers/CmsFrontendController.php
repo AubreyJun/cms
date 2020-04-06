@@ -41,8 +41,15 @@ class CmsFrontendController extends AppController
         $demo = isset(Yii::$app->params['demo'])?Yii::$app->params['demo']:false;
         if ($demo==true) {
             $this->demo = Yii::$app->params['demo'];
-            $host = $_SERVER['HTTP_HOST'];
-            $id = Yii::$app->params['themeids'][$host];
+            $phpself = $_SERVER['PHP_SELF'];
+
+            $demomapping = Yii::$app->params['demomapping'];
+            $position = strpos($phpself,'/',1);
+            echo $position;
+            $folder = substr($phpself,0,$position);
+            echo $folder;
+            $id =$demomapping[$folder];
+
             $this->theme = $this->query("select * from cms_theme t where t.id = :id")
                 ->bindParam(":id", $id)
                 ->queryOne();
