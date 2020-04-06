@@ -47,7 +47,6 @@ class CmsFrontendController extends AppController
             $position = strpos($phpself,'/',1);
             $folder = substr($phpself,0,$position);
             $id =$demomapping[$folder];
-            echo $id;
 
             $this->theme = $this->query("select * from cms_theme t where t.id = :id")
                 ->bindParam(":id", $id)
