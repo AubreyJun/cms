@@ -23,14 +23,14 @@ class CatalogController extends BackendPanelController
 
     public function actionUpdate($id){
 
-        $nav = Nav::findOne($id);
+        $nav = BKCatalog::findOne($id);
         $this->data['nav'] = $nav;
 
         $model = new FormNav();
         $model->load($nav->attributes, '');
         $this->data['model'] = $model;
 
-        $this->data['navgation'] = $this->getNavgation('cms');
+        $this->data['navgation'] = $this->getNavgation();
 
         return $this->render('edit', $this->data);
     }
@@ -40,7 +40,7 @@ class CatalogController extends BackendPanelController
         $model = new FormNav();
         $this->data['model'] = $model;
 
-        $this->data['navgation'] = $this->getNavgation('cms');
+        $this->data['navgation'] = $this->getNavgation();
 
         return $this->render('edit', $this->data);
     }
@@ -60,7 +60,6 @@ class CatalogController extends BackendPanelController
         $model = new FormNav();
         if ($model->load(Yii::$app->request->post())) {
             $model->setAttributes(['themeId' => $this->data['defaultThemeId']]);
-            $model->setAttributes(['catalogType'=>'cms']);
             if ($model->validate()) {
                 if ($model->id == 0) {
                     $catalog = new BKCatalog();

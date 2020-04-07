@@ -145,6 +145,7 @@ class FragmentController extends BackendPanelController
         }else{
             echo "";
         }
+        exit();
     }
 
     public function actionPreview(){
