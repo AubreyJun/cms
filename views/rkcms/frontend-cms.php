@@ -20,6 +20,9 @@ $widgetObject = json_decode($widgetJson, true);
 
     <link rel="stylesheet" href="static/frontend/css/responsive.css" type="text/css"/>
     <link rel="stylesheet" href="static/frontend/css/responsive-rtl.css" type="text/css"/>
+
+    <link rel="stylesheet" href="static/frontend/css/lib/font-awesome/css/font-awesome.min.css" type="text/css"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/livingston-css3-mediaqueries-js/1.0.0/css3-mediaqueries.min.js"></script>
