@@ -46,6 +46,10 @@ class FragmentController extends BackendPanelController
         $fragment = BKFragment::findOne($id);
         $model = new FormFragment();
         $model->setAttributes($fragment->attributes, true);
+
+        $body = $this->getFragment($id);
+        $model->body = $body;
+
         $this->data['model'] = $model;
 
         $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
@@ -68,13 +72,13 @@ class FragmentController extends BackendPanelController
                     $fragment = new BKFragment();
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
-                    $this->saveFragment($fragment['id']);
+                    $this->saveFragment($fragment['id'],$model->body);
                     return $this->redirect("index.php?r=cms-backend/fragment/index");
                 } else {
                     $fragment = BKFragment::findOne($model->attributes['id']);
                     $fragment->setAttributes($model->attributes, false);
                     $fragment->save();
-                    $this->saveFragment($fragment['id']);
+                    $this->saveFragment($fragment['id'],$model->body);
                     return $this->redirect("index.php?r=cms-backend/fragment/index");
                 }
             }
@@ -92,11 +96,26 @@ class FragmentController extends BackendPanelController
         $newFragment->fragmentName = "复制 - ".$newFragment->fragmentName;
         $newFragment->id = null;
         $newFragment->save();
-        $this->saveFragment($newFragment['id']);
+
+        $body = $this->getFragment($id);
+        $this->saveFragment($newFragment['id'],$body);
         return $this->redirect("index.php?r=cms-backend/fragment/index");
     }
 
-    private function saveFragment($fragmentId){
+    private function saveFragment($fragmentId,$body){
+
+        $folderPath = Yii::$app->viewPath.'/fragment/';
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        $folderPath = $folderPath. $this->data['editThemeId'];
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        file_put_contents($folderPath.DIRECTORY_SEPARATOR.''.$fragmentId.'.php',$body);
+    }
+
+    private function getFragment($fragmentId){
         $fragment = BKFragment::findOne($fragmentId);
         $folderPath = Yii::$app->viewPath.'/fragment/';
         if(!file_exists($folderPath)){
@@ -106,8 +125,10 @@ class FragmentController extends BackendPanelController
         if(!file_exists($folderPath)){
             mkdir($folderPath);
         }
-        file_put_contents($folderPath.DIRECTORY_SEPARATOR.''.$fragment['id'].'.php',$fragment['body']);
+        return file_get_contents($folderPath.DIRECTORY_SEPARATOR.''.$fragment['id'].'.php');
     }
+
+
 
     private function saveFragmentTemp($editorValue){
         $folderPath = Yii::$app->viewPath.'/fragment/';

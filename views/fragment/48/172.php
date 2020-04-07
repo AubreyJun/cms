@@ -3,11 +3,7 @@ $object = $this->context->pagedata['article'];
 ?>
 <div class="container clearfix">
   <div class="single-post nobottommargin">
-    <!-- Single Post
-============================================= -->
     <div class="entry clearfix">
-      <!-- Entry Title
-============================================= -->
       <div class="entry-title">
         <h2>
           <?php echo $object['object']['title']; ?>
@@ -21,8 +17,6 @@ $object = $this->context->pagedata['article'];
           <?php echo $object['object']['createtime']; ?>
         </li>
       </ul>
-      <!-- Entry Content
-============================================= -->
       <div class="entry-content notopmargin">
         <?php echo $object['object']['content']; ?>
       </div>
