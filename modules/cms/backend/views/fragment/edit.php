@@ -25,11 +25,12 @@ $this->title = '片段设置';
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
                 <?= $form->field($model, 'fragmentName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
+                <input name="FormFragment[body]" type="hidden" id="fragment-body">
                 <div class="form-group">
                     <label>
                         片段模板
                     </label>
-                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control select2-single" style="width:100%"
+                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control " style="width:100%"
                             onchange="loadTemplate(this.value)">
                         <option value="0">无</option>
                         <?php
@@ -45,12 +46,7 @@ $this->title = '片段设置';
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>
-                        <a class="btn btn-primary btn-xs text-white mr-1" onclick="autoFormatSelection()"><i
-                                    class="fa fa-code"></i>代码格式化</a>
-                    </label>
-                    <textarea id="code-editable" rows="20" class=" w-100"
-                              name="FormFragment[body]"></textarea>
+                    <textarea id="code-editable" ></textarea>
                     <?php
                     if (isset($model->getErrors()['body'])) {
                         ?>
@@ -72,31 +68,32 @@ $this->title = '片段设置';
                     <?= Html::submitButton('保存', ['class' => 'btn btn-primary']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
-                <form method="post" target="_blank" id="form-preview" action="index.php?r=cms-backend/fragment/preview">
-                    <input type="hidden" name="editValue" id="editValue">
-                    <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->csrfToken; ?>">
-                </form>
             </div>
         </div>
     </div>
 </div>
+<script src="static/backend/lib/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = null;
     var id = null;
     $(function () {
-        editor = CodeMirror.fromTextArea(document.getElementById('code-editable'), {
-            lineNumbers: true,
-            styleActiveLine: true,
-            matchBrackets: true,
-            theme: "midnight",
-            lineWrapping: true,
-            smartIndent: true,
-            mode: "htmlmixed"
-        });
+        editor = ace.edit("code-editable");
+        editor.setTheme("ace/theme/chrome");
+        editor.session.setMode("ace/mode/php");
+        editor.setAutoScrollEditorIntoView(true);
+        editor.setOption("maxLines", 100);
+        editor.setFontSize(14);
+
         id = $("#formfragment-id").val();
         if(id!=null && id!=0){
             loadFragmentBody(id);
         }
+
+        $('#from-edit').on('beforeSubmit', function (e) {
+            $("#fragment-body").val(editor.getValue());
+            return true;
+        });
+
     });
 
     function loadTemplate(path) {
@@ -123,9 +120,6 @@ $this->title = '片段设置';
         $("#form-preview").submit();
     }
 
-    function autoFormatSelection() {
-        var totalLines = editor.lineCount();
-        editor.autoFormatRange({line: 0, ch: 0}, {line: totalLines});
-    }
+
 
 </script>

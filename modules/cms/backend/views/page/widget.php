@@ -28,7 +28,24 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                             <input type="hidden" name="widgetJSON" value="">
                             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                             <div class="form-group mr-2">
+                                <select class="form-control form-control-sm" style="padding: 3px;" name="pageId"
+                                        onchange="changeType(this.value)">
+                                    <?php
+                                    foreach ($pagelist as $item) {
+                                        if ($item['id'] == $page['id']) {
+                                            ?>
+                                            <option selected="selected"
+                                                    value="<?php echo $item['id']; ?>"><?php echo $item['pageName']; ?></option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <option value="<?php echo $item['id']; ?>"><?php echo $item['pageName']; ?></option>
+                                            <?php
+                                        }
 
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="form-group ">
                                 <button type="button" class="btn btn-info btn-xs" onclick="addWidget()"><i
@@ -174,5 +191,9 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
         }
 
         return widgets;
+    }
+
+    function changeType(pageId) {
+        window.location.href = "index.php?r=cms-backend/page/widget&id="+pageId;
     }
 </script>

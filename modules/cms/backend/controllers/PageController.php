@@ -107,6 +107,10 @@ class PageController extends BackendPanelController
         $page = BKPage::findOne($id);
         $this->data['page'] = $page;
 
+        $this->data['pagelist'] = $this->query("select * from cms_theme_page where themeId = :themeId")
+            ->bindParam(":themeId", $this->data['editThemeId'])
+            ->queryAll();
+
         return $this->render('widget',$this->data);
     }
 
@@ -179,6 +183,10 @@ class PageController extends BackendPanelController
 
         $this->layout = '@app/views/rkcms/frontend-cms';
         return $this->render('@app/views/rkcms/page', $this->data);
+    }
+
+    public function getImg($location,$max){
+        return 'http://image.ranko.cn/'.$location.'/'.rand(1,$max).'.jpg';
     }
 
 }

@@ -84,6 +84,9 @@ class FragmentController extends BackendPanelController
             }
         }
 
+        $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
+        $this->data['filelist'] = $filelist;
+
         $this->data['model'] = $model;
         return $this->render('edit', $this->data);
 
@@ -93,13 +96,13 @@ class FragmentController extends BackendPanelController
         $fragment = BKFragment::findOne($id);
         $newFragment = new BKFragment();
         $newFragment->setAttributes($fragment->attributes, false);
-        $newFragment->fragmentName = "复制 - ".$newFragment->fragmentName;
+        $newFragment->fragmentName = $newFragment->fragmentName;
         $newFragment->id = null;
         $newFragment->save();
 
         $body = $this->getFragment($id);
         $this->saveFragment($newFragment['id'],$body);
-        return $this->redirect("index.php?r=cms-backend/fragment/index");
+        return $this->redirect("index.php?r=cms-backend/fragment/update&id=".$newFragment->id);
     }
 
     public function actionGetfragment(){

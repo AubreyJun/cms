@@ -135,5 +135,8 @@ class CmsFrontendController extends AppController
         return $this->db->createCommand($sql);
     }
 
+    public function getImg($location,$max){
+        return 'http://image.ranko.cn/'.$location.'/'.rand(1,$max).'.jpg';
+    }
 
 }

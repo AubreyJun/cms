@@ -19,7 +19,8 @@ class LoginAsset extends AssetBundle
         'static/backend/lib/mdi/css/materialdesignicons.min.css',
         'static/backend/lib/flag-icon-css/css/flag-icon.min.css',
         'static/backend/lib/perfect-scrollbar/css/perfect-scrollbar.css',
-        'static/backend/css/style.css'
+        'static/backend/css/style.css',
+        'static/backend/css/custom.css'
     ];
 
 
