@@ -67,7 +67,7 @@ $this->title = "企业网站后台管理";
                                     ?>
 
                                     <div class="mt-5">
-                                        <button class="btn btn-block btn-info btn-lg" type="submit">登 入</button>
+                                        <button class="btn btn-block btn-primary btn-lg" type="submit">登 入</button>
                                     </div>
                                 </form>
                             </div>
