@@ -28,11 +28,7 @@ class LoginAsset extends AssetBundle
         'static/backend/lib/popper.js/dist/umd/popper.min.js',
         'static/backend/lib/bootstrap/dist/js/bootstrap.min.js',
         'static/backend/lib/perfect-scrollbar/dist/perfect-scrollbar.min.js',
-        'static/backend/js/off-canvas.js',
-        'static/backend/js/hoverable-collapse.js',
         'static/backend/js/misc.js',
-        'static/backend/js/settings.js',
-        'static/backend/js/todolist.js'
     ];
     public $jsOptions = [
         'position' => View::POS_HEAD
