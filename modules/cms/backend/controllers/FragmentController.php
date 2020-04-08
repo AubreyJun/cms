@@ -102,6 +102,11 @@ class FragmentController extends BackendPanelController
         return $this->redirect("index.php?r=cms-backend/fragment/index");
     }
 
+    public function actionGetfragment(){
+        $id = $_POST['id'];
+        return $this->getFragment($id);
+    }
+
     private function saveFragment($fragmentId,$body){
 
         $folderPath = Yii::$app->viewPath.'/fragment/';

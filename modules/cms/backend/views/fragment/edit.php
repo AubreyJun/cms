@@ -50,7 +50,7 @@ $this->title = '片段设置';
                                     class="fa fa-code"></i>代码格式化</a>
                     </label>
                     <textarea id="code-editable" rows="20" class=" w-100"
-                              name="FormFragment[body]"><?php echo $model->attributes['body']; ?></textarea>
+                              name="FormFragment[body]"></textarea>
                     <?php
                     if (isset($model->getErrors()['body'])) {
                         ?>
@@ -82,6 +82,7 @@ $this->title = '片段设置';
 </div>
 <script>
     var editor = null;
+    var id = null;
     $(function () {
         editor = CodeMirror.fromTextArea(document.getElementById('code-editable'), {
             lineNumbers: true,
@@ -92,11 +93,24 @@ $this->title = '片段设置';
             smartIndent: true,
             mode: "htmlmixed"
         });
+        id = $("#formfragment-id").val();
+        if(id!=null){
+            loadFragmentBody(id);
+        }
     });
 
     function loadTemplate(path) {
         $.post('index.php?r=cms-backend/fragment/gettemplate', {
             'path': path,
+            '_csrf': '<?= Yii::$app->request->csrfToken ?>'
+        }, function (data) {
+            editor.setValue(data);
+        });
+    }
+
+    function loadFragmentBody(id) {
+        $.post('index.php?r=cms-backend/fragment/getfragment', {
+            'id': id,
             '_csrf': '<?= Yii::$app->request->csrfToken ?>'
         }, function (data) {
             editor.setValue(data);

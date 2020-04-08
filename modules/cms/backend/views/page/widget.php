@@ -2,12 +2,17 @@
 <?php
 
 $widgetjson = $page['widgetjson'];
-$widgetObject = json_decode($widgetjson,true);
+$widgetObject = json_decode($widgetjson, true);
 
 $widgetList = $this->context->query("select * from cms_theme_fragment where themeId = :themeId")
     ->bindParam(":themeId", $this->context->data['editThemeId'])
     ->queryAll();
 ?>
+<style>
+    .ui-sortable-handle{
+        clear: both;
+    }
+</style>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -26,7 +31,11 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
 
                             </div>
                             <div class="form-group ">
-                                <button type="button" class="btn btn-success btn-xs" onclick="preView(<?= $page['id']; ?>)"><i
+                                <button type="button" class="btn btn-info btn-xs" onclick="addWidget()"><i
+                                            class="fa fa-plug fa-lg"></i>增加组件
+                                </button>
+                                <button type="button" class="btn btn-success btn-xs"
+                                        onclick="preView(<?= $page['id']; ?>)"><i
                                             class="fa fa-desktop fa-lg"></i>预览
                                 </button>
                                 <button type="button" class="btn btn-primary btn-xs" onclick="saveWidget()"><i
@@ -37,26 +46,15 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                     </div>
                 </div>
 
-                <div class="row">
-                    <table class="table table-bordered table-widget  mb-3" id="pageWidgets">
-                        <thead>
-                        <tr>
-                            <td class="text-center" width="80%">
-                                片段
-                            </td>
-                            <td width="20%">
-                                <i class="fa fa-plus-circle fa-lg text-success mr-1"
-                                   onclick="addWidget('pageWidgets')"></i>
-                            </td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        if($widgetObject!=null && sizeof($widgetObject)>0){
-                            foreach ($widgetObject as $widget) {
-                                ?>
-                                <tr>
-                                    <td>
+                <div id="pageWidgets">
+                    <?php
+                    if ($widgetObject != null && sizeof($widgetObject) > 0) {
+                        foreach ($widgetObject as $widget) {
+                            ?>
+                            <div class=" mb-2 clearfix">
+                                <table class="table table-bordered rounded">
+                                    <tbody>
+                                    <td width="80%">
                                         <select class="form-control" name="widgetId">
                                             <?php
                                             foreach ($widgetList as $witem) {
@@ -74,49 +72,49 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                             ?>
                                         </select>
                                     </td>
-                                    <td width="20%">
-                                        <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
+                                    <td  width="20%">
                                         <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
                                     </td>
-                                </tr>
-                                <?php
-                            }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php
                         }
-
-                        ?>
-                        </tbody>
-                    </table>
+                    }
+                    ?>
                 </div>
 
-                <div style="display: none;">
-                    <table class="table table-bordered " id="table-list-demo">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <select class="form-control" name="widgetId">
-                                    <option value='0'>无</option>
-                                    <?php
-                                    foreach ($widgetList as $witem) {
-                                        ?>
-                                        <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                <div style="display: none;"  id="table-list-demo">
+                    <div class=" mb-2 clearfix">
+                        <table class="table table-bordered rounded">
+                            <tbody>
+                            <tr>
+                                <td width="80%">
+                                    <select class="form-control" name="widgetId">
+                                        <option value='0'>无</option>
                                         <?php
-                                    }
-                                    ?>
-                                </select>
-                            </td>
-                            <td width="20%">
-                                <i class="fa fa-arrows fa-lg text-success mr-1 handle" title="顺序"></i>
-                                <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                        foreach ($widgetList as $witem) {
+                                            ?>
+                                            <option value="<?php echo $witem['id']; ?>"><?php echo $witem['fragmentName']; ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td width="20%">
+                                    <i class="fa fa-trash fa-lg text-danger tool-delete" title="删除"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+<script src="static/backend/lib/jquery-ui/jquery-ui.min.js"></script>
 <script>
 
     var dragger = null;
@@ -127,64 +125,45 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
 
 
     function addWidget(tableId) {
-        var demotr = $("#table-list-demo tbody tr:first");
+        var demotr = $("#table-list-demo div:first");
         var clone = demotr.clone();
-        $("#"+tableId+" tbody").append(clone);
+        $("#pageWidgets").append(clone);
         bindEvent();
     }
 
     function preView(pageId) {
-        var widgets = getWidget('Widgets');
+        var widgets = getWidget();
         var widgetsJSON = JSON.stringify(widgets);
         $("input[name=widgetJSON]").val(widgetsJSON);
-        $("#form-edit").attr("action","index.php?r=cms-backend/page/preview");
-        $("#form-edit").attr("target","_blank");
+        $("#form-edit").attr("action", "index.php?r=cms-backend/page/preview");
+        $("#form-edit").attr("target", "_blank");
         $("#form-edit").submit();
     }
 
 
     function bindEvent() {
-        $(".table-widget tbody .tool-delete").unbind("click");
-        $(".table-widget tbody .tool-delete").bind("click", function () {
-            $(this).closest("tr").remove();
+        $("#pageWidgets tbody .tool-delete").unbind("click");
+        $("#pageWidgets tbody .tool-delete").bind("click", function () {
+            $(this).closest("div").remove();
         });
 
-        dragger = resetDrag(dragger,"#pageWidgets");
-    }
-
-    function resetDrag(dragger,pageId) {
-        if (dragger == null) {
-            if($(pageId).find("tbody tr").length>0){
-                dragger = tableDragger(document.querySelector(pageId), {
-                    mode: "row",
-                    onlyBody: true,
-                    dragHandler: ".handle"
-                });
-            }
-        } else {
-            dragger.destroy();
-            dragger = tableDragger(document.querySelector(pageId), {
-                mode: "row",
-                onlyBody: true,
-                dragHandler: ".handle"
-            });
-        }
-        return dragger;
+        $("#pageWidgets").sortable();
+        $("#pageWidgets").disableSelection();
     }
 
     function saveWidget() {
-        var widgets = getWidget('Widgets');
+        var widgets = getWidget();
         var widgetsJSON = JSON.stringify(widgets);
         $("input[name=widgetJSON]").val(widgetsJSON);
-        $("#form-edit").attr("action","index.php?r=cms-backend/page/savewidget");
-        $("#form-edit").attr("target","");
+        $("#form-edit").attr("action", "index.php?r=cms-backend/page/savewidget");
+        $("#form-edit").attr("target", "");
         $("#form-edit").submit();
 
     }
 
-    function getWidget(position) {
+    function getWidget() {
         //获取widgetLayout
-        var trs = $("#page"+position+" tbody tr");
+        var trs = $("#pageWidgets div");
 
         var widgets = new Array();
         if (trs.length > 0) {
