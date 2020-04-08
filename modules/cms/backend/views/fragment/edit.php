@@ -29,7 +29,7 @@ $this->title = '片段设置';
                     <label>
                         片段模板
                     </label>
-                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control"
+                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control select2-single" style="width:100%"
                             onchange="loadTemplate(this.value)">
                         <option value="0">无</option>
                         <?php
@@ -94,7 +94,7 @@ $this->title = '片段设置';
             mode: "htmlmixed"
         });
         id = $("#formfragment-id").val();
-        if(id!=null){
+        if(id!=null && id!=0){
             loadFragmentBody(id);
         }
     });

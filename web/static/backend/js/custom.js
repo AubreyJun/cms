@@ -103,3 +103,10 @@ function hoverStyleImage() {
         });
     };
 })(jQuery);
+$(function () {
+    if($(".select2-single").length){
+        $(".select2-single").select2();
+    }
+});
+
+
