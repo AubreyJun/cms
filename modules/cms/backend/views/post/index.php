@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary btn-xs"
                                         onclick="window.location.href='index.php?r=cms-backend/post/add'"><i
-                                            class="fa fa-plus fa-lg"></i>
+                                            class="fa fa-plus fa-lg "></i>
                                 </button>
                             </div>
                         </form>
