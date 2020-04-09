@@ -30,6 +30,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/fonticonpicker/themes/grey-theme/jquery.fonticonpicker.grey.min.css',
         'static/backend/lib/spectrum/spectrum.css',
         'static/backend/lib/image-picker/image-picker.css',
+        'static/backend/lib/jodit/jodit.min.css',
         'static/backend/css/custom.css'
     ];
 
@@ -54,6 +55,7 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/image-picker/image-picker.min.js',
         'static/backend/lib/table-dragger/table-dragger.min.js',
         'static/backend/lib/select2/dist/js/select2.min.js',
+        'static/backend/lib/jodit/jodit.min.js',
         'static/backend/js/custom.js'
 
     ];
