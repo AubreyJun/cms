@@ -70,7 +70,7 @@
 </div>
 <script>
     $(function () {
-        $("table").colResizable();
+
     });
 
     function changeType(contentType) {

@@ -11,7 +11,7 @@
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
                             <div class="form-group mr-2">
-                                <select class="form-control form-control-sm" style="padding: 3px;" name="widgetType"
+                                <select class=" select2" style="width: 100px;" name="widgetType"
                                         onchange="changeType(this.value)">
                                     <?php
                                     foreach ($contentType as $ptype) {
@@ -39,14 +39,16 @@
                         </form>
                     </div>
                 </div>
-                <table class="table table-bordered">
+                <table class="table table-bordered text-nowrap">
                     <thead>
                     <tr>
-                        <th width="5%"><input type="checkbox" class="form-control" name="ckAll"  onclick="loadCheckBox()"  /></th>
+                        <th width="5%">
+                            <input type="checkbox" class="form-control " name="ckAll"
+                                   onclick="loadCheckBox()"/>
+                        </th>
                         <th>标题</th>
                         <th>分类</th>
                         <th width="8%">状态</th>
-                        <th>创建时间</th>
                         <th width="15%">操作</th>
                     </tr>
                     </thead>
@@ -55,12 +57,14 @@
                     foreach ($post_list as $post) {
                         ?>
                         <tr>
-                            <td><input type="checkbox" name="ckItem"  class="form-control" value="<?php echo $post['id']; ?>"/></td>
+                            <td>
+                                <input type="checkbox" name="ckItem" class="form-control"
+                                       value="<?php echo $post['id']; ?>"/>
+                            </td>
                             <td><?php echo $post['title']; ?></td>
                             <td><?php echo $post['catalog']['catalogName']; ?></td>
                             <th><?php echo $post['status'] == 'online' ? '<i class="text-success fa fa-check fa-lg"></i>'
                                     : '<i class="fa fa-minus-circle  text-danger fa-lg"></i>'; ?></th>
-                            <td><?php echo $post['createtime']; ?></td>
                             <td>
                                 <a class=" text-primary mr-1"
                                    href="index.php?r=cms-backend/post/update&id=<?php echo $post['id']; ?>">
@@ -99,17 +103,18 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <form class="form-inline" id="form-delete" method="post" style="float: left;" action="index.php?r=cms-backend/post/deleteall">
+                        <form class="form-inline" id="form-delete" method="post" style="float: left;"
+                              action="index.php?r=cms-backend/post/deleteall">
                             <input type="hidden" name="items" value=""/>
                             <input type="hidden" name="queryPostType" value="<?php echo $queryPostType; ?>"/>
                             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>"/>
                             <div class="form-group mr-2">
                                 <select class="form-control form-control-sm" style="padding: 3px;" name="checkAction">
-                                   <option value="deleteSelectItems">删除选择项</option>
+                                    <option value="deleteSelectItems">删除选择项</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-danger btn-xs" onclick="deleteAll()" >确认
+                                <button type="button" class="btn btn-danger btn-xs" onclick="deleteAll()">确认
                                 </button>
                             </div>
                         </form>
@@ -151,33 +156,32 @@
 </div>
 <script>
     $(function () {
-        $("table").colResizable();
         loadCheckBox();
     });
 
     function loadCheckBox() {
         var checked = $("input[name=ckAll]").prop("checked")
-        if(checked){
-            $("input[name=ckItem]").prop("checked",true);
-        }else{
-            $("input[name=ckItem]").prop("checked",false);
+        if (checked) {
+            $("input[name=ckItem]").prop("checked", true);
+        } else {
+            $("input[name=ckItem]").prop("checked", false);
         }
     }
 
     function deletePost(id) {
-        doConfirm('删除文章？',function () {
-            window.location.href = "index.php?r=cms-backend/post/delete&id="+id;
+        doConfirm('删除文章？', function () {
+            window.location.href = "index.php?r=cms-backend/post/delete&id=" + id;
         });
     }
 
     function deleteAll() {
         var itemvalues = "";
 
-        $("input[name='ckItem']:checkbox:checked").each(function(){
-            if(itemvalues==""){
-                itemvalues+=$(this).val()
-            }else{
-                itemvalues+=","+$(this).val()
+        $("input[name='ckItem']:checkbox:checked").each(function () {
+            if (itemvalues == "") {
+                itemvalues += $(this).val()
+            } else {
+                itemvalues += "," + $(this).val()
             }
         });
 

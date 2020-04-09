@@ -107,7 +107,7 @@ function echoTr($navgation, $level)
 </div>
 <script>
     $(function () {
-        $("table").colResizable();
+
     });
     function deleteItem(id) {
         doConfirm('删除分类目录？',function () {
