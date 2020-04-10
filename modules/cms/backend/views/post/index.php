@@ -31,9 +31,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary btn-xs"
-                                        onclick="window.location.href='index.php?r=cms-backend/post/add'"><i
-                                            class="fa fa-plus fa-lg "></i>
+                                <button type="button" class="btn btn-primary btn-xs"><i
+                                            class="fa fa-plus fa-lg " onclick="postAdd()"></i>
                                 </button>
                             </div>
                         </form>
@@ -122,7 +121,7 @@
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
                             <div class="form-group mr-2">
-                                <select class="form-control form-control-sm" style="padding: 3px;" name="widgetType"
+                                <select class="form-control form-control-sm" style="padding: 3px;" name="postType"
                                         onchange="changeType(this.value)">
                                     <?php
                                     foreach ($contentType as $ptype) {
@@ -187,6 +186,11 @@
 
         $("input[name=items]").val(itemvalues);
         $("#form-delete").submit();
+    }
+
+    function postAdd() {
+        var postType = $("select[name=postType]").val();
+        window.location.href = 'index.php?r=cms-backend/post/add&postType='+postType;
     }
 
     function changeType(contentType) {

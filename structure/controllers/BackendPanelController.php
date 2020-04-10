@@ -70,9 +70,6 @@ class BackendPanelController extends AppController
         }
 
 
-
-
-
         $user = Yii::$app->user;
         $this->userId = $user->id;
 
@@ -85,7 +82,8 @@ class BackendPanelController extends AppController
         $this->data['pluginList'] = $this->query("select * from cms_plugin where menu = 1 and status ='active' ")
             ->queryAll();
 
-        $_SESSION['LOGIN'] = 1;
+        $_SESSION['filebrowser'] = 1;
+        $_SESSION['JoditUserRole'] = 'administrator';
 
         $this->data['themeList'] = $this->query("select * from cms_theme")->queryAll();
     }

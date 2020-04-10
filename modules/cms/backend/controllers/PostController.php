@@ -31,22 +31,27 @@ ORDER BY
         return $this->render('index',$this->data);
     }
 
-    private function setForm(){
-        $contentType = $this->query("SELECT
+    private function setForm($postType){
+
+        $this->data['navgation'] = $this->getNavgation();
+
+        $propOptions = array();
+        $selectName = $postType.'_properties';
+        $propProperties = $this->query("SELECT
 	* 
 FROM
 	cms_select_options t 
 WHERE
-	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = 'content_type' ) 
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = :selectName and t.themeId =0  ) 
 ORDER BY
-	t.sequencenumber ASC")->queryAll();
-        $contentType_select = array();
-        foreach ($contentType as $item){
-            $contentType_select[$item['optionValue']] = $item['optionDesc'];
+	t.sequencenumber ASC")
+            ->bindParam(':selectName',$selectName)
+            ->queryAll();
+        foreach ($propProperties as $item){
+            $propOptions[$item['optionValue']] = $item;
         }
-        $this->data['contentType_select'] = $contentType_select;
+        $this->data['propOptions'] = $propOptions;
 
-        $this->data['navgation'] = $this->getNavgation('cms');
     }
 
 
@@ -54,9 +59,10 @@ ORDER BY
 
         $model = new FormArticle();
         $model->id = 0;
+        $model->postType = $_REQUEST['postType'];
         $this->data['model'] = $model;
 
-        $this->setForm();
+        $this->setForm($model->postType);
 
         return $this->render('edit', $this->data);
     }
@@ -90,7 +96,7 @@ ORDER BY
             }
         }
 
-        $this->setForm();
+        $this->setForm($model->attributes['postType']);
 
         $this->data['model'] = $model;
         return $this->render('edit', $this->data);
@@ -122,9 +128,17 @@ ORDER BY
         $model = new FormArticle();
         $model->setAttributes($article->attributes,true);
         $model->tags = $article['tags'];
+        $model->postType = $article->attributes['postType'];
         $this->data['model'] = $model;
 
-        $this->setForm();
+        $this->setForm($model->postType);
+
+        $props = BkPostProp::findAll(['postId'=>$id]);
+        $propKV = array();
+        foreach ($props as $prop){
+            $propKV[$prop['ppKey']] = $prop['ppValue'];
+        }
+        $this->data['propKV'] = $propKV;
 
         return $this->render('edit', $this->data);
     }
