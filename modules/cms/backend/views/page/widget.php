@@ -28,7 +28,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                             <input type="hidden" name="widgetJSON" value="">
                             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                             <div class="form-group mr-2">
-                                <select class="form-control form-control-sm" style="padding: 3px;" name="pageId"
+                                <select class="form-control form-control-sm select2"  name="pageId"
                                         onchange="changeType(this.value)">
                                     <?php
                                     foreach ($pagelist as $item) {
@@ -72,7 +72,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                 <table class="table table-bordered rounded">
                                     <tbody>
                                     <td width="80%">
-                                        <select class="form-control" name="widgetId">
+                                        <select class="form-control select2" name="widgetId">
                                             <?php
                                             foreach ($widgetList as $witem) {
                                                 if ($witem['id'] == $widget) {
@@ -107,7 +107,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                             <tbody>
                             <tr>
                                 <td width="80%">
-                                    <select class="form-control" name="widgetId">
+                                    <select class="form-control " name="widgetId">
                                         <option value='0'>无</option>
                                         <?php
                                         foreach ($widgetList as $witem) {
@@ -145,6 +145,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
         var demotr = $("#table-list-demo div:first");
         var clone = demotr.clone();
         $("#pageWidgets").append(clone);
+        $("#pageWidgets").find("div:last").find("select").select2();
         bindEvent();
     }
 

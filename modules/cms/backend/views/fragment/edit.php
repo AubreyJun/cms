@@ -46,6 +46,11 @@ $this->title = '片段设置';
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>
+                        <button class="btn btn-primary btn-sm" onclick="return formatCode()">
+                            <i class="fa fa-code"></i>代码格式化
+                        </button>
+                    </label>
                     <textarea id="code-editable" ></textarea>
                     <?php
                     if (isset($model->getErrors()['body'])) {
@@ -72,7 +77,11 @@ $this->title = '片段设置';
         </div>
     </div>
 </div>
-<script src="static/backend/lib/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="static/backend/lib/ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="static/backend/lib/ace-builds/src-min/ext-beautify.js"></script>
+<script src="static/backend/lib/ace-builds/src-min/ext-language_tools.js"></script>
+<script src="static/backend/lib/ace-builds/src-min/mode-php.js"></script>
+<script src="static/backend/lib/ace-builds/src-min/theme-xcode.js"></script>
 <script>
     var editor = null;
     var id = null;
@@ -95,6 +104,12 @@ $this->title = '片段设置';
         });
 
     });
+    
+    function formatCode() {
+        var beautify = ace.require("ace/ext/beautify");
+        beautify.beautify(editor.session);
+        return false;
+    }
 
     function loadTemplate(path) {
         $.post('index.php?r=cms-backend/fragment/gettemplate', {

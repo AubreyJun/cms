@@ -25,10 +25,12 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/jquery-toast-plugin/dist/jquery.toast.min.css',
         'static/backend/lib/codemirror/theme/midnight.css',
         'static/backend/lib/kindeditor/themes/default/default.css',
+        'static/backend/lib/select2/dist/css/select2.min.css',
         'static/backend/css/style.css',
         'static/backend/lib/fonticonpicker/themes/grey-theme/jquery.fonticonpicker.grey.min.css',
         'static/backend/lib/spectrum/spectrum.css',
         'static/backend/lib/image-picker/image-picker.css',
+        'static/backend/lib/jodit/jodit.min.css',
         'static/backend/css/custom.css'
     ];
 
@@ -40,7 +42,6 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/perfect-scrollbar/dist/perfect-scrollbar.min.js',
         'static/backend/js/misc.js',
         'static/backend/js/settings.js',
-        'static/backend/lib/colresizable/colResizable-1.6.js',
         'static/backend/lib/jquery-tags-input/dist/jquery.tagsinput.min.js',
         'static/backend/lib/jquery-validation/dist/jquery.validate.min.js',
         'static/backend/lib/jquery-toast-plugin/dist/jquery.toast.min.js',
@@ -53,6 +54,8 @@ class BackendAsset extends AssetBundle
         'static/backend/lib/spectrum/jquery.spectrum-zh-cn.js',
         'static/backend/lib/image-picker/image-picker.min.js',
         'static/backend/lib/table-dragger/table-dragger.min.js',
+        'static/backend/lib/select2/dist/js/select2.min.js',
+        'static/backend/lib/jodit/jodit.min.js',
         'static/backend/js/custom.js'
 
     ];

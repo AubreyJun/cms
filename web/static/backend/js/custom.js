@@ -103,5 +103,9 @@ function hoverStyleImage() {
         });
     };
 })(jQuery);
+$(function () {
+    $('.select2').select2();
+
+});
 
 

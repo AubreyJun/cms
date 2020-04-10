@@ -66,7 +66,7 @@
 </div>
 <script>
     $(function () {
-        $("table").colResizable();
+
     });
 
     function deleteItem(id) {

@@ -83,14 +83,28 @@ function echoNavSelect($nav){
 
     $(function () {
 
-        KindEditor.ready(function(K) {
-            editor = K.create('textarea[id="formarticle-content"]', {
-                allowFileManager : true,
-                resizeMode:1,
-                themeType : 'simple'
-            });
 
-        });
+        var editor = new Jodit('#formarticle-content',
+            {
+                language: 'zh_cn',
+                uploader: {
+                    url: 'http://localhost:8181/index-test.php?action=fileUpload'
+                },
+                filebrowser: {
+                    ajax: {
+                        url: 'http://localhost:8181/index-test.php'
+                    }
+                }
+            }
+        );
+        // KindEditor.ready(function(K) {
+        //     editor = K.create('textarea[id="formarticle-content"]', {
+        //         allowFileManager : true,
+        //         resizeMode:1,
+        //         themeType : 'simple'
+        //     });
+        //
+        // });
 
         $('#from-edit').on('beforeValidate', function (e) {
             return true;

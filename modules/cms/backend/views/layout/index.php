@@ -49,7 +49,7 @@
 </div>
 <script>
     $(function () {
-        $("table").colResizable();
+
     });
     function deleteItem(id) {
         doConfirm('删除布局？',function () {

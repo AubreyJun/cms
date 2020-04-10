@@ -59,7 +59,7 @@
 </div>
 <script>
     $(function () {
-        $("table").colResizable();
+
     });
 
 
