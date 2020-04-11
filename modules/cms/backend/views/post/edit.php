@@ -110,7 +110,7 @@ function echoNavSelect($nav)
                                 <label><?php echo $v['optionDesc']; ?></label>
                                 <div class="input-group">
                                     <input type="text" id="<?php echo $keySplit[0]; ?>" class="form-control <?php echo $keySplit[1]; ?>" name="<?php echo $keySplit[0]; ?>" value="<?php echo isset($propKV[$keySplit[0]])?$propKV[$keySplit[0]]:''; ?>" >
-                                    <div class="input-group-prepend" onclick="selectImage(<?php echo $keySplit[0]; ?>)">
+                                    <div class="input-group-prepend" onclick="selectImage('<?php echo $keySplit[0]; ?>')">
                                         <span class="input-group-text bg-info"><i class="fa fa-image text-white"></i></span>
                                     </div>
                                 </div>
@@ -133,6 +133,7 @@ function echoNavSelect($nav)
 <?php ActiveForm::end(); ?>
 <script>
     var editor;
+    var fileSelect ;
 
     $(function () {
 
@@ -151,7 +152,7 @@ function echoNavSelect($nav)
             }
         );
 
-        var fileSelect = new Jodit('#fileSelect',
+        fileSelect = new Jodit('#fileSelect',
             {
                 language: 'zh_cn',
                 uploader: {
@@ -198,11 +199,14 @@ function echoNavSelect($nav)
         $(function () {
             $("select[id=formCatalogId]").val(catalogId);
             $("select[id=formCatalogId]").trigger('change');
-
         });
     });
 
     function selectImage(imageName) {
-
+        fileSelect.filebrowser.open(function (data) {
+            if(data.files.length>0){
+                $("#"+imageName).val(data.files[0]);
+            }
+        });
     }
 </script>
