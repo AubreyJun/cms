@@ -10,18 +10,8 @@
             </div>
             <div class="col_half col_last tright">
                 <div class="copyrights-menu copyright-links fright clearfix mb-4">
-                    <a href="index.html">首页
+                    <a href="链接">链接地址
                     </a>/
-                    <a href="aboutus.html">公司简介
-                    </a>/
-                    <a href="product.html">产品中心
-                    </a>/
-                    <a href="case.html">成功案例
-                    </a>/
-                    <a href="service.html">服务支持
-                    </a>/
-                    <a href="contact.html">联系我们
-                    </a>
                 </div>
                 <div class="fright clearfix">
                     24小时服务热线：021-000000
