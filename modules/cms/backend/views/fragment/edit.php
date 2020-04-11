@@ -30,17 +30,23 @@ $this->title = '片段设置';
                     <label>
                         片段模板
                     </label>
-                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control " style="width:100%"
+                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control select2" style="width:100%"
                             onchange="loadTemplate(this.value)">
-                        <option value="0">无</option>
                         <?php
-                        $viewPath = Yii::$app->viewPath;
-                        if (sizeof($filelist) > 0) {
-                            foreach ($filelist as $file) {
-                                ?>
-                                <option value="<?php echo $file; ?>"><?php echo str_replace($viewPath, "", $file); ?></option>
+                        foreach ($fragmentTypes as $fragmentType){
+                            ?>
+                            <optgroup label="<?php echo $fragmentType['object']['optionDesc']; ?>">
                                 <?php
-                            }
+                                if(sizeof($fragmentType['list'])>0){
+                                    foreach ($fragmentType['list'] as $item){
+                                        ?>
+                                        <option value="<?php echo $item['fragmentKey']; ?>"><?php echo $item['fragmentName']; ?></option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </optgroup>
+                            <?php
                         }
                         ?>
                     </select>
@@ -111,9 +117,9 @@ $this->title = '片段设置';
         return false;
     }
 
-    function loadTemplate(path) {
+    function loadTemplate(fragmentKey) {
         $.post('index.php?r=cms-backend/fragment/gettemplate', {
-            'path': path,
+            'fragmentKey': fragmentKey,
             '_csrf': '<?= Yii::$app->request->csrfToken ?>'
         }, function (data) {
             editor.setValue(data);

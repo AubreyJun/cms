@@ -185,7 +185,7 @@ class PageController extends BackendPanelController
         return $this->render('@app/views/rkcms/page', $this->data);
     }
 
-    public function getImg($location,$max){
+    public function getImg($location,$max=15){
         return 'http://image.ranko.cn/'.$location.'/'.rand(1,$max).'.jpg';
     }
 

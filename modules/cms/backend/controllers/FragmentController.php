@@ -34,10 +34,37 @@ class FragmentController extends BackendPanelController
 
         $this->data['model'] = $model;
 
-        $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
-        $this->data['filelist'] = $filelist;
+        $this->setForm();
+
+//        $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
+//        $this->data['filelist'] = $filelist;
 
         return $this->render('edit', $this->data);
+    }
+
+    private function setForm(){
+        $propOptions = array();
+        $selectName = 'fragment_type';
+        $propProperties = $this->query("SELECT
+	* 
+FROM
+	cms_select_options t 
+WHERE
+	t.selectId IN ( SELECT t.id FROM cms_select t WHERE t.selectName = :selectName and t.themeId =0  ) 
+ORDER BY
+	t.sequencenumber ASC")
+            ->bindParam(':selectName',$selectName)
+            ->queryAll();
+        foreach ($propProperties as $item){
+            $itemObject = array();
+            $itemObject['object'] = $item;
+            $itemList = $this->query("select * from cms_fragment where fragmentType = :fragmentType order by sequencenumber asc")
+            ->bindParam(":fragmentType",$item['optionValue'])->queryAll();
+            $itemObject['list'] = $itemList;
+
+            $propOptions[$item['optionValue']] = $itemObject;
+        }
+        $this->data['fragmentTypes'] = $propOptions;
     }
 
     public function actionUpdate($id)
@@ -147,7 +174,8 @@ class FragmentController extends BackendPanelController
     }
 
     public function actionGettemplate(){
-        $path = $_POST['path'];
+        $fragmentKey = $_POST['fragmentKey'];
+        $path = Yii::$app->getViewPath().'/template/'.$fragmentKey.'.php';
         if(file_exists($path)){
             echo file_get_contents($path);
         }else{
