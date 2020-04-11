@@ -152,22 +152,22 @@ function echoNavSelect($nav)
             }
         );
 
-        fileSelect = new Jodit('#fileSelect',
-            {
-                language: 'zh_cn',
-                uploader: {
-                    url: 'static/backend/lib/jodit/connector/index.php?action=fileUpload'
-                },
-                filebrowser: {
-                    ajax: {
-                        url: 'static/backend/lib/jodit/connector/index.php'
+        var fileHtml = $("body").find("#fileSelect");
+        if(fileHtml.length>0){
+            fileSelect = new Jodit('#fileSelect',
+                {
+                    language: 'zh_cn',
+                    uploader: {
+                        url: 'static/backend/lib/jodit/connector/index.php?action=fileUpload'
+                    },
+                    filebrowser: {
+                        ajax: {
+                            url: 'static/backend/lib/jodit/connector/index.php'
+                        }
                     }
                 }
-            }
-        );
-
-
-
+            );
+        }
 
         $('#from-edit').on('beforeValidate', function (e) {
             return true;

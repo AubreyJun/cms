@@ -81,6 +81,7 @@ ORDER BY
                     $article->setAttributes($model->attributes, false);
                     $article->save();
                     $this->savePostTags($article->id,$model->tags);
+                    $this->savePostProp($model->postType,$article->id);
                     return $this->actionIndex($model->attributes['postType']);
                 } else {
                     PostTag::deleteAll(['postId'=>$model->id]);
@@ -90,7 +91,7 @@ ORDER BY
                     $article->save();
 
                     $this->savePostTags($model->id,$model->tags);
-
+                    $this->savePostProp($model->postType,$article->id);
                     return $this->actionIndex($model->attributes['postType']);
                 }
             }
@@ -214,13 +215,10 @@ ORDER BY
         return $this->render('config', $this->data);
     }
 
-    public function actionSaveconfig(){
-        $id = $_POST['id'];
-        $post = BkPost::findOne($id);
-        $this->data['post'] = $post;
+    public function savePostProp($postType,$id){
 
         BkPostProp::deleteAll(['postId'=>$id]);
-        $selectName = $post['postType'].'_properties';
+        $selectName = $postType.'_properties';
         $propProperties = $this->query("SELECT
 	* 
 FROM
@@ -232,14 +230,15 @@ ORDER BY
             ->bindParam(':selectName',$selectName)
             ->queryAll();
         foreach ($propProperties as $item){
+
+            $keySplit = explode(',',$item['optionValue']);
+
             $postProp = new BkPostProp();
             $postProp->postId = $id;
-            $postProp->ppKey = $item['optionValue'];
-            $postProp->ppValue = $_POST[$item['optionValue']];
+            $postProp->ppKey = $keySplit[0];
+            $postProp->ppValue = $_POST[$keySplit[0]];
             $postProp->save();
         }
-
-        return $this->actionIndex($post['postType']);
 
     }
 
