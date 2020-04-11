@@ -2,7 +2,7 @@
     <div class="col_one_third nobottommargin">
         <div class="feature-box media-box">
             <div class="fbox-media">
-                <img src="themes/guanggao_2/news_1.jpg" >
+                <img src="<?php echo $this->context->getImg('800x800') ?>" >
             </div>
             <div class="fbox-desc ">
                 <h3>标题</h3>
@@ -13,7 +13,7 @@
     <div class="col_one_third nobottommargin">
         <div class="feature-box media-box">
             <div class="fbox-media">
-                <img src="themes/guanggao_2/news_2.jpg" >
+                <img src="<?php echo $this->context->getImg('800x800') ?>" >
             </div>
             <div class="fbox-desc ">
                 <h3>标题</h3>
@@ -24,7 +24,7 @@
     <div class="col_one_third nobottommargin col_last">
         <div class="feature-box media-box">
             <div class="fbox-media">
-                <img src="themes/guanggao_2/news_4.jpg" >
+                <img src="<?php echo $this->context->getImg('800x800') ?>" >
             </div>
             <div class="fbox-desc ">
                 <h3>标题</h3>

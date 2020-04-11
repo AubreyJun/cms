@@ -4,7 +4,7 @@
 
         <div class="swiper-container swiper-parent">
             <div class="swiper-wrapper">
-                <div class="swiper-slide dark" style="background-image: url('themes/guanggao_1/banner_1.jpg');">
+                <div class="swiper-slide dark" style="background-image: url('<?php echo $this->context->getImg('1920x1280') ?>');">
                     <div class="container clearfix">
                         <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-bottom-right">
                             了解更多
@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide dark"
-                     style="background-image: url('themes/guanggao_1/banner_2.jpg'); background-position: center top;">
+                     style="background-image: url('<?php echo $this->context->getImg('1920x1280') ?>'); background-position: center top;">
                     <div class="container clearfix">
                         <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-bottom-right">
                             了解更多
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide dark"
-                     style="background-image: url('themes/guanggao_1/banner_1.jpg'); background-position: center top;">
+                     style="background-image: url('<?php echo $this->context->getImg('1920x1280') ?>'); background-position: center top;">
                     <div class="container clearfix">
                         <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-bottom-right">
                             了解更多

@@ -1,5 +1,6 @@
 <?php
-$object = $this->context->pagedata['article'];
+$arg1 = $_REQUEST['arg1'];
+$object = \app\models\cms\frontend\Post::getItem($arg1);
 ?>
 <div class="container clearfix">
     <div class="single-post nobottommargin">

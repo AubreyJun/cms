@@ -1,10 +1,11 @@
 <?php
 $catalogId = $_REQUEST['arg1'];
 $pageNumber = $_REQUEST['arg2'];
+$pageSize = 5;
 use yii\helpers\StringHelper;
 use yii\widgets\LinkPager;
 
-$objects = \app\models\cms\frontend\Post::getPagination('article',$catalogId,5);
+$objects = \app\models\cms\frontend\Post::getPagination('article',$catalogId,$pageSize);
 
 ?>
 <div class="container clearfix">

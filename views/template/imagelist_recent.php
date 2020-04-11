@@ -1,6 +1,11 @@
 <!--图片展示 3列-->
 <?php
-$objects  = \app\models\cms\frontend\Post::getRecent('image','113',6);
+//类目
+$catalogId = '';
+//显示数量
+$size = '';
+
+$objects  = \app\models\cms\frontend\Post::getRecent('image',$catalogId,$size);
 ?>
 <div class="container clearfix">
     <div id="portfolio" class="portfolio grid-container portfolio-3 clearfix">
