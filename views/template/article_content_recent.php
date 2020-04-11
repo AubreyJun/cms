@@ -1,8 +1,14 @@
 <?php
+//显示格式3列
 
 use yii\helpers\StringHelper;
 
-$objects = \app\models\cms\frontend\Post::getRecent('article', '115', 6);
+//分类ID
+$catalogId = '';
+//显示数量
+$size = 6;
+
+$objects = \app\models\cms\frontend\Post::getRecent('article', $catalogId, $size);
 ?>
 <div class="container clearfix">
     <?php
