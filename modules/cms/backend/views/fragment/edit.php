@@ -32,6 +32,7 @@ $this->title = '片段设置';
                     </label>
                     <select name="fragmentTemplate" id="fragmentTemplate" class="form-control select2" style="width:100%"
                             onchange="loadTemplate(this.value)">
+                        <option value="0">无</option>
                         <?php
                         foreach ($fragmentTypes as $fragmentType){
                             ?>
@@ -118,12 +119,14 @@ $this->title = '片段设置';
     }
 
     function loadTemplate(fragmentKey) {
-        $.post('index.php?r=cms-backend/fragment/gettemplate', {
-            'fragmentKey': fragmentKey,
-            '_csrf': '<?= Yii::$app->request->csrfToken ?>'
-        }, function (data) {
-            editor.setValue(data);
-        });
+        if(fragmentKey!='0'){
+            $.post('index.php?r=cms-backend/fragment/gettemplate', {
+                'fragmentKey': fragmentKey,
+                '_csrf': '<?= Yii::$app->request->csrfToken ?>'
+            }, function (data) {
+                editor.setValue(data);
+            });
+        }
     }
 
     function loadFragmentBody(id) {
