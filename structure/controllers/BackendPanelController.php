@@ -82,8 +82,8 @@ class BackendPanelController extends AppController
         $this->data['pluginList'] = $this->query("select * from cms_plugin where menu = 1 and status ='active' ")
             ->queryAll();
 
+        session_start();
         $_SESSION['filebrowser'] = 1;
-        $_SESSION['JoditUserRole'] = 'administrator';
 
         $this->data['themeList'] = $this->query("select * from cms_theme")->queryAll();
     }

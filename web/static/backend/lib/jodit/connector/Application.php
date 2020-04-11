@@ -14,15 +14,15 @@ class JoditRestApplication extends Application {
      * ```
      */
 
+
+    // read more https://github.com/xdan/jodit-connectors#configuration
+    // throw new \ErrorException('You need override `checkAuthentication` method in file `Application.php` more https://github.com/xdan/jodit-connectors#configuration', 501);
     function checkAuthentication() {
-        // Rewrite this code for your system
-//         if (empty($_SESSION['filebrowser'])) {
-//             trigger_error('You do not have permission to view this directory, E_USER_WARNING');
-//         }
+        session_start();
+         if (empty($_SESSION['filebrowser'])) {
+             trigger_error('You do not have permission to view this directory, E_USER_WARNING');
+         }
 
          return true;
-
-	    // read more https://github.com/xdan/jodit-connectors#configuration
-//        throw new \ErrorException('You need override `checkAuthentication` method in file `Application.php` more https://github.com/xdan/jodit-connectors#configuration', 501);
     }
 }
