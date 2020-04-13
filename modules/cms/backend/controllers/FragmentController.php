@@ -84,6 +84,8 @@ ORDER BY
 
         $this->data['fragment'] = $fragment;
 
+        $this->setForm();
+
         return $this->render('edit', $this->data);
     }
 
