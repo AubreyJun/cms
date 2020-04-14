@@ -17,10 +17,18 @@ use yii\helpers\FileHelper;
 class FragmentController extends BackendPanelController
 {
 
-    public function actionIndex()
+    public function actionIndex($pageId = 0)
     {
-        $fragmentList = $this->query("select * from cms_theme_fragment where  themeId = :themeId")
-            ->bindParam(":themeId", $this->data['editThemeId'])->queryAll();
+
+        $this->data['pagelist'] = $this->query("select * from cms_theme_page where themeId = :themeId")
+            ->bindParam(":themeId", $this->data['editThemeId'])
+            ->queryAll();
+        $this->data['pageId'] = $pageId;
+
+        $fragmentList = $this->query("select * from cms_theme_fragment where  themeId = :themeId and pageId = :pageId")
+            ->bindParam(":themeId", $this->data['editThemeId'])
+            ->bindParam(":pageId", $pageId)
+            ->queryAll();
         $this->data['fragmentList'] = $fragmentList;
 
         return $this->render('index', $this->data);
@@ -35,9 +43,6 @@ class FragmentController extends BackendPanelController
         $this->data['model'] = $model;
 
         $this->setForm();
-
-//        $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
-//        $this->data['filelist'] = $filelist;
 
         return $this->render('edit', $this->data);
     }
@@ -65,6 +70,10 @@ ORDER BY
             $propOptions[$item['optionValue']] = $itemObject;
         }
         $this->data['fragmentTypes'] = $propOptions;
+
+        $this->data['pagelist'] = $this->query("select * from cms_theme_page where themeId = :themeId")
+            ->bindParam(":themeId", $this->data['editThemeId'])
+            ->queryAll();
     }
 
     public function actionUpdate($id)

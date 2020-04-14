@@ -8,12 +8,25 @@
                         <h4 class="card-title">片段</h4>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <div class="form-group mr-2">
-                        </div>
-                        <div class="form-group ">
-                            <button class="btn btn-primary btn-xs" onclick="addFragment()" ><i
-                                        class="fa fa-plus"></i>
-                            </button>
+                        <div class="form-inline" style="float: right;">
+                            <div class="form-group mr-4">
+                                <select class=" select2 " style="width: 100px;" name="pageItem" id="pageItem"
+                                        onchange="changePage(this.value)">
+                                    <option value="0">通用</option>
+                                    <?php
+                                    foreach ($pagelist as $page) {
+                                        ?>
+                                        <option value="<?php echo $page['id']; ?>"><?php echo $page['pageName']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <button class="btn btn-primary btn-xs" onclick="addFragment()"><i
+                                            class="fa fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -55,14 +68,19 @@
     </div>
 </div>
 <script>
+    var pageId = '<?php echo $pageId; ?>';
     $(function () {
-
+        $("#pageItem").val(pageId).trigger('change')
     });
 
     function deleteItem(id) {
         doConfirm('删除片段？', function () {
             window.location.href = "index.php?r=cms-backend/fragment/delete&id=" + id;
         });
+    }
+
+    function changePage(pageId) {
+        window.location.href = "index.php?r=cms-backend/fragment/index&pageId=" + pageId;
     }
 
     function addFragment() {

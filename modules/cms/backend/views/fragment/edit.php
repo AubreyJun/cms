@@ -28,18 +28,34 @@ $this->title = '片段设置';
                 <input name="FormFragment[body]" type="hidden" id="fragment-body">
                 <div class="form-group">
                     <label>
+                        页面
+                    </label>
+                    <select class=" select2 form-control" name="pageId" id="pageId">
+                        <option value="0">通用</option>
+                        <?php
+                        foreach ($pagelist as $page) {
+                            ?>
+                            <option value="<?php echo $page['id']; ?>"><?php echo $page['pageName']; ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>
                         片段模板
                     </label>
-                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control select2" style="width:100%"
+                    <select name="fragmentTemplate" id="fragmentTemplate" class="form-control select2"
+                            style="width:100%"
                             onchange="loadTemplate(this.value)">
                         <option value="0">无</option>
                         <?php
-                        foreach ($fragmentTypes as $fragmentType){
+                        foreach ($fragmentTypes as $fragmentType) {
                             ?>
                             <optgroup label="<?php echo $fragmentType['object']['optionDesc']; ?>">
                                 <?php
-                                if(sizeof($fragmentType['list'])>0){
-                                    foreach ($fragmentType['list'] as $item){
+                                if (sizeof($fragmentType['list']) > 0) {
+                                    foreach ($fragmentType['list'] as $item) {
                                         ?>
                                         <option value="<?php echo $item['fragmentKey']; ?>"><?php echo $item['fragmentName']; ?></option>
                                         <?php
@@ -58,7 +74,7 @@ $this->title = '片段设置';
                             <i class="fa fa-code"></i>代码格式化
                         </button>
                     </label>
-                    <textarea id="code-editable" ></textarea>
+                    <textarea id="code-editable"></textarea>
                     <?php
                     if (isset($model->getErrors()['body'])) {
                         ?>
@@ -101,7 +117,7 @@ $this->title = '片段设置';
         editor.setFontSize(14);
 
         id = $("#formfragment-id").val();
-        if(id!=null && id!=0){
+        if (id != null && id != 0) {
             loadFragmentBody(id);
         }
 
@@ -111,7 +127,7 @@ $this->title = '片段设置';
         });
 
     });
-    
+
     function formatCode() {
         var beautify = ace.require("ace/ext/beautify");
         beautify.beautify(editor.session);
@@ -119,7 +135,7 @@ $this->title = '片段设置';
     }
 
     function loadTemplate(fragmentKey) {
-        if(fragmentKey!='0'){
+        if (fragmentKey != '0') {
             $.post('index.php?r=cms-backend/fragment/gettemplate', {
                 'fragmentKey': fragmentKey,
                 '_csrf': '<?= Yii::$app->request->csrfToken ?>'
@@ -143,7 +159,6 @@ $this->title = '片段设置';
         $("#editValue").val(editorValue);
         $("#form-preview").submit();
     }
-
 
 
 </script>

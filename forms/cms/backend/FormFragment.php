@@ -11,6 +11,7 @@ class FormFragment extends \yii\base\Model
         return [
             [['id','themeId'], 'required'],
             [['fragmentName'], 'required','message'=>'片段名称不能为空'],
+            [['pageId'], 'required','message'=>'页面ID'],
             [['body'], 'required','message'=>'内容不能为空']
         ];
     }
