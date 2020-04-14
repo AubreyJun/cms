@@ -31,12 +31,6 @@ body::-webkit-scrollbar-thumb:hover{
 body::-webkit-scrollbar-corner{
     background: #179a16;
 }
-.bg-white,.btn,.form-control{
-    border-radius: 3px;
-}
 .btn i{
     margin-right: 0px;
-}
-.select2-selection--single{
-    padding:0.85rem 1.25rem !important;
 }

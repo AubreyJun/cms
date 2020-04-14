@@ -1,5 +1,4 @@
 <?php
-//文章列表
 $catalogId = $_REQUEST['arg1'];
 $pageNumber = $_REQUEST['arg2'];
 $pageSize = 5;
