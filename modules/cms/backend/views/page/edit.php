@@ -29,4 +29,7 @@ use yii\widgets\ActiveForm;
     </div>
 </div>
 <script>
+    $(function () {
+        $("#formpage-layoutid").select2();
+    });
 </script>

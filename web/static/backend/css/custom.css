@@ -38,5 +38,5 @@ body::-webkit-scrollbar-corner{
     margin-right: 0px;
 }
 .select2-selection--single{
-    padding: 0.55rem 0.75rem !important;
+    padding:0.85rem 1.25rem !important;
 }

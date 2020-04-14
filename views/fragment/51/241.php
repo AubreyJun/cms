@@ -1,6 +1,6 @@
 <footer id="footer" class="dark">
     <!-- Copyrights
-      ============================================= -->
+          ============================================= -->
     <div id="copyrights">
         <div class="container clearfix">
             <div class="col_half">
@@ -10,18 +10,11 @@
             </div>
             <div class="col_half col_last tright">
                 <div class="copyrights-menu copyright-links fright clearfix mb-4">
-                    <a href="index.html">首页
-                    </a>/
-                    <a href="aboutus.html">公司简介
-                    </a>/
-                    <a href="product.html">产品中心
-                    </a>/
-                    <a href="case.html">成功案例
-                    </a>/
-                    <a href="service.html">服务支持
-                    </a>/
-                    <a href="contact.html">联系我们
-                    </a>
+                    <a href="index.html">首页</a>/
+                    <a href="cases.html">案例欣赏</a>/
+                    <a href="services.html">服务介绍</a>/
+                    <a href="news.html">新闻动态</a>/
+                    <a href="aboutus.html">关于我们</a>
                 </div>
                 <div class="fright clearfix">
                     24小时服务热线：021-000000

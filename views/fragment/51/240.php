@@ -19,11 +19,10 @@
 
                 <ul>
                     <li><a href="index.html"><div>首页</div></a></li>
-                    <li><a href="aboutus.html"><div>公司简介</div></a></li>
-                    <li><a href="product.html"><div>产品中心</div></a></li>
-                    <li><a href="cases.html"><div>成功案例</div></a></li>
-                    <li><a href="services.html"><div>服务支持</div></a></li>
-                    <li><a href="contact.html"><div>联系我们</div></a></li>
+                    <li><a href="cases.html"><div>案例欣赏</div></a></li>
+                    <li><a href="services.html"><div>服务介绍</div></a></li>
+                    <li><a href="news.html"><div>新闻动态</div></a></li>
+                    <li><a href="aboutus.html"><div>关于我们</div></a></li>
                 </ul>
 
             </nav><!-- #primary-menu end -->
