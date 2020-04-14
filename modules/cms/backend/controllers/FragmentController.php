@@ -87,10 +87,6 @@ ORDER BY
         $model->body = $body;
 
         $this->data['model'] = $model;
-
-        $filelist = FileHelper::findFiles(Yii::$app->viewPath."/template");
-        $this->data['filelist'] = $filelist;
-
         $this->data['fragment'] = $fragment;
 
         $this->setForm();

@@ -4,7 +4,7 @@ namespace app\forms\cms\backend;
 class FormFragment extends \yii\base\Model
 {
 
-    public $id, $themeId, $fragmentName, $body;
+    public $id, $themeId, $fragmentName, $body,$pageId = 0;
 
     public function rules()
     {
