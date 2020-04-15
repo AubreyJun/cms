@@ -68,6 +68,8 @@ class CmsFrontendController extends AppController
         foreach ($configs as $config) {
             $this->config[$config['themeId'] . '-' .$config['cfgkey']] = $config['cfgvalue'];
         }
+
+        $this->data['EDITABLED'] = 0;
     }
 
     public function getConfig($configKey)
@@ -127,7 +129,7 @@ class CmsFrontendController extends AppController
     }
 
     public function renderFragment($id,$data=array()){
-        return $this->renderPartial("@app/views/fragment/".$this->theme['id']."/".$id,$data);
+        return $this->renderPartial("@app/views/fragment/".$this->theme['id']."/".$id,$data,true);
     }
 
     public function query($sql)
