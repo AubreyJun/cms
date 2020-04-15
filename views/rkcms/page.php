@@ -12,11 +12,7 @@
             foreach ($widgetObject as $widget) {
                 if ($editabled) {
                     ?>
-                    <div class="editor-border page_titles_common" id="<?php echo $widget; ?>">
-                        <div class="btn-group " style="position: absolute;right: 0px;">
-                            <button type="button" class="btn btn-primary" onclick="loadEditor(<?php echo $widget; ?>)">
-                                <i class="fa fa-cog"></i></button>
-                        </div>
+                    <div class="editor-border" id="fragment-<?php echo $widget; ?>">
                         <?php
                         echo $this->context->renderFragment($widget);
                         ?>

@@ -91,8 +91,8 @@ if (isset($this->context->data['EDITABLED']) && $this->context->data['EDITABLED'
 <?php
 if ($editabled) {
     ?>
-    <link rel="stylesheet" href="static/backend/lib/jquery-ui/jquery-ui.min.css" type="text/css"/>
-    <script src="static/backend/lib/jquery-ui/jquery-ui.min.js"></script>
+<!--    <link rel="stylesheet" href="static/backend/lib/jquery-ui/jquery-ui.min.css" type="text/css"/>-->
+<!--    <script src="static/backend/lib/jquery-ui/jquery-ui.min.js"></script>-->
     <link href="static/backend/lib/jodit/jodit.min.css" rel="stylesheet">
     <script src="static/backend/lib/jodit/jodit.min.js"></script>
     <script>
@@ -100,9 +100,31 @@ if ($editabled) {
             // $("#content-warp").sortable();
             // $("#content-warp").disableSelection();
 
-            var editor = new Jodit(".page_titles_common", {
-                "preset": "inline"
+            var editor = new Jodit("#fragment-268", {
+                // "preset": "inline",
+                language: 'zh_cn',
+                uploader: {
+                    url: 'static/backend/lib/jodit/connector/index.php?action=fileUpload'
+                },
+                filebrowser: {
+                    ajax: {
+                        url: 'static/backend/lib/jodit/connector/index.php'
+                    }
+                },
+                buttons: Jodit.defaultOptions.buttons.concat([{
+                    name: 'save',
+                    icon: 'save',
+                    exec: ({originalEvent, control, btn}) => {
+
+                    }
+                }])
+
             });
+
+
+
+
+
         });
     </script>
     <?php

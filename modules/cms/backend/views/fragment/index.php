@@ -80,7 +80,7 @@
     }
 
     function changePage(pageId) {
-        window.location.href = "index.php?r=cms-backend/fragment/index&pageId=" + pageId;
+        // window.location.href = "index.php?r=cms-backend/fragment/index&pageId=" + pageId;
     }
 
     function addFragment() {
