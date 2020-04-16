@@ -9,6 +9,7 @@ use app\forms\cms\backend\FormArticle;
 use app\forms\cms\backend\FormFileImage;
 use app\models\cms\backend\BKFragment;
 use app\models\cms\backend\BKLayout;
+use app\models\cms\backend\BKPage;
 use app\structure\controllers\BackendPanelController;
 use PythonicPHPFormatter;
 use Yii;
@@ -189,6 +190,48 @@ ORDER BY
             echo "";
         }
         exit();
+    }
+
+    public function actionGettemplatepiece(){
+        $fragmentKey = $_POST['fragmentKey'];
+        $path = Yii::$app->getViewPath().'/template/'.$fragmentKey.'.php';
+        $body =  file_get_contents($path);
+
+        $fragmentid = $_POST['fragmentid'];
+        $pageId = $_POST['pageId'];
+        $page = BKPage::findOne($pageId);
+
+        $fragment = new BKFragment();
+        $fragment->themeId = $page['themeId'];
+        $fragment->fragmentName = 'sdfd';
+        $fragment->pageId = $pageId;
+        $fragment->save();
+        $this->saveFragment($fragment['id'],$body);
+
+        $widgetJson = $page['widgetjson'];
+        $widgetList = json_decode($widgetJson,true);
+
+        $newJson = array();
+        foreach ($widgetList as $item){
+            $newJson[] = $item;
+            if($item==$fragmentid){
+                $newJson[] = $fragment['id'];
+            }
+        }
+
+        $page->widgetjson = json_encode($newJson);
+        $page->save();
+
+        $this->data['body'] = $body;
+        $this->data['widget'] = $fragment['id'];
+        $html = $this->renderPartial("gettemplatepiece",$this->data,true);
+
+        $pieceObject = array(
+            'html'=>$html,
+            'id'=>$fragment['id']
+        );
+
+        echo json_encode($pieceObject);
     }
 
     public function actionPreview(){

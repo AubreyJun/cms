@@ -13,9 +13,25 @@
                 if ($editabled) {
                     ?>
                     <div class="editor-border" id="fragment-<?php echo $widget; ?>">
-                        <?php
-                        echo $this->context->renderFragment($widget);
-                        ?>
+                        <div class="btn-group " style="position: absolute;right: 0px;z-index: 99;" id="editor-content-tools-<?php echo $widget; ?>"  >
+                            <button type="button" class="btn btn-primary " onclick="loadEditor(<?php echo $widget; ?>)"><i class="fa fa-pencil-square-o"></i></button>
+                            <button type="button" class="btn btn-info" onclick="loadWidget(<?php echo $widget; ?>)" ><i class="fa fa-plug"></i></button>
+                            <button type="button" class="btn btn-success widget-handle"><i class="fa fa-arrows"></i></button>
+                            <button type="button" class="btn btn-danger" onclick="delFragment(<?php echo $widget; ?>)"><i class="fa fa-trash"></i></button>
+                        </div>
+                        <div class="editor-content-view" id="editor-content-view-<?php echo $widget; ?>" >
+                            <?php
+                            $html =  $this->context->renderFragment($widget);
+                            echo $html;
+                            ?>
+                        </div>
+                        <div class="editor-content-body" id="editor-content-body-<?php echo $widget; ?>" >
+                            <div  id="editor-<?php echo $widget; ?>" >
+                                <?php
+                                echo $html;
+                                ?>
+                            </div>
+                        </div>
                     </div>
                     <?php
                 } else {
@@ -23,35 +39,6 @@
                 }
 
             }
-        }
-
-
-        if ($editabled) {
-            ?>
-            <div id="editor-dialog" title="组件编辑" style="display: none;">
-                <p>This is the default dialog which is useful for displaying information. The dialog window can be
-                    moved, resized and closed with the 'x' icon.</p>
-            </div>
-            <script>
-                function loadEditor(widget) {
-                    $("#editor-dialog").dialog({
-                        modal: true,
-                        resizable: false,
-                        width: '1000',
-                        height: '618',
-                        buttons: {
-                            "保存": function () {
-                                $(this).dialog("close");
-                            },
-                            "取消": function () {
-                                $(this).dialog("close");
-                            }
-                        }
-                    });
-                }
-
-            </script>
-            <?php
         }
         ?>
 

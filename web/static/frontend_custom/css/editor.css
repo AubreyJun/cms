@@ -4,9 +4,6 @@
 .editor-border{
     border: 1px dashed lightskyblue;
 }
-/*.ui-widget-overlay{*/
-/*    z-index: 200;*/
-/*}*/
-/*.ui-dialog {*/
-/*    z-index: 300;*/
-/*}*/
+.editor-content-body{
+    display: none;
+}
