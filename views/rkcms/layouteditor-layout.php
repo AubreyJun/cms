@@ -2,7 +2,7 @@
 $widgetJson = $this->context->data['CMS_LAYOUT']['widgetjson'];
 $widgetObject = json_decode($widgetJson, true);
 
-$pageObject = $this->context->data['CMS_PAGE'];
+$layoutObject = $this->context->data['CMS_LAYOUT'];
 
 $editabled = false;
 if (isset($this->context->data['EDITABLED']) && $this->context->data['EDITABLED'] == 1) {
@@ -59,26 +59,100 @@ if (isset($this->context->data['EDITABLED']) && $this->context->data['EDITABLED'
 <body class="stretched">
 <div id="wrapper" class="clearfix" >
     <header id="header" class="full-header">
-        <div id="header-wrap">
-            <?php
-            if (isset($widgetObject['top'])) {
-                foreach ($widgetObject['top'] as $widget) {
-                    echo $this->context->renderFragment($widget);
-                }
+        <?php
+        if (isset($widgetObject['top'])) {
+            foreach ($widgetObject['top'] as $widget) {
+                $wObject = \app\models\cms\backend\BKFragment::findOne($widget);
+                $cmsFragment = $this->context->query("select * from cms_fragment where fragmentKey = :fragmentKey")
+                    ->bindParam(":fragmentKey", $wObject['fragmentType'])->queryOne();
+                ?>
+                <div class="editor-border" id="fragment-<?php echo $widget; ?>">
+                    <div class="btn-group " style="position: absolute;right: 0px;z-index: 99;"
+                         id="editor-content-tools-<?php echo $widget; ?>">
+                        <?php
+                        if ($cmsFragment['script'] == 'html') {
+                            ?>
+                            <button type="button" class="btn btn-primary "
+                                    onclick="loadEditor(<?php echo $widget; ?>)"><i
+                                        class="fa fa-pencil-square-o"></i></button>
+                            <?php
+                        }
+                        ?>
+                        <button type="button" class="btn btn-info" onclick="loadWidget(<?php echo $widget; ?>)"><i
+                                    class="fa fa-plug"></i></button>
+                        <button type="button" class="btn btn-success widget-handle"><i class="fa fa-arrows"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="delFragment(<?php echo $widget; ?>)">
+                            <i class="fa fa-trash"></i></button>
+                    </div>
+                    <div class="editor-content-view" id="editor-content-view-<?php echo $widget; ?>">
+                        <?php
+                        $html = $this->context->renderFragment($widget);
+                        echo $html;
+                        ?>
+                    </div>
+                    <div class="editor-content-body" id="editor-content-body-<?php echo $widget; ?>">
+                        <div id="editor-<?php echo $widget; ?>">
+                            <?php
+                            echo $html;
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <?php
             }
-            ?>
-        </div>
+        }
+        ?>
     </header>
     <?php
     echo $content;
     ?>
-    <?php
-    if (isset($widgetObject['footer'])) {
-        foreach ($widgetObject['footer'] as $widget) {
-            echo $this->context->renderFragment($widget);
+    <footer id="footer">
+        <?php
+        if (isset($widgetObject['footer'])) {
+            foreach ($widgetObject['footer'] as $widget) {
+                $wObject = \app\models\cms\backend\BKFragment::findOne($widget);
+                $cmsFragment = $this->context->query("select * from cms_fragment where fragmentKey = :fragmentKey")
+                    ->bindParam(":fragmentKey", $wObject['fragmentType'])->queryOne();
+                ?>
+                <div class="editor-border" id="fragment-<?php echo $widget; ?>">
+                    <div class="btn-group " style="position: absolute;right: 0px;z-index: 99;"
+                         id="editor-content-tools-<?php echo $widget; ?>">
+                        <?php
+                        if ($cmsFragment['script'] == 'html') {
+                            ?>
+                            <button type="button" class="btn btn-primary "
+                                    onclick="loadEditor(<?php echo $widget; ?>)"><i
+                                        class="fa fa-pencil-square-o"></i></button>
+                            <?php
+                        }
+                        ?>
+                        <button type="button" class="btn btn-info" onclick="loadWidget(<?php echo $widget; ?>)"><i
+                                    class="fa fa-plug"></i></button>
+                        <button type="button" class="btn btn-success widget-handle"><i class="fa fa-arrows"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="delFragment(<?php echo $widget; ?>)">
+                            <i class="fa fa-trash"></i></button>
+                    </div>
+                    <div class="editor-content-view" id="editor-content-view-<?php echo $widget; ?>">
+                        <?php
+                        $html = $this->context->renderFragment($widget);
+                        echo $html;
+                        ?>
+                    </div>
+                    <div class="editor-content-body" id="editor-content-body-<?php echo $widget; ?>">
+                        <div id="editor-<?php echo $widget; ?>">
+                            <?php
+                            echo $html;
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
         }
-    }
-    ?>
+        ?>
+    </footer>
 </div>
 <!-- Go To Top
 ============================================= -->
@@ -132,10 +206,14 @@ if ($editabled) {
 
         $(function () {
 
-            var contentwarp = document.getElementById('content-warp');
+            var footer = document.getElementById('footer');
+            new Sortable(footer, {
+                handle: '.widget-handle',
+                animation: 150
+            });
 
-            new Sortable(contentwarp, {
-                group:'shared',
+            var header = document.getElementById('header');
+            new Sortable(header, {
                 handle: '.widget-handle',
                 animation: 150
             });
@@ -231,10 +309,10 @@ if ($editabled) {
 
         function loadTemplate(fragmentKey) {
             if (fragmentKey != '0') {
-                $.post('index.php?r=cms-backend/fragment/gettemplatepiece', {
+                $.post('index.php?r=cms-backend/layout/gettemplatepiece', {
                     'fragmentKey': fragmentKey,
                     'fragmentid': currentId,
-                    'pageId':<?php echo $pageObject['id']; ?>,
+                    'layoutId':<?php echo $layoutObject['id']; ?>,
                     '_csrf': '<?= Yii::$app->request->csrfToken ?>'
                 }, function (data) {
                     $("#fragment-" + currentId).after(data.html);

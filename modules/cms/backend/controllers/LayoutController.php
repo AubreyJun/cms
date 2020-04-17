@@ -4,7 +4,10 @@
 namespace app\modules\cms\backend\controllers;
 
 use app\forms\cms\backend\FormLayout;
+use app\models\cms\backend\BKCmsFragment;
+use app\models\cms\backend\BKFragment;
 use app\models\cms\backend\BKLayout;
+use app\models\cms\backend\BKPage;
 use app\structure\controllers\AdminController;
 use app\structure\controllers\BackendPanelController;
 use Yii;
@@ -91,6 +94,63 @@ class LayoutController extends BackendPanelController
         $layout->save();
 
         return $this->redirect("index.php?r=cms-backend/layout/widget&id=".$id);
+    }
+
+    public function actionGettemplatepiece(){
+        $fragmentKey = $_POST['fragmentKey'];
+        $path = Yii::$app->getViewPath().'/template/'.$fragmentKey.'.php';
+        $body =  file_get_contents($path);
+
+        $fragmentid = $_POST['fragmentid'];
+        $layoutId = $_POST['layoutId'];
+        $layout = BkLayout::findOne($layoutId);
+
+        $cmsfragment = BKCmsFragment::findBySql("select * from cms_fragment where fragmentKey = :fragmentKey",[':fragmentKey'=>$fragmentKey])->one();
+
+        $fragment = new BKFragment();
+        $fragment->themeId = $layout['themeId'];
+        $fragment->fragmentName = $layout['layoutName'].'_'.$cmsfragment['fragmentName'];
+        $fragment->pageId = 0;
+        $fragment->save();
+        $this->saveFragment($fragment['id'],$body);
+
+        $widgetJson = $layout['widgetjson'];
+        $widgetList = json_decode($widgetJson,true);
+
+        $newJson = array();
+        foreach ($widgetList as $item){
+            $newJson[] = $item;
+            if($item==$fragmentid){
+                $newJson[] = $fragment['id'];
+            }
+        }
+
+        $layout->widgetjson = json_encode($newJson);
+        $layout->save();
+
+        $this->data['body'] = $body;
+        $this->data['widget'] = $fragment['id'];
+        $html = $this->renderPartial("gettemplatepiece",$this->data,true);
+
+        $pieceObject = array(
+            'html'=>$html,
+            'id'=>$fragment['id']
+        );
+
+        echo json_encode($pieceObject);
+    }
+
+    private function saveFragment($fragmentId,$body){
+
+        $folderPath = Yii::$app->viewPath.'/fragment/';
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        $folderPath = $folderPath. $this->data['editThemeId'];
+        if(!file_exists($folderPath)){
+            mkdir($folderPath);
+        }
+        file_put_contents($folderPath.DIRECTORY_SEPARATOR.''.$fragmentId.'.php',$body);
     }
 
 }
