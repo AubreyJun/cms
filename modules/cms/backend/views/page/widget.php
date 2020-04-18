@@ -6,8 +6,7 @@ $widgetObject = json_decode($widgetjson, true);
 
 $pageId = $page['id'];
 
-$widgetList = $this->context->query("select * from cms_theme_fragment where themeId = :themeId and (pageId = 0 or pageId = :pageId)")
-    ->bindParam(":pageId",$pageId)
+$widgetList = $this->context->query("select * from cms_theme_fragment where themeId = :themeId ")
     ->bindParam(":themeId", $this->context->data['editThemeId'])
     ->queryAll();
 ?>
