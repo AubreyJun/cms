@@ -46,10 +46,6 @@
                                    href="index.php?r=cms-backend/page/widget&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-cogs fa-lg "></i>
                                 </a>
-                                <a class="text-info mr-1" target="_blank"
-                                   href="index.php?r=cms-frontend/default/visual&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-desktop fa-lg "></i>
-                                </a>
                             </td>
                         </tr>
                         <?php

@@ -15,9 +15,17 @@
                                     <option value="0">通用</option>
                                     <?php
                                     foreach ($pagelist as $page) {
-                                        ?>
-                                        <option value="<?php echo $page['id']; ?>"><?php echo $page['pageName']; ?></option>
-                                        <?php
+                                        if ($pageId == $page['id']) {
+                                            ?>
+                                            <option selected="selected"
+                                                    value="<?php echo $page['id']; ?>"><?php echo $page['pageName']; ?></option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <option value="<?php echo $page['id']; ?>"><?php echo $page['pageName']; ?></option>
+                                            <?php
+                                        }
+
                                     }
                                     ?>
                                 </select>
@@ -55,6 +63,10 @@
                                    href="index.php?r=cms-backend/fragment/copy&id=<?php echo $item['id']; ?>">
                                     <i class="fa fa-copy fa-lg mr-1"></i>
                                 </a>
+                                <a class="text-info mr-1" target="_blank"
+                                   href="index.php?r=cms-frontend/fragment/visual&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-desktop fa-lg "></i>
+                                </a>
                             </td>
                         </tr>
                         <?php
@@ -68,9 +80,7 @@
     </div>
 </div>
 <script>
-    var pageId = '<?php echo $pageId; ?>';
     $(function () {
-        $("#pageItem").val(pageId).trigger('change')
     });
 
     function deleteItem(id) {
@@ -80,7 +90,7 @@
     }
 
     function changePage(pageId) {
-        // window.location.href = "index.php?r=cms-backend/fragment/index&pageId=" + pageId;
+        window.location.href = "index.php?r=cms-backend/fragment/index&pageId=" + pageId;
     }
 
     function addFragment() {
