@@ -153,9 +153,6 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
     }
 
     function preView(pagePath) {
-        // var widgets = getWidget();
-        // var widgetsJSON = JSON.stringify(widgets);
-        // $("input[name=widgetJSON]").val(widgetsJSON);
         $("#form-edit").attr("action", pagePath+".html");
         $("#form-edit").attr("target", "_blank");
         $("#form-edit").submit();

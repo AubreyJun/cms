@@ -9,8 +9,6 @@ $pageObject = $this->context->data['CMS_PAGE'];
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 
-    <!-- Stylesheets
-    ============================================= -->
     <link rel="stylesheet" href="static/frontend/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="static/frontend/style.css" type="text/css"/>
     <link rel="stylesheet" href="static/frontend/css/swiper.css" type="text/css"/>
@@ -70,16 +68,9 @@ $pageObject = $this->context->data['CMS_PAGE'];
     </div>
 
 </div>
-<!-- Go To Top
-============================================= -->
 <div id="gotoTop" class="icon-angle-up"></div>
-<!-- External JavaScripts
-============================================= -->
 <script src="static/frontend/js/jquery.js"></script>
 <script src="static/frontend/js/plugins.js"></script>
-
-<!-- Footer Scripts
-============================================= -->
 <script src="static/frontend/js/functions.js"></script>
 </body>
 
