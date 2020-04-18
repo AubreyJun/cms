@@ -91,8 +91,14 @@ class CmsFrontendController extends AppController
             $pagePath = 'home';
         }
 
+        $currentThemeId =  $this->theme['id'];
+
+        if(isset($_REQUEST['viewThemeId'])){
+            $currentThemeId = $_REQUEST['viewThemeId'];
+        }
+
         $page = $this->query("SELECT * FROM `cms_theme_page` where pagePath = :pagePath and themeId = :themeId")
-            ->bindParam(":themeId", $this->theme['id'])
+            ->bindParam(":themeId", $currentThemeId)
             ->bindParam(":pagePath", $pagePath)
             ->queryOne();
 
@@ -129,7 +135,12 @@ class CmsFrontendController extends AppController
     }
 
     public function renderFragment($id,$data=array()){
-        return $this->renderPartial("@app/views/fragment/".$this->theme['id']."/".$id,$data,true);
+        $currentThemeId =  $this->theme['id'];
+
+        if(isset($_REQUEST['viewThemeId'])){
+            $currentThemeId = $_REQUEST['viewThemeId'];
+        }
+        return $this->renderPartial("@app/views/fragment/".$currentThemeId."/".$id,$data,true);
     }
 
     public function query($sql)

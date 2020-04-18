@@ -28,6 +28,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                         <form class="form-inline" id="form-edit" style="float: right;" method="post"
                               action="index.php?r=cms-backend/page/savewidget">
                             <input type="hidden" name="id" value="<?= $page['id']; ?>">
+                            <input type="hidden" name="viewThemeId" value="<?= $page['themeId']; ?>">
                             <input type="hidden" name="widgetJSON" value="">
                             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                             <div class="form-group mr-2">
@@ -55,7 +56,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                             class="fa fa-plug fa-lg"></i>增加组件
                                 </button>
                                 <button type="button" class="btn btn-success btn-xs"
-                                        onclick="preView(<?= $page['id']; ?>)"><i
+                                        onclick="preView('<?= $page['pagePath']; ?>')"><i
                                             class="fa fa-desktop fa-lg"></i>预览
                                 </button>
                                 <button type="button" class="btn btn-primary btn-xs" onclick="saveWidget()"><i
@@ -152,11 +153,11 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
         bindEvent();
     }
 
-    function preView(pageId) {
-        var widgets = getWidget();
-        var widgetsJSON = JSON.stringify(widgets);
-        $("input[name=widgetJSON]").val(widgetsJSON);
-        $("#form-edit").attr("action", "index.php?r=cms-backend/page/preview");
+    function preView(pagePath) {
+        // var widgets = getWidget();
+        // var widgetsJSON = JSON.stringify(widgets);
+        // $("input[name=widgetJSON]").val(widgetsJSON);
+        $("#form-edit").attr("action", pagePath+".html");
         $("#form-edit").attr("target", "_blank");
         $("#form-edit").submit();
     }
