@@ -54,7 +54,7 @@
                             <td width="20%">
                                 <a class="text-primary"
                                    href="index.php?r=cms-backend/fragment/update&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-pencil fa-lg mr-1"></i>
+                                    <i class="fa fa-code fa-lg mr-1"></i>
                                 </a>
                                 <a class="text-danger" onclick="deleteItem(<?php echo $item['id']; ?>)">
                                     <i class="fa fa-trash fa-lg mr-1"></i>
@@ -64,8 +64,8 @@
                                     <i class="fa fa-copy fa-lg mr-1"></i>
                                 </a>
                                 <a class="text-info mr-1" target="_blank"
-                                   href="index.php?r=cms-frontend/fragment/visual&id=<?php echo $item['id']; ?>">
-                                    <i class="fa fa-desktop fa-lg "></i>
+                                   href="index.php?r=cms-backend/fragment/visual&id=<?php echo $item['id']; ?>">
+                                    <i class="fa fa-cogs fa-lg "></i>
                                 </a>
                             </td>
                         </tr>
