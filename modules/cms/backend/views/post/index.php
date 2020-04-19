@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
-                            <div class="form-group mr-2">
+                            <div class="form-group">
                                 <select class="form-control form-control-sm "   style="padding: 3px;"  name="widgetType"
                                         onchange="changeType(this.value)">
                                     <?php
@@ -107,7 +107,7 @@
                             <input type="hidden" name="items" value=""/>
                             <input type="hidden" name="queryPostType" value="<?php echo $queryPostType; ?>"/>
                             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>"/>
-                            <div class="form-group mr-2">
+                            <div class="form-group ">
                                 <select class="form-control form-control-sm" style="padding: 3px;" name="checkAction">
                                     <option value="deleteSelectItems">删除选择项</option>
                                 </select>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
-                            <div class="form-group mr-2">
+                            <div class="form-group">
                                 <select class="form-control form-control-sm"  style="padding: 3px;"  name="postType"
                                         onchange="changeType(this.value)">
                                     <?php

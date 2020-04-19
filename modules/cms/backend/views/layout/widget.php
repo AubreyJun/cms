@@ -48,7 +48,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                 <table class="table table-bordered rounded">
                                     <tbody>
                                     <td width="80%">
-                                        <select class="form-control" name="widgetId">
+                                        <select class="select2 form-control" name="widgetId">
                                             <?php
                                             foreach ($widgetList as $witem) {
                                                 if ($witem['id'] == $widget) {
@@ -111,7 +111,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                 <table class="table table-bordered rounded">
                                     <tbody>
                                     <td width="80%">
-                                        <select class="form-control" name="widgetId">
+                                        <select class="select2 form-control" name="widgetId">
                                             <?php
                                             foreach ($widgetList as $witem) {
                                                 if ($witem['id'] == $widget) {
@@ -174,7 +174,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
                                 <table class="table table-bordered rounded">
                                     <tbody>
                                     <td width="80%">
-                                        <select class="form-control" name="widgetId">
+                                        <select class="select2 form-control" name="widgetId">
                                             <?php
                                             foreach ($widgetList as $witem) {
                                                 if ($witem['id'] == $widget) {
@@ -212,7 +212,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
             <tbody>
             <tr>
                 <td width="80%">
-                    <select class="form-control" name="widgetId">
+                    <select class=" form-control " name="widgetId">
                         <option value='0'>无</option>
                         <?php
                         foreach ($widgetList as $witem) {
@@ -249,6 +249,7 @@ $widgetList = $this->context->query("select * from cms_theme_fragment where them
         var demotr = $("#table-list-demo div:first");
         var clone = demotr.clone();
         $("#"+obj).append(clone);
+        $("#"+obj).find("div:last").find("select").select2();
         bindEvent();
     }
 

@@ -9,8 +9,8 @@
                     </div>
                     <div class="col-lg-6 text-right">
                         <div class="form-inline" style="float: right;">
-                            <div class="form-group mr-4">
-                                <select class=" select2 " style="width: 100px;" name="pageItem" id="pageItem"
+                            <div class="form-group ">
+                                <select class="form-control  form-control-sm  "   style="padding: 3px;"  name="pageItem" id="pageItem"
                                         onchange="changePage(this.value)">
                                     <option value="0">通用</option>
                                     <?php
