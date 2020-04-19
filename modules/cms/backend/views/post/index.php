@@ -121,7 +121,7 @@
                     <div class="col-lg-6 text-right">
                         <form class="form-inline" style="float: right;">
                             <div class="form-group mr-2">
-                                <select class="form-control form-control-sm" style="padding: 3px;" name="postType"
+                                <select class="select2" style="padding: 3px;" name="postType"
                                         onchange="changeType(this.value)">
                                     <?php
                                     foreach ($contentType as $ptype) {
