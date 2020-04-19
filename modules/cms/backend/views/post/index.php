@@ -67,7 +67,7 @@
                             <td>
                                 <a class=" text-primary mr-1"
                                    href="index.php?r=cms-backend/post/update&id=<?php echo $post['id']; ?>">
-                                    <i class="fa fa-pencil-square-o fa-lg"></i>
+                                    <i class="fa fa-pencil fa-lg"></i>
                                 </a>
                                 <a class=" text-danger mr-1" onclick="deletePost(<?php echo $post['id']; ?>);">
                                     <i class="fa fa-trash fa-lg"></i>

@@ -38,7 +38,7 @@ use yii\helpers\Html;
                     </a>
                 </li>
                 <li class="nav-item">
-                    <select class="form-control form-control-sm" style="padding: 3px;" onchange="changeEditTheme(this.value)">
+                    <select class="select2 form-control " style="" onchange="changeEditTheme(this.value)">
                         <?php
                         foreach ($this->context->data['themeList'] as $theme) {
                             if ($theme['id'] == $this->context->data['editThemeId']) {

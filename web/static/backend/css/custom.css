@@ -34,3 +34,6 @@ body::-webkit-scrollbar-corner{
 .btn i{
     margin-right: 0px;
 }
+.card .table a{
+    text-decoration: none !important;
+}
