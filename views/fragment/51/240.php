@@ -5,8 +5,8 @@
     <!-- Logo
     ============================================= -->
     <div id="logo">
-        <a href="index.html" class="standard-logo" data-dark-logo="static/frontend_custom/logo.png"><img src="static/frontend_custom/logo.png" alt="Ranko Logo"></a>
-        <a href="index.html" class="retina-logo" data-dark-logo="static/frontend_custom/logo-2.png"><img src="static/frontend_custom/logo-2.png" alt="Ranko Logo"></a>
+        <a href="index.html" class="standard-logo" data-dark-logo="static/custom/logo.png"><img src="static/custom/logo.png" alt="Ranko Logo"></a>
+        <a href="index.html" class="retina-logo" data-dark-logo="static/custom/logo-2.png"><img src="static/custom/logo-2.png" alt="Ranko Logo"></a>
     </div><!-- #logo end -->
 
     <!-- Primary Navigation

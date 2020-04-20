@@ -12,6 +12,6 @@
     </p>
   </div>
   <div class="col_two_fifth  col_last" style="max-height: 400px;overflow: hidden;">
-    <img src="themes/guanggao_1/aboutus_2.jpg">
+    <img src="<?php echo $this->context->getImg('800x800') ?>">
   </div>
 </div>

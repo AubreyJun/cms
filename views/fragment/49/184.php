@@ -2,7 +2,7 @@
     <div class="col_one_fourth nobottommargin">
         <div class="feature-box media-box">
             <div class="fbox-media">
-                <img src="themes/guanggao_2/service_1.jpg">
+                <img src="<?php echo $this->context->getImg('450x550') ?>">
             </div>
             <div class="fbox-desc text-center">
                 <h3>案例标题1
@@ -13,7 +13,7 @@
     <div class="col_one_fourth nobottommargin">
         <div class="feature-box media-box">
             <div class="fbox-media">
-                <img src="themes/guanggao_2/service_2.jpg">
+                <img src="<?php echo $this->context->getImg('450x550') ?>">
             </div>
             <div class="fbox-desc text-center">
                 <h3>案例标题2
@@ -24,7 +24,7 @@
     <div class="col_one_fourth nobottommargin">
         <div class="feature-box media-box">
             <div class="fbox-media">
-                <img src="themes/guanggao_2/service_3.jpg">
+                <img src="<?php echo $this->context->getImg('450x550') ?>">
             </div>
             <div class="fbox-desc text-center">
                 <h3>案例标题3
@@ -35,7 +35,7 @@
     <div class="col_one_fourth nobottommargin col_last">
         <div class="feature-box media-box">
             <div class="fbox-media">
-                <img src="themes/guanggao_2/service_4.jpg">
+                <img src="<?php echo $this->context->getImg('450x550') ?>">
             </div>
             <div class="fbox-desc text-center">
                 <h3>案例标题4

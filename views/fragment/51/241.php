@@ -3,7 +3,7 @@
 <div id="copyrights">
     <div class="container clearfix">
         <div class="col_half">
-            <img src="static/frontend_custom/logo-footer.png" alt="公司LOGO" class="footer-logo">
+            <img src="static/custom/logo-footer.png" alt="公司LOGO" class="footer-logo">
             Copyrights ©
             <?php echo date('Y'); ?> All Rights Reserved by Ranko.cn.
         </div>
