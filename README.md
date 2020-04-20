@@ -40,26 +40,19 @@ GPL
     RewriteEngine on
     
     RewriteRule index.html index.php?r=cms-frontend/default/index
-    RewriteRule ^product-(.*).html$ index.php?r=cms-frontend/default/index&pageType=product&id=$1
-    RewriteRule ^article-(.*).html$ index.php?r=cms-frontend/default/index&pageType=article&id=$1
-    RewriteRule ^image-(.*).html$ index.php?r=cms-frontend/default/index&pageType=image&id=$1
-    RewriteRule ^employee-(.*).html$ index.php?r=cms-frontend/default/index&pageType=employee&id=$1
     
-    RewriteRule ^(.*)-(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2&catalogId=$3
-    RewriteRule ^(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2
-    RewriteRule ^(.*).html$ index.php?r=cms-frontend/default/index&pageType=$1
+    RewriteRule ^(.*)-(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1&arg1=$2&arg2=$3
+    RewriteRule ^(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1&arg1=$2
+    RewriteRule ^(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1
     
     
 ### Nginx
 
-    rewrite /index.html /index.php?r=cms-frontend/default/index;
-    rewrite ^/product-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=product&id=$1;
-    rewrite ^/article-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=article&id=$1;
-    rewrite ^/image-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=image&id=$1;
-    rewrite ^/employee-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=employee&id=$1;
-    rewrite ^/(.*)-(.*)-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2&catalogId=$3;
-    rewrite ^/(.*)-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2;
-    rewrite ^/(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1;
+    rewrite index.html index.php?r=cms-frontend/default/index;
+    
+    rewrite ^/(.*)-(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1&arg1=$2&arg2=$3;
+    rewrite ^/(.*)-(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1&arg1=$2;
+    rewrite ^/(.*).html$ index.php?r=cms-frontend/default/index&pagePath=$1;
     
 ## 帮助我
 如果你在使用RKCMS建立自己的网站，条件允许的情况下请给我一点帮助，例如在网站底部添加。
