@@ -22,6 +22,9 @@ GPL
 
 ## 技术支持
 官网：http://www.ranko.cn  
+联系：朱君/18068252703  
+如果你想使用RKCMS建立你的企业网站，如需帮助，请联系我。  
+此外官网还有更多商业模版可供选择，期望您的来电^_^。  
 
 ## 免费模板
 默认模板：http://cms.master.ranko.cn/
@@ -65,6 +68,6 @@ GPL
     
 ## 赞助我
 
-<img src="http://backend.ranko.cn/uploads/file/myalipay.jpg" style="width: 200px;">    
+<img src="http://backend.ranko.cn/uploads/file/myalipay.jpg" width="200px">    
 
 
