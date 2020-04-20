@@ -58,5 +58,13 @@ GPL
     rewrite ^/(.*)-(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1&pageId=$2;
     rewrite ^/(.*).html$ /index.php?r=cms-frontend/default/index&pageType=$1;
     
+## 帮助我
+如果你在使用RKCMS建立自己的网站，条件允许的情况下请给我一点帮助，例如在网站底部添加。
+
+    <a href="http://www.ranko.cn">Powered by RKCMS</a>    
+    
+## 赞助我
+
+<img src="http://backend.ranko.cn/uploads/file/myalipay.jpg" style="width: 200px;">    
 
 
