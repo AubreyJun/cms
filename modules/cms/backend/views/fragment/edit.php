@@ -24,22 +24,6 @@ $this->title = '片段设置';
                 <?php $form = ActiveForm::begin(['id' => 'from-edit']); ?>
                 <?php $form->action = 'index.php?r=cms-backend/fragment/edit' ?>
                 <?= $form->field($model, 'id')->textInput()->label(false)->hiddenInput(['value' => $model->attributes['id']]) ?>
-                <input type="hidden" name="pageId" id="pageId" value="<?php echo $model->attributes['pageId']; ?>">
-                <div class="form-group">
-                    <label>
-                        所属页面
-                    </label>
-                    <select class=" select2 form-control" name="FormFragment[pageId]" id="pageId-select">
-                        <option value="0">通用</option>
-                        <?php
-                        foreach ($pagelist as $page) {
-                            ?>
-                            <option value="<?php echo $page['id']; ?>"><?php echo $page['pageName']; ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
                 <?= $form->field($model, 'fragmentName', ['errorOptions' => ['class' => 'error mt-2 text-danger']]) ?>
                 <input name="FormFragment[body]" type="hidden" id="fragment-body">
                 <div class="form-group">

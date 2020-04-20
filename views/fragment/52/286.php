@@ -12,13 +12,13 @@
                 <div class="copyrights-menu copyright-links fright clearfix mb-4">
                     <a href="链接">链接地址
                     </a>/
-                    <a href="链接">链接地址
+                     <a href="链接">链接地址
                     </a>/
-                    <a href="链接">链接地址
+                     <a href="链接">链接地址
                     </a>/
-                    <a href="链接">链接地址
+                     <a href="链接">链接地址
                     </a>/
-                    <a href="链接">链接地址
+                     <a href="链接">链接地址
                     </a>
                 </div>
                 <div class="fright clearfix">

@@ -18,17 +18,11 @@ use yii\helpers\FileHelper;
 class FragmentController extends BackendPanelController
 {
 
-    public function actionIndex($pageId = 0)
+    public function actionIndex()
     {
 
-        $this->data['pagelist'] = $this->query("select * from cms_theme_page where themeId = :themeId")
+        $fragmentList = $this->query("select * from cms_theme_fragment where  themeId = :themeId")
             ->bindParam(":themeId", $this->data['editThemeId'])
-            ->queryAll();
-        $this->data['pageId'] = $pageId;
-
-        $fragmentList = $this->query("select * from cms_theme_fragment where  themeId = :themeId and pageId = :pageId")
-            ->bindParam(":themeId", $this->data['editThemeId'])
-            ->bindParam(":pageId", $pageId)
             ->queryAll();
         $this->data['fragmentList'] = $fragmentList;
 
